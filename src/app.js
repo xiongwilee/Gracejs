@@ -7,6 +7,7 @@ const path = require('path'),
   logger = require('koa-logger'),
   views = require('koa-views'),
   onerror = require('koa-onerror'),
+  mount = require('koa-mount'),
   koastatic = require('koa-static');
 
 let config = global.config;
@@ -35,9 +36,9 @@ vhosts = vhosts.map(function(item) {
     }));
 
     // 配置静态文件路由
-    vapp.use(koastatic(appPath + '/static', {
-      prefix: 'static'
-    }));
+    vapp.use(mount('/static',
+      koastatic(appPath + '/static')
+    ));
 
     vapp.use(logger());
 
