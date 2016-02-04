@@ -31,9 +31,9 @@ vhosts = vhosts.map(function(item) {
     let appPath = path.resolve(config_path_project + '/' + appName);
 
     // global middlewares
-    vapp.use(views('views', {
+    vapp.use(views(appPath + '/views', {
       root: appPath + '/views',
-      default: 'ejs'
+      map: { html: 'ejs' }
     }));
 
     vapp.use(bodyparser());

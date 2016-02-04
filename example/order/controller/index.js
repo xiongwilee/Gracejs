@@ -1,4 +1,6 @@
 exports.index = function* () {
-    this.body = 'hello world!';
+  yield this.render('index', {
+    title: 'Hello Koa!'
+  });
 }
 exports.index.method = 'get';
