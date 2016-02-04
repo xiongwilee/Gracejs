@@ -5,10 +5,8 @@ const path = require('path'),
   router = require('koa-hornbill-router'),
   vhost = require('koa-hornbill-vhost'),
   logger = require('koa-logger'),
-  json = require('koa-json'),
   views = require('koa-views'),
   onerror = require('koa-onerror'),
-  bodyparser = require('koa-bodyparser'),
   koastatic = require('koa-static');
 
 let config = global.config;
@@ -30,24 +28,24 @@ vhosts = vhosts.map(function(item) {
     let appName = config_vhost[item];
     let appPath = path.resolve(config_path_project + '/' + appName);
 
-    // global middlewares
+    // 配置模板引擎
     vapp.use(views(appPath + '/views', {
       root: appPath + '/views',
       map: { html: 'ejs' }
     }));
 
-    vapp.use(bodyparser());
-    
-    vapp.use(json());
+    // 配置静态文件路由
+    vapp.use(koastatic(appPath + '/static', {
+      prefix: 'static'
+    }));
 
     vapp.use(logger());
-
-    vapp.use(koastatic(appPath + '/static'));
 
     vapp.on('error', function(err, ctx) {
       log.error('server error', err, ctx);
     });
 
+    // 配置控制器文件路由
     vapp.use(router(vapp, {
       root: appPath + '/controller'
     }));
