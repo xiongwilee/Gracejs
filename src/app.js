@@ -40,16 +40,16 @@ vhosts = vhosts.map(function(item) {
       koastatic(appPath + '/static')
     ));
 
+    // 配置控制器文件路由
+    vapp.use(router(vapp, {
+      root: appPath + '/controller'
+    }));
+
     vapp.use(logger());
 
     vapp.on('error', function(err, ctx) {
       log.error('server error', err, ctx);
     });
-
-    // 配置控制器文件路由
-    vapp.use(router(vapp, {
-      root: appPath + '/controller'
-    }));
 
     return {
       host: item,

@@ -20,5 +20,6 @@ module.exports = {
   vhost: {
     '127.0.0.1':'shop',
     'localhost':'order',
+    '0.0.0.0':'reactjs-boilerplate'
   }
 }
