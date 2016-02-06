@@ -5,6 +5,7 @@ const path = require('path'),
   router = require('koa-hornbill-router'),
   vhost = require('koa-hornbill-vhost'),
   logger = require('koa-logger'),
+  gzip = require('koa-gzip'),
   views = require('koa-views'),
   onerror = require('koa-onerror'),
   mount = require('koa-mount'),
@@ -28,6 +29,9 @@ vhosts = vhosts.map(function(item) {
 
     let appName = config_vhost[item];
     let appPath = path.resolve(config_path_project + '/' + appName);
+
+    // gzip
+    vapp.use(gzip());
 
     // 配置模板引擎
     vapp.use(views(appPath + '/views', {
