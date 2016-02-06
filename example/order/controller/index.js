@@ -3,4 +3,5 @@ exports.index = function* () {
     title: 'Hello Koa-hornbill!'
   });
 }
-exports.index.method = 'get';
+// 配置index路由为get请求
+exports.index.__method__ = 'get';
