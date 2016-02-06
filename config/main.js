@@ -7,20 +7,28 @@ var port = process.env.PORT || 3000
 var DEBUG = env !== 'production'
 
 module.exports = {
-  //http://koajs.com/#application
+  // controller中请求各类数据前缀和域名的键值对
   api: {},
+
+  // 站点相关的配置
   site: {
     name: "koa-hornbill",
     keys: ['d715025d4a566a1112c82063b60aa4de13ecd550'],
     env: env,
     port: port
   },
+
+  // 站点相关的配置
   path: {
+    // project
     project: './example/'
   },
+
+  // vhost配置
   vhost: {
+    'blog.com':'blog',
+    'localhost':'blog',
     '127.0.0.1':'shop',
-    'localhost':'order',
     '0.0.0.0':'reactjs-boilerplate'
   }
 }

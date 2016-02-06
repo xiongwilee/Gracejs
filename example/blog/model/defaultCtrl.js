@@ -3,13 +3,11 @@ module.exports = function* () {
 		return function (callback){
 			setTimeout(function(){
 				callback(0,{});
-			},3000)
+			},1000)
 		}
 	}
-console.log(11111);
-	yield getData();
-console.log(22222);
-	this.body = 'default';
 
-	// this.res.end();
+	yield getData();
+
+	this.body = 'default';
 }

@@ -76,6 +76,7 @@ vhosts = vhosts.map(function(item) {
   return !!item;
 });
 
+// 注入vhost路由
 app.use(vhost(vhosts));
 
 
