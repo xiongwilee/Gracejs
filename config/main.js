@@ -8,6 +8,7 @@ var DEBUG = env !== 'production'
 
 module.exports = {
   //http://koajs.com/#application
+  api: {},
   site: {
     name: "koa-hornbill",
     keys: ['d715025d4a566a1112c82063b60aa4de13ecd550'],

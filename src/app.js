@@ -4,6 +4,8 @@ const path = require('path'),
   koa = require('koa'),
   router = require('koa-hornbill-router'),
   vhost = require('koa-hornbill-vhost'),
+  fetch = require('koa-hornbill-fetch'),
+  model = require('koa-hornbill-model'),
   logger = require('koa-logger'),
   gzip = require('koa-gzip'),
   views = require('koa-views'),
@@ -13,6 +15,7 @@ const path = require('path'),
 
 let config = global.config;
 let config_vhost = global.config.vhost;
+let config_api = global.config.api;
 let config_path = global.config.path;
 let config_path_project = global.config.path.project;
 let config_site = global.config.site;
@@ -32,6 +35,16 @@ vhosts = vhosts.map(function(item) {
 
     // gzip
     vapp.use(gzip());
+
+    // 配置api
+    app.use(fetch(vapp, {
+      api : config_api
+    }));
+
+    // 配置默认路由
+    app.use(model(vapp, {
+      root: appPath + '/model'
+    }));
 
     // 配置模板引擎
     vapp.use(views(appPath + '/views', {
