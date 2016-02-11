@@ -1,0 +1,16 @@
+.content{
+	padding-bottom: 30px;
+}
+.content ul li{
+	margin-top: 30px;
+	margin-right: 30px;
+	min-height: 200px;
+	padding:20px;
+	list-style: none;
+
+	border: 1px solid rgba(0,0,0,.04);
+    box-shadow: 0 1px 4px rgba(0,0,0,.03);
+    border-radius: 3px;
+
+	background: #ffffff;
+}
