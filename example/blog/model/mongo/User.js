@@ -1,17 +1,18 @@
 'use strict';
 
 // model名称，即表名
-let model = 'Post';
+let model = 'User';
 
 // 表结构
 let schema = [{
   id: {type: String,unique: true,required: true},
-  title: {type: String,unique: true,required: true},
-  time: {type: Date, 'default': Date.now},
-  author: {type: String,required: true},
-  content: {type: String,required: true},
-  category: {type: String,required: true},
-  tips: {type: Array,required: false}
+  name: {type: String,required: true},
+  isAuthor: {type: Boolean,'default':true},
+  nickname: {type: String,required: true},
+  avatar: {type: String,required: true},
+  github: {type: String,required: true},
+  email: {type: String,required: true},
+  blog: {type: String}
 }, {
   autoIndex: true,
   versionKey: false
@@ -25,8 +26,14 @@ let methods = {
   add: function* () {
   	return this.save();
   },
+  getUserById: function* (id) {
+  	return this.model('User').findOne({id:id});
+  },
+  getAuthor: function* (){
+    return this.model('User').find({isAuthor:true});
+  },
   list: function* () {
-  	return this.model('Post').find();
+    return this.model('User').find();
   }
 }
 

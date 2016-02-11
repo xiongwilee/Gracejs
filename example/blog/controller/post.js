@@ -11,4 +11,4 @@ module.exports = function* () {
 module.exports.__method__ = 'get';
 
 // 配置index路由的regular
-module.exports.__regular__ = '/:id/:test';
+module.exports.__regular__ = '/:page';

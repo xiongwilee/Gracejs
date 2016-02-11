@@ -2,10 +2,7 @@
 module.exports = function* () {
   yield this.bindDefault();
 
-  let posts = yield this.mongo('Post',{}).list();
-
-  yield this.render('home',{
-  	posts: posts,
+  yield this.render('about',{
   	userInfo: this.userInfo,
   	siteInfo: this.siteInfo
   })

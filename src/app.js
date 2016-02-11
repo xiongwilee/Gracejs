@@ -58,7 +58,7 @@ vhosts = vhosts.map(function(item) {
   vapp.use(views(appPath + '/views', {
     root: appPath + '/views',
     map: {
-      html: 'ejs'
+      html: 'swig'
     }
   }));
 

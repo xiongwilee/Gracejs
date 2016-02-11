@@ -1,17 +1,13 @@
 'use strict';
 
 // model名称，即表名
-let model = 'Post';
+let model = 'Category';
 
 // 表结构
 let schema = [{
   id: {type: String,unique: true,required: true},
-  title: {type: String,unique: true,required: true},
-  time: {type: Date, 'default': Date.now},
-  author: {type: String,required: true},
-  content: {type: String,required: true},
-  category: {type: String,required: true},
-  tips: {type: Array,required: false}
+  name: {type: String,required: true},
+  numb: {type: Number}
 }, {
   autoIndex: true,
   versionKey: false
@@ -25,8 +21,11 @@ let methods = {
   add: function* () {
   	return this.save();
   },
+  getCategoryById: function* (id) {
+  	return this.model('Category').find({id:id});
+  },
   list: function* () {
-  	return this.model('Post').find();
+    return this.model('Category').find();
   }
 }
 

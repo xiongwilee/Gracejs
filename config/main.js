@@ -8,7 +8,10 @@ var DEBUG = env !== 'production'
 
 module.exports = {
   // controller中请求各类数据前缀和域名的键值对
-  api: {},
+  api: {
+    github_api:'https://api.github.com/',
+    github:'https://github.com/'
+  },
 
   // 站点相关的配置
   site: {
@@ -29,7 +32,7 @@ module.exports = {
 
   // vhost配置
   vhost: {
-    'blog.com':'blog',
+    'test.mlsfe.biz':'blog',
     '127.0.0.1':'shop',
     '0.0.0.0':'reactjs-boilerplate'
   },
