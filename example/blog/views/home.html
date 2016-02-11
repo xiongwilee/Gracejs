@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <ul>
+	<% posts.forEach(function(item, index) {%>
+	   <li>title:<%= item.title %>,author:<%= item.author %>,content:<%= item.content %>,tips:<%= item.tips %></li>
+	<% }) %>
+	</ul>
+  </body>
+</html>

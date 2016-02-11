@@ -2,7 +2,7 @@ module.exports = function* () {
   yield this.bindDefault();
 
   yield this.render('index', {
-    title: 'Hello Koa-hornbill!'
+    title: 'Hello Koa-grace!'
   });
 
   this.body = this.params;

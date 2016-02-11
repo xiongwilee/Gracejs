@@ -3,7 +3,7 @@ module.exports = function* () {
 		return function (callback){
 			setTimeout(function(){
 				callback(0,{});
-			},1000)
+			},0)
 		}
 	}
 

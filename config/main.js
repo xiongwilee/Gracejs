@@ -18,17 +18,24 @@ module.exports = {
     port: port
   },
 
-  // 站点相关的配置
+  // 路径相关的配置
   path: {
     // project
-    project: './example/'
+    project: './example/',
+    default_path:{
+      blog:'home'
+    }
   },
 
   // vhost配置
   vhost: {
     'blog.com':'blog',
-    'localhost':'blog',
     '127.0.0.1':'shop',
     '0.0.0.0':'reactjs-boilerplate'
+  },
+
+  // mongo配置
+  mongo: {
+    'blog': 'mongodb://localhost:27017/blog'
   }
 }
