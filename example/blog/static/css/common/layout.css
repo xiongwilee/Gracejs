@@ -149,6 +149,18 @@
 	width: 1280px;
 	margin: 0 auto;
 }
+.header .search .search-tips{
+	float: left;
+}
+.header .search .search-tips p{
+	padding-left: 10px;
+	line-height: 40px;
+	color: rgba(0,0,0,0.3);
+	font-size: 14px;
+}
+.header .search .search-tips p a{
+	color: rgba(0,0,0,0.5);
+}
 .header .search .search-form{
 	position: relative;
 	float:right;
