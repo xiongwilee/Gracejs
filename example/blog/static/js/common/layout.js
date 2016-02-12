@@ -1,8 +1,17 @@
 (function ($) {
-	var $headerBgB = $('#header_bg_b');
-/*	$(window).scroll(function () {
-	    var oVal = $(window).scrollTop() / 240;
+	var init = function(){
+		bindEvent();
+	}
+	var bindEvent = function(){	
+		$('#search_form_wd').on('keyup', function(evt){
+			var thisVal = $(this).val();
+			$('#search_form_wd_hidden').val(thisVal + ' site:mlsfe.biz');
+		});
 
-	    return $headerBgB.css('opacity', oVal);
-	});*/
+		$('#content_post').on('click','.post-link', function(evt){
+			console.log(this);
+		})
+	}
+
+	init();
 })(window.jQuery)

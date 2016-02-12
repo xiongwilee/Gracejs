@@ -5,9 +5,27 @@
 {% endblock %}
 
 {% block content %}
-<ul>
+<div class="content-post">
   {% for post in posts %}
-    <li>{{ post.title }}</li>
+    <article class="post-item">
+    	<div class="post-author">
+    		<img src="{{siteInfo.users_item[post.author].avatar}}">
+    		<a href="{{siteInfo.users_item[post.author].blog}}" target="_blank">{{siteInfo.users_item[post.author].nickname}}</a>
+    		<span>{{post.time|date('Y-m-d h:m')}}</span>
+    	</div>
+    	<h2 class="post-title post-link">
+            <a href="/post/{{ post.title }}" target="_blank">{{ post.title }}</a>
+        </h2>
+    	<div class="post-content">
+            <a href="/post/{{ post.title }}" target="_blank">{{ post.content }}</a>
+        </div>
+    	<div class="post-bottom clearfix">
+			<a class="post-bottom-more" href="/post/{{ post.title }}" target="_blank">read more..</a>
+			<div class="post-bottom-cate">
+				<a href="/cate/{{post.category}}">{{ siteInfo.cates_item[post.category].name}}</a><i class="icon-bookmark-empty"></i>
+			</div>
+    	</div>
+    </article>
   {% endfor %}
-</ul>
+</div>
 {% endblock %}

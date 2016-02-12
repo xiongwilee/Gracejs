@@ -11,6 +11,14 @@ function _deciph(user_id) {
   return JSON.parse(dec);
 }
 
+function _getItem(arr){
+  var result = {};
+  arr.forEach(function(item){
+    result[item.id] = item;
+  });
+  return result;
+}
+
 module.exports = function*() {
   this.siteInfo = {
     path : this.path,
@@ -19,7 +27,12 @@ module.exports = function*() {
   }
 
   this.siteInfo.users = yield this.mongo('User').getAuthor();
+  this.siteInfo.users_item = _getItem(this.siteInfo.users);
+
   this.siteInfo.cates = yield this.mongo('Category').list();
+  this.siteInfo.cates_item = _getItem(this.siteInfo.cates);
+  
+  this.siteInfo.links = yield this.mongo('Link').list();
 
 
 

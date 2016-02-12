@@ -46,10 +46,11 @@
     <div class="search">
       <div class="search-container">
         <div class="search-tips">
-          <p><i class="icon-quote-left"></i> 该网站由<a href="https://github.com/xiongwilee/koa-grace" target="_blank">koa-grace</a>强力驱动 <i class="icon-quote-right"></i></p>
+          <p><i class="icon-quote-left"></i> 本网站由<a href="https://github.com/xiongwilee/koa-grace" target="_blank">koa-grace</a>强力驱动 <i class="icon-quote-right"></i></p>
         </div>
-        <form class="search-form" action="https://www.baidu.com/s?ie=UTF-8">
-          <input type="text" name="wd">
+        <form class="search-form" id="search_form" action="https://www.baidu.com/s?ie=UTF-8">
+          <input type="text"  id="search_form_wd">
+          <input type="hidden" id="search_form_wd_hidden" name="wd">
           <i class="icon-search"></i>
         </form>
       </div>
@@ -57,11 +58,6 @@
   </header>
   <section class="main">
     <div class="main-container clearfix">
-      <div class="content">
-        {% block content %}
-        	<p>Missing content!</p>
-        {% endblock %}
-      </div>
       <div class="sidebar">
         <div class="side-item side-item-cate">
           <h3 class="side-title">分类</h3>
@@ -70,6 +66,18 @@
               <li>
                 <a href="/cate/{{cate.id}}" class="side-ul-item">
                   <i class="icon-circle-arrow-right"></i><span class="item-name"> {{ cate.name }}</span><span class="item-numb">（{{ cate.numb }}）</span>
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="side-item side-item-link">
+          <h3 class="side-title">链接</h3>
+          <ul class="side-ul">
+            {% for link in siteInfo.links %}
+              <li>
+                <a href="{{link.href}}" class="side-ul-item">
+                  <span class="item-name"> {{ link.name }}</span>
                 </a>
               </li>
             {% endfor %}
@@ -92,6 +100,11 @@
               </li>
             {% endfor %}</ul>
         </div>
+      </div>
+      <div class="content">
+        {% block content %}
+          <p>Missing content!</p>
+        {% endblock %}
       </div>
     </div>
   </section>
