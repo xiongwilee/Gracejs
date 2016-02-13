@@ -18,7 +18,7 @@ module.exports.login = function*() {
   var path = "https://github.com/login/oauth/authorize";
       path += '?client_id='+client_id;
       path += '&redirect_uri='+this.request.protocol + '://' + this.request.host + '/user/oauth?from=github';
-      path += '&scope=user';
+      path += '&scope=user,read:org';
       path += '&state = ' + (new Date()).valueOf();
 
   this.redirect(path);

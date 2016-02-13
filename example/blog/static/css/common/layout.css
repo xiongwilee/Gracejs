@@ -18,7 +18,7 @@
 	position: relative;
 	z-index: 2;
 	margin: 0 auto;
-	width: 1280px;
+	width: 80%;
 }
 
 /* 头部导航 */
@@ -146,7 +146,7 @@
 	clear: both;
 }
 .header .search-container{
-	width: 1280px;
+	width: 80%;
 	margin: 0 auto;
 }
 .header .search .search-tips{
@@ -198,7 +198,7 @@
 	background: #fafafa;
 }
 .main .main-container{
-	width: 1280px;
+	width: 80%;
 	margin: 0 auto;
 }
 .main .content{
@@ -311,7 +311,7 @@
 	font-size: 14px;
 }
 .footer-container{
-	width: 1280px;
+	width: 80%;
 	margin: 0 auto;
 }
 .footer p{
@@ -320,15 +320,30 @@
 /**
  * media query
  */
-/*当屏幕尺寸小于1280px时，应用下面的CSS样式*/
-@media screen and (min-width: 1024px) and (max-width: 1280px) {
+/*当屏幕尺寸小于1024px时，应用下面的CSS样式*/
+@media screen and (min-device-width: 600px) and (max-device-width: 1024px) {
 	.header-container, .header .search-container, .main .main-container, .footer-container{
-		width: 1024px;
+		width: 90%;
 	}
 }
-/*当屏幕尺寸小于1024px时，应用下面的CSS样式*/
-@media screen and (max-width: 1024px) {
+/*当屏幕尺寸小于600px时，应用下面的CSS样式*/
+@media screen and (max-device-width: 600px) {
+	.header .nav .nav-list .nav-item{
+		padding: 0 5px;
+	}
+	.search .search-tips{
+		display: none;
+	}
+	.main .sidebar{
+		display: none;
+	}
+	.main .content{
+		margin: 0px;
+	}
+	.main .content .content-post .post-item{
+		margin-right: 0px;
+	}
 	.header-container, .header .search-container, .main .main-container, .footer-container{
-		width: 800px;
+		width: 100%;
 	}
 }
