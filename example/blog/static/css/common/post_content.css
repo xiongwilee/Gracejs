@@ -63,7 +63,8 @@
 }
 .content .content-post .post-item .post-from{
 	clear: both;
-
+	
+	word-break: break-all;
 	padding-top: 20px;
 	font-size: 16px;
 }
@@ -86,9 +87,9 @@
 	text-align: center;
 	color: rgba(0,0,0,.8);
 	font-size: 36px;
+	line-height: 36px;
 	font-weight: bold;
 	font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-	line-height: 24px;
 }
 .content .content-post .post-item .post-content{
 	display: block;
