@@ -331,6 +331,22 @@
 	.header .nav .nav-list .nav-item{
 		padding: 0 5px;
 	}
+	.header .user .user-login{
+		line-height: 46px;
+	}
+	.header .user .user-panel .user-name{
+		width: auto;
+	}
+	.header .user .user-panel .user-name .user-name-text{
+		display: none;
+	}
+	.header .user .user-panel .user-name .user-name-img{
+		display: block;
+		margin: 6px;
+	}
+	.header .logo h1{
+		font-size: 2em;
+	}
 	.search .search-tips{
 		display: none;
 	}
