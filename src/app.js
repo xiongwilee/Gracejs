@@ -26,7 +26,9 @@ let config_mongo = global.config.mongo;
 let app = koa();
 
 // bodyparser
-app.use(bodyparser());
+app.use(bodyparser({
+  formLimit:'5mb'
+}));
 
 // gzip
 app.use(gzip());
