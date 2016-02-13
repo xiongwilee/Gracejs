@@ -6,12 +6,15 @@ let model = 'Post';
 // 表结构
 let schema = [{
   id: {type: String,unique: true,required: true},
-  title: {type: String,unique: true,required: true},
+  title: {type: String,required: true},
   image: {type: String},
+  from: {type: String},
   time: {type: Date,'default': Date.now},
+  updateTime: {type: Date,'default': Date.now},
   author: {type: String,required: true},
   content: {type: String,required: true},
   htmlContent: {type: String,required: true},
+  introContent: {type: String,required: true},
   category: {type: String,required: true},
   tips: {type: Array}
 }, {
@@ -27,17 +30,36 @@ let methods = {
   edit: function*(is_new) {
     let id = this.id;
 
-    if(is_new){
+    function getData(data){
+      let result = {};
+      for(let item in data){
+        if( data.hasOwnProperty(item) && item !== '_id'){
+          result[item] = data[item];
+        }
+      }
+      return result;
+    }
+
+    if(is_new == 1){
       return this.save();  
     }else{
-      return this.update({id:id});
+      return this.model('Post').update({id:id},getData(this._doc));
     }
   },
-  getPostById: function*(id) {
+  deletePost : function* (id) {
+    let post = yield this.model('Post').findOne({id:id});
+
+    if(post){
+      yield this.model('Post').remove({id:id});
+    }
+
+    return post;
+  },
+  getPostById: function* (id) {
     return this.model('Post').findOne({id:id});
   },
   count: function*(pageNum, pageSize, query){
-    pageNum = pageNum || 1;
+    pageNum = pageNum*1 || 1;
     pageSize = pageSize || 10;
     query = query || {};
     let result = {};

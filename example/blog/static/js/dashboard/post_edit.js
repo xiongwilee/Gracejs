@@ -28,6 +28,7 @@
 		$[method](url, postData, function(res){
 			if(res.code == 0){
 				alert('提交成功！');
+				window.location.href = '/dashboard/post/list'
 			}else{
 				alert(res.message || '提交出错，请稍后再试！');
 			}
@@ -44,9 +45,27 @@
 
 		result.htmlContent = editor.exportFile(undefined,'html');
 
+		result.introContent = _getIntroContent(result.htmlContent);
+		
 		console.log(result);
 
 		return result;
+	}
+
+	var _getIntroContent = function(html){
+		var htmlContent = $(html),
+			result = '';
+		for(var i=0;i < 10;i++){
+			if(!htmlContent[i]){
+				break;
+			}
+			if(!htmlContent[i].outerHTML){
+				continue;
+			}
+
+			result += htmlContent[i].outerHTML;
+		}
+		return result
 	}
 
 	var _setEditor = function(){

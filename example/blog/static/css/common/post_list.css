@@ -78,6 +78,29 @@
 	line-height: 30px;
 	text-decoration: none;
 }
+.content .content-post .post-item .post-content a.markdown-body p{
+	line-height: 20px;
+    margin-bottom: 10px;
+}
+.content .content-post .post-item .post-content a.markdown-body h1,
+.content .content-post .post-item .post-content a.markdown-body h2,
+.content .content-post .post-item .post-content a.markdown-body h3,
+.content .content-post .post-item .post-content a.markdown-body h4{
+	margin: 0px;
+	border: none;
+}
+.content .content-post .post-item .post-content a.markdown-body h1{
+	font-size:20px;
+}
+.content .content-post .post-item .post-content a.markdown-body h2{
+	font-size:18px;
+}
+.content .content-post .post-item .post-content a.markdown-body h3{
+	font-size:16px;
+}
+.content .content-post .post-item .post-content a.markdown-body h4{
+	font-size:14px;
+}
 .content .content-post .post-item .post-bottom{
 	overflow: hidden;
 	padding-top: 15px;
@@ -128,6 +151,7 @@
 	background: #ffffff;
 	color: rgba(0,0,0,.5);
     cursor: not-allowed;
+    text-decoration: none;
 }
 .content .content-post .post-page a.actived{
 	cursor: pointer;

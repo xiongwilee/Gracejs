@@ -8,6 +8,7 @@ let schema = [{
   id: {type: String,unique: true,required: true},
   name: {type: String,required: true},
   isAuthor: {type: Boolean,'default':true},
+  isAdmin: {type: Boolean,'default':false},
   nickname: {type: String,required: true},
   avatar: {type: String,required: true},
   github: {type: String,required: true},

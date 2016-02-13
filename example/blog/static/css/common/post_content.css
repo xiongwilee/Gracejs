@@ -1,15 +1,6 @@
 .content{
 	padding-top: 30px;
 }
-.content .content-post .post-title{
-	padding-bottom: 30px;
-	margin-right: 30px;
-
-	text-align: center;
-	color: rgba(0,0,0,.8);
-	font-size: 24px;
-	line-height: 24px;
-}
 .content .content-post .post-item{
 	margin-bottom: 30px;
 	margin-right: 30px;
@@ -69,6 +60,35 @@
 	color: rgba(0,0,0,.4);
 	font-size: 18px;
     vertical-align: middle;
+}
+.content .content-post .post-item .post-from{
+	clear: both;
+
+	padding-top: 20px;
+	font-size: 16px;
+}
+.content .content-post .post-item .post-from span{
+	margin-right: 5px;
+	color: rgba(0,0,0,0.5);
+}
+.content .content-post .post-item .post-from a{
+	text-decoration: none;
+	color: #5488DD;
+}
+.content .content-post .post-item .post-from a:hover{
+	text-decoration: underline;
+}
+.content .content-post .post-item .post-title{
+	clear: both;
+
+	padding-top: 30px;
+
+	text-align: center;
+	color: rgba(0,0,0,.8);
+	font-size: 36px;
+	font-weight: bold;
+	font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	line-height: 24px;
 }
 .content .content-post .post-item .post-content{
 	display: block;

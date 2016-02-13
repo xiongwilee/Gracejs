@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="/static/css/common/post_theme.css" type="text/css">
 <div class="content-post">
   {% for post in posts %}
     <article class="post-item">
@@ -15,7 +16,7 @@
       </div>
       {% endif %}
     	<div class="post-content">
-          <a href="/post/content/{{ post.id }}" target="_blank">{{ post.content }}</a>
+          <a href="/post/content/{{ post.id }}" target="_blank" class="markdown-body">{% autoescape false %}{{ post.introContent || post.content }}{% endautoescape %}</a>
       </div>
     	<div class="post-bottom clearfix">
 			<a class="post-bottom-more" href="/post/content/{{ post.id }}" target="_blank">read more..</a>

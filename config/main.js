@@ -1,5 +1,4 @@
 "use strict";
-var path = require('path')
 
 var env = process.env.NODE_ENV || 'development'
 var port = process.env.PORT || 3000
@@ -15,9 +14,10 @@ module.exports = {
 
   // 站点相关的配置
   site: {
-    name: "koa-hornbill",
+    name: "koa-grace",
     keys: ['d715025d4a566a1112c82063b60aa4de13ecd550'],
     env: env,
+    debug: DEBUG,
     port: port
   },
 
@@ -26,7 +26,7 @@ module.exports = {
     // project
     project: './example/',
     default_path:{
-      blog:'home'
+      blog:'/home'
     }
   },
 

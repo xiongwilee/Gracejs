@@ -14,7 +14,7 @@
 <body>
   <div class="page">
     <div class="pageHeader">
-      <div class="title">Dashboard</div>
+      <div class="title">Dashboard<a href="/">[进入首页]</a></div>
       <div class="userPanel"><i class="icon-chevron-down"></i><span class="username">{{userInfo.nickname}} </span><img src="{{userInfo.avatar}}" width="40" height="40"/></div>
     </div>
     <div class="main">
@@ -25,26 +25,27 @@
           </div>
         </div>
         <div class="menu">
-          <div class="title">Navigation</div>
           <ul>
             <li class=" nav-item {% if siteInfo.path.indexOf('/dashboard/site')>-1 %}active{% endif %}">
               <h3 class="nav-title"><i class="icon-home"></i>站点管理</h3>
               <ul class="nav-sub">
-                <li><a href="">通用</a></li>
-                <li><a href="">链接</a></li>
+                <!-- <li><a href="">通用</a></li> -->
+                <li class="{% if siteInfo.path == '/dashboard/site/link'%}active{% endif %}"><a href="/dashboard/site/link">链接管理</a></li>
               </ul>
             </li>
             <li class=" nav-item {% if siteInfo.path.indexOf('/dashboard/user')>-1 %}active{% endif %}">
               <h3 class="nav-title"><i class="icon-signal"></i>用户管理</h3>
               <ul class="nav-sub">
-                <li><a href="">新增用户</a></li>
+                <!-- <li><a href="">新增用户</a></li> -->
+                <li class="{% if siteInfo.path == '/dashboard/user/list'%}active{% endif %}"><a href="/dashboard/user/list">用户列表</a></li>
               </ul>
             </li>
             <li class=" nav-item {% if siteInfo.path.indexOf('/dashboard/post')>-1 %}active{% endif %}">
               <h3 class="nav-title"><i class="icon-tasks"></i>文章管理</h3>
               <ul class="nav-sub">
-                <li><a href="">新文章</a></li>
-                <li><a href="">文章列表</a></li>
+                <li class="{% if siteInfo.path == '/dashboard/post/edit'%}active{% endif %}"><a href="/dashboard/post/edit">新文章</a></li>
+                <li class="{% if siteInfo.path == '/dashboard/post/list'%}active{% endif %}"><a href="/dashboard/post/list">文章列表</a></li>
+                <li class="{% if siteInfo.path == '/dashboard/post/cate'%}active{% endif %}"><a href="/dashboard/post/cate">分类管理</a></li>
               </ul>
             </li>
             <li class=" nav-item {% if siteInfo.path.indexOf('/dashboard/msg')>-1 %}active{% endif %}">

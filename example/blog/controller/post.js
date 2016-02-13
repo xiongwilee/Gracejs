@@ -8,6 +8,11 @@ module.exports.content = function* () {
   let id = this.params.id;
   let post = yield PostModel.getPostById(id);
 
+  if( !post ){
+    this.body = '没有该文章！';
+    return;
+  }
+
   yield this.render('post_content', {
     post: post,
     userInfo: this.userInfo,
@@ -23,8 +28,9 @@ module.exports.cate = function* () {
 
 
   let id = this.params.id;
-  let posts = yield PostModel.page(undefined,undefined,{category:id});
-  let page = yield PostModel.count(undefined,undefined,{category:id});
+  let pageNum = this.query.page;
+  let posts = yield PostModel.page(pageNum,undefined,{category:id});
+  let page = yield PostModel.count(pageNum,undefined,{category:id});
 
   yield this.render('post_cate', {
     cate: this.siteInfo.cates_item[id],

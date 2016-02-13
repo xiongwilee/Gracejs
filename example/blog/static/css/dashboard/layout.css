@@ -50,6 +50,11 @@ input{
   font-size: 1.5em;
   font-weight: 700;
 }
+.pageHeader .title a{
+  font-size: 14px;
+  color: rgba(255,255,255,.5  );
+  font-weight: normal;
+}
 .pageHeader .userPanel {
   width: 40%;
   float: right;
@@ -118,27 +123,23 @@ input{
   line-height: 28px;
 }
 .main .nav .menu {
-  margin: 15px;
   color: #555;
-}
-.main .nav .menu .title {
-  font-weight: 700;
-  font-size: 1.0em;
-  text-transform: uppercase;
 }
 .main .nav .menu ul {
   padding-left: 0px;
 }
 .main .nav .menu ul .nav-item{
-  padding-bottom: 20px;
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   list-style: none;
 }
-.main .nav .menu ul li i {
+.main .nav .menu ul .nav-item i {
   margin-right: 10px;
 }
-.main .nav .menu ul li .nav-title{
+.main .nav .menu ul .nav-item .nav-title{
   font-size: 14px;
-  margin: 5px 0px 0px;
+  margin: 0px;
   padding: 5px 0px;
   font-weight: 600;
   margin-right: 30px;
@@ -147,14 +148,23 @@ input{
   -webkit-border-radius: 4px;
   border-radius: 4px;
   transition: 0.25s all;
+  color: rgba(0,0,0,0.6);
 }
-.main .nav .menu ul li.active .nav-title{
+.main .nav .menu ul .nav-item.active{
+  background-color: rgba(255,255,255,.5);
+}
+.main .nav .menu ul .nav-item .nav-sub li{
+  margin-left: 35px;
+  list-style-type: disc;
+  color: rgba(0,0,0,.2);
+}
+.main .nav .menu ul .nav-item .nav-sub li.active{
   color: #79BC46;
 }
-.main .nav .menu ul li .nav-sub li{
-  margin-left: 35px;
+.main .nav .menu ul .nav-item .nav-sub li.active a{
+  color: #79BC46; 
 }
-.main .nav .menu ul li .nav-sub li a{
+.main .nav .menu ul .nav-item .nav-sub li a{
   display: block;
   line-height: 24px;
   color: rgba(0,0,0,.6);
