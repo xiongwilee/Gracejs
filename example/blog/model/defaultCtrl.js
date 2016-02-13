@@ -19,20 +19,40 @@ function _getItem(arr){
   return result;
 }
 
+function _mongoMap(opt){
+  console.log(opt)
+}
+
 module.exports = function*() {
+  let UserModel = this.mongo('User');
+  let CateModel = this.mongo('Category');
+  let LinkModel = this.mongo('Link');
+
   this.siteInfo = {
     path : this.path,
     title : '美丽说商业前端团队博客-http://mlsfe.biz',
     year : new Date().getFullYear()
   }
 
-  this.siteInfo.users = yield this.mongo('User').getAuthor();
+
+  let mongoResult = yield [{
+      model:UserModel,
+      fun:'getAuthor'
+    },{
+      model:CateModel,
+      fun:'list'
+    },{
+      model:LinkModel,
+      fun:'list'
+    }].map(this.mongoMap);
+
+  this.siteInfo.users = mongoResult[0];
   this.siteInfo.users_item = _getItem(this.siteInfo.users);
 
-  this.siteInfo.cates = yield this.mongo('Category').list();
+  this.siteInfo.cates = mongoResult[1];
   this.siteInfo.cates_item = _getItem(this.siteInfo.cates);
   
-  this.siteInfo.links = yield this.mongo('Link').list();
+  this.siteInfo.links = mongoResult[2];
 
 
 

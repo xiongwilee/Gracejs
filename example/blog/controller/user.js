@@ -6,7 +6,7 @@ const key = "http://mlsfe.biz/private_key";//加密的秘钥
 let client_id = '02f5d364d2d4aff85a00';
 let client_secret = '015e99f9215438a681e4529efb47b72c6b574552';
 
-module.exports.index = function*() {
+module.exports.login = function*() {
   yield this.bindDefault();
 
   // 如果已经登录就不用再登录，直接重定向到首页
@@ -17,11 +17,18 @@ module.exports.index = function*() {
 
   var path = "https://github.com/login/oauth/authorize";
       path += '?client_id='+client_id;
-      path += '&redirect_uri='+this.request.protocol + '://' + this.request.host + '/login/oauth?from=github';
+      path += '&redirect_uri='+this.request.protocol + '://' + this.request.host + '/user/oauth?from=github';
       path += '&scope=user';
       path += '&state = ' + (new Date()).valueOf();
 
   this.redirect(path);
+}
+
+module.exports.logout = function*() {
+  this.cookies.set('USER_ID', '', {
+    expires: new Date(Date.now() - 1000 * 60 * 60 * 24 * 30),
+  });
+  this.redirect('/home');
 }
 
 module.exports.oauth = function*() {

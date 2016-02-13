@@ -10,6 +10,7 @@ const path = require('path'),
   logger = require('koa-logger'),
   gzip = require('koa-gzip'),
   views = require('koa-views'),
+  bodyparser = require('koa-bodyparser'),
   onerror = require('koa-onerror'),
   mount = require('koa-mount'),
   koastatic = require('koa-static');
@@ -23,6 +24,12 @@ let config_site = global.config.site;
 let config_mongo = global.config.mongo;
 
 let app = koa();
+
+// bodyparser
+app.use(bodyparser());
+
+// gzip
+app.use(gzip());
 
 let vhosts = [];
 for (let item in config_vhost) {
@@ -40,9 +47,6 @@ vhosts = vhosts.map(function(item) {
     root: appPath + '/model/mongo',
     connect: config_mongo[appName]
   }))
-
-  // gzip
-  vapp.use(gzip());
 
   // 配置api
   vapp.use(fetch(vapp, {

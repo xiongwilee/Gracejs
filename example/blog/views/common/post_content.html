@@ -1,0 +1,16 @@
+<div class="content-post">
+  <h2 class="post-title">{{ post.title }}</h2>
+  <article class="post-item">
+	  <div class="post-author">
+		  <img src="{{siteInfo.users_item[post.author].avatar}}">
+		  <a href="{{siteInfo.users_item[post.author].blog}}" target="_blank">{{siteInfo.users_item[post.author].nickname}}</a>
+		  <span>{{post.time|date('Y-m-d h:m')}}</span>
+	  </div>
+    <div class="post-cate">
+      <a href="/post/cate/{{post.category}}">{{ siteInfo.cates_item[post.category].name}}</a><i class="icon-bookmark-empty"></i>
+    </div>
+	  <div class="post-content">
+        {% autoescape false %}{{ post.htmlContent || post.content }}
+    </div>
+  </article>
+</div>

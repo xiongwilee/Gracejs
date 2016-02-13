@@ -1,0 +1,38 @@
+<div class="content-post">
+  {% for post in posts %}
+    <article class="post-item">
+    	<div class="post-author">
+    		<img src="{{siteInfo.users_item[post.author].avatar}}">
+    		<a href="{{siteInfo.users_item[post.author].blog}}" target="_blank">{{siteInfo.users_item[post.author].nickname}}</a>
+    		<span>{{post.time|date('Y-m-d h:m')}}</span>
+    	</div>
+      <h2 class="post-title">
+          <a href="/post/content/{{ post.id }}" target="_blank">{{ post.title }}</a>
+      </h2>
+      {% if post.image %}
+      <div class="post-image">
+          <a href="/post/content/{{ post.id }}" target="_blank"><img src="{{post.image}}" target="_blank"/></a>
+      </div>
+      {% endif %}
+    	<div class="post-content">
+          <a href="/post/content/{{ post.id }}" target="_blank">{{ post.content }}</a>
+      </div>
+    	<div class="post-bottom clearfix">
+			<a class="post-bottom-more" href="/post/content/{{ post.id }}" target="_blank">read more..</a>
+			<div class="post-bottom-cate">
+				<a href="/post/cate/{{post.category}}">{{ siteInfo.cates_item[post.category].name}}</a><i class="icon-bookmark-empty"></i>
+			</div>
+    	</div>
+    </article>
+  {% endfor %}
+  {% if !posts || posts.length == 0%}
+  <div class="post-none">
+    <p>没有对应文章！</p>
+  </div>
+  {% else %}
+  <div class="post-page">
+    <a class="page-page-item page-page-pre {% if page.hasPrePage %}actived{% endif %}" {% if page.hasPrePage %}href="/home?page={{page.pageNum - 1}}"{% endif %}><i class=" icon-angle-left"></i></a>
+    <a class="page-page-item page-page-nex {% if page.hasNexPage %}actived{% endif %}" {% if page.hasNexPage %}href="/home?page={{page.pageNum + 1}}"{% endif %}><i class=" icon-angle-right"></i></a>
+  </div>
+  {% endif %}
+</div>
