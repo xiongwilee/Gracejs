@@ -62,6 +62,9 @@
 			if(!htmlContent[i].outerHTML){
 				continue;
 			}
+			if(htmlContent[i].nodeName == 'A'){
+				continue;
+			}
 
 			result += htmlContent[i].outerHTML;
 		}

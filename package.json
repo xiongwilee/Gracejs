@@ -7,8 +7,6 @@
     "dev": "./node_modules/.bin/nodemon bin/server.js"
   },
   "bin": {
-    "koa-grace": "node bin/koa-grace.js",
-    "kg": "node bin/koa-grace.js"
   },
   "author": "wilee",
   "license": "MIT",
