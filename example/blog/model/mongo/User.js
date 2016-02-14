@@ -7,12 +7,13 @@ let model = 'User';
 let schema = [{
   id: {type: String,unique: true,required: true},
   name: {type: String,required: true},
-  isAuthor: {type: Boolean,'default':true},
+  isAuthor: {type: Boolean,'default':false},
   isAdmin: {type: Boolean,'default':false},
   nickname: {type: String,required: true},
   avatar: {type: String,required: true},
   github: {type: String,required: true},
   email: {type: String,required: true},
+  secretId: {type: String},
   blog: {type: String}
 }, {
   autoIndex: true,
@@ -25,7 +26,26 @@ let statics = {}
 // http://mongoosejs.com/docs/guide.html#methods
 let methods = {
   add: function* () {
-  	return this.save();
+    return this.save();
+  },
+  edit: function*() {
+    let id = this.id;
+
+    function getData(data){
+      let result = {};
+      for(let item in data){
+        if( data.hasOwnProperty(item) && item !== '_id'){
+          result[item] = data[item];
+        }
+      }
+      return result;
+    }
+
+    if(!this.nickname &&  this.secretId){
+      return this.model('User').update({id:id},{ secretId:this.secretId });
+    }else{
+      return this.model('User').update({id:id},getData(this._doc));
+    }
   },
   getUserById: function* (id) {
   	return this.model('User').findOne({id:id});

@@ -29,7 +29,7 @@
             <li class=" nav-item {% if siteInfo.path.indexOf('/dashboard/site')>-1 %}active{% endif %}">
               <h3 class="nav-title"><i class="icon-home"></i>站点管理</h3>
               <ul class="nav-sub">
-                <!-- <li><a href="">通用</a></li> -->
+                <li class="{% if siteInfo.path == '/dashboard/site/home'%}active{% endif %}"><a href="/dashboard/site/home">通用</a></li>
                 <li class="{% if siteInfo.path == '/dashboard/site/link'%}active{% endif %}"><a href="/dashboard/site/link">链接管理</a></li>
               </ul>
             </li>

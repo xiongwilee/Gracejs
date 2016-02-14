@@ -1,7 +1,7 @@
 'use strict';
 
 const crypto = require('crypto');
-const key = "http://mlsfe.biz/private_key";//加密的秘钥
+const key = "http://mlsfe.biz/private_key"; //加密的秘钥
 
 let client_id = '02f5d364d2d4aff85a00';
 let client_secret = '015e99f9215438a681e4529efb47b72c6b574552';
@@ -16,10 +16,10 @@ module.exports.login = function*() {
   }
 
   var path = "https://github.com/login/oauth/authorize";
-      path += '?client_id='+client_id;
-      path += '&redirect_uri='+this.request.protocol + '://' + this.request.host + '/user/oauth?from=github';
-      path += '&scope=user,read:org';
-      path += '&state = ' + (new Date()).valueOf();
+  path += '?client_id=' + client_id;
+  path += '&redirect_uri=' + this.request.protocol + '://' + this.request.host + '/user/oauth?from=github';
+  path += '&scope=user,read:org';
+  path += '&state = ' + (new Date()).valueOf();
 
   this.redirect(path);
 }
@@ -37,7 +37,7 @@ module.exports.oauth = function*() {
   this.headers.Accept = 'application/json';
   // 获取access_token
   yield this.fetch({
-    oauthInfo: 'github:post:login/oauth/access_token?client_id='+client_id+'&client_secret='+client_secret+'&code=' + code
+    oauthInfo: 'github:post:login/oauth/access_token?client_id=' + client_id + '&client_secret=' + client_secret + '&code=' + code
   })
   let access_token = this.backData.oauthInfo.access_token;
   // 如果没有获取到access_token则直接返回
@@ -52,13 +52,13 @@ module.exports.oauth = function*() {
   });
   let _userInfo = this.backData.userInfo;
   // 如果没有登录信息，则返回
-  if(!_userInfo.login){
+  if (!_userInfo.login) {
     this.body = this.backData;
     return;
   }
 
   // 查看数据库中对应的用户，没有则添加到数据库
-  let userModel = this.mongo('User', {
+  let UserModel = this.mongo('User', {
     id: _userInfo.login,
     name: _userInfo.login,
     nickname: _userInfo.login,
@@ -68,26 +68,37 @@ module.exports.oauth = function*() {
     blog: _userInfo.blog
   });
   // 查找数据库中用户信息
-  this.userInfo = yield userModel.getUserById(_userInfo.login);
+  this.userInfo = yield UserModel.getUserById(_userInfo.login);
   // 如果不存在，则添加
   if (!this.userInfo) {
-    this.userInfo = yield userModel.save();
+    this.userInfo = yield UserModel.save();
   }
+
 
   // 将用户id加密之后存到cookie中
   let expiresTime = Date.now() + 1000 * 60 * 60 * 24 * 30;
   let USER_INFO = JSON.stringify({
-    user_id : this.userInfo.id,
-    ip : this.request.ip,
-    time : expiresTime
+    user_id: this.userInfo.id,
+    ip: this.request.ip,
+    time: expiresTime
   });
-  let cipher = crypto.createCipher('aes-256-cbc',key)
-  let cryptedInfo =cipher.update(USER_INFO,'utf8','hex');
-  cryptedInfo += cipher.final('hex');
+  let cipher = crypto.createCipher('aes-256-cbc', key)
+  let cryptedUserId = cipher.update(USER_INFO, 'utf8', 'hex');
+  cryptedUserId += cipher.final('hex');
+
   // 设置COOKIE，时效为30天
-  this.cookies.set('USER_ID', cryptedInfo, {
+  this.cookies.set('USER_ID', cryptedUserId, {
     expires: new Date(expiresTime)
   });
+
+
+  // 如果已经有用户，而且不存在secretId的则将USER_ID存为secretId
+  if (this.userInfo && !this.userInfo.secretId){
+    yield this.mongo('User', {
+      id: this.userInfo.id,
+      secretId: cryptedUserId
+    }).edit();
+  }
 
   this.redirect('/home');
 }

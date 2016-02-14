@@ -5,6 +5,18 @@ function checkAuth (ctx, userInfo){
   }
 }
 
+
+module.exports.home = function* () {
+  yield this.bindDefault();
+  checkAuth(this, this.userInfo);
+
+  yield this.render('dashboard/site_home',{
+    breads : ['站点管理','通用'],
+    userInfo: this.userInfo,
+    siteInfo: this.siteInfo
+  })
+}
+
 module.exports.aj_link_delete = function* (){
   yield this.bindDefault();
   checkAuth(this, this.userInfo);
