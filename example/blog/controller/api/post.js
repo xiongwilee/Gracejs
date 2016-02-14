@@ -1,13 +1,15 @@
 'use strict';
 function checkAuth (ctx, userInfo){
   if(!userInfo || !userInfo.isAuthor){
-    ctx.redirect('/error/403')
+    ctx.body = {code:'403',message:'获取登录失败或您没有权限！'};
+    return false
   }
+  return true;
 }
 
 module.exports.aj_post_delete = function* (){
   yield this.bindDefault();
-  checkAuth(this, this.userInfo);
+  if( !checkAuth(this, this.userInfo) ){return};
 
   let id = this.request.body.id;
   let result = {code:0,message:''};
@@ -35,11 +37,11 @@ module.exports.aj_post_delete = function* (){
     return;
   }
 };
-module.exports.aj_post_delete.__method__ = 'post';
+module.exports.aj_post_delete.__method__ = 'all';
 
 module.exports.aj_edit = function* (){
   yield this.bindDefault();
-  checkAuth(this, this.userInfo);
+  if( !checkAuth(this, this.userInfo) ){return};
 
   let data = this.request.body;
   let is_new = data.is_new;
@@ -81,11 +83,11 @@ module.exports.aj_edit = function* (){
 
   this.body = result;
 }
-module.exports.aj_edit.__method__ = 'post';
+module.exports.aj_edit.__method__ = 'all';
 
 module.exports.aj_cate_delete = function* (){
   yield this.bindDefault();
-  checkAuth(this, this.userInfo);
+  if( !checkAuth(this, this.userInfo) ){return};
 
   let id = this.request.body.id;
   let result = {code:0,message:''};
@@ -105,12 +107,12 @@ module.exports.aj_cate_delete = function* (){
   this.body = result;
   return;
 };
-module.exports.aj_cate_delete.__method__ = 'post';
+module.exports.aj_cate_delete.__method__ = 'all';
 
 
 module.exports.aj_cate_edit = function* (){
   yield this.bindDefault();
-  checkAuth(this, this.userInfo);
+  if( !checkAuth(this, this.userInfo) ){return};
   
   let data = this.request.body;
   let is_new = data.is_new;
@@ -142,4 +144,4 @@ module.exports.aj_cate_edit = function* (){
 
   this.body = result;
 }
-module.exports.aj_cate_edit.__method__ = 'post';
+module.exports.aj_cate_edit.__method__ = 'all';
