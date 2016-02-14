@@ -22,8 +22,10 @@
           <a class="post-more-link" href="/post/content/{{ post.id }}" target="_blank">read more <i class="icon-angle-right"></i></a>
       </div>
     	<div class="post-bottom clearfix">
-        <div class="post-bottom-comment">
-          <a href="/post/content/{{ post.id }}#postComment" class="ds-thread-count" data-thread-key="{{ post.id }}" data-count-type="comments"></a>
+        <div class="post-bottom-comment"><!-- 
+          <a href="/post/content/{{ post.id }}#postComment" class="ds-thread-count" data-thread-key="{{ post.id }}" data-count-type="comments"></a> -->
+          <!-- <i class="icon-comment-alt"></i> -->
+          <a href="/post/content/{{ post.id }}#postComment"><i class="icon-comment-alt"></i></a>
           <!-- <i class="icon-comment-alt"></i> -->
         </div>
 			  <div class="post-bottom-cate">
@@ -46,13 +48,13 @@
 </div>
 <!-- 多说js加载开始，一个页面只需要加载一次 -->
 <script type="text/javascript">
-var duoshuoQuery = {short_name:"febiz"};
+/*var duoshuoQuery = {short_name:"febiz"};
 (function() {
     var ds = document.createElement('script');
     ds.type = 'text/javascript';ds.async = true;
     ds.src = 'http://static.duoshuo.com/embed.js';
     ds.charset = 'UTF-8';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();
+})();*/
 </script>
 <!-- 多说js加载结束，一个页面只需要加载一次 -->
