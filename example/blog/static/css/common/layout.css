@@ -27,6 +27,7 @@
 }
 .header .nav .nav-list{
 	float: left;
+	list-style: none;
 }
 .header .nav .nav-list .nav-item{
 	display: block;
