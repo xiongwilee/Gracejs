@@ -37,6 +37,7 @@
               <h3 class="nav-title"><i class="icon-signal"></i>用户管理</h3>
               <ul class="nav-sub">
                 <!-- <li><a href="">新增用户</a></li> -->
+                <li class="{% if siteInfo.path == '/dashboard/user/mine'%}active{% endif %}"><a href="/dashboard/user/mine">我的信息</a></li>
                 <li class="{% if siteInfo.path == '/dashboard/user/list'%}active{% endif %}"><a href="/dashboard/user/list">用户列表</a></li>
               </ul>
             </li>

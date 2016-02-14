@@ -1,13 +1,10 @@
 'use strict';
-function checkAuth (ctx, userInfo){
-  if(!userInfo || !userInfo.isAuthor){
-    ctx.redirect('/error/403')
-  }
-}
+
+let userAuthor = require('./userAuthor');
 
 module.exports.list = function* () {
   yield this.bindDefault();
-  checkAuth(this, this.userInfo);
+  if (!userAuthor.checkAuth(this, this.userInfo)) {return};
 
   let pageNum = this.query.page;
 
@@ -26,7 +23,7 @@ module.exports.list = function* () {
 
 module.exports.aj_post_delete = function* (){
   yield this.bindDefault();
-  checkAuth(this, this.userInfo);
+  if (!userAuthor.checkAuth(this, this.userInfo)) {return};
 
   let id = this.request.body.id;
   let result = {code:0,message:''};
@@ -58,7 +55,7 @@ module.exports.aj_post_delete.__method__ = 'post';
 
 module.exports.aj_edit = function* (){
   yield this.bindDefault();
-  checkAuth(this, this.userInfo);
+  if (!userAuthor.checkAuth(this, this.userInfo)) {return};
 
   let data = this.request.body;
   let is_new = data.is_new;
@@ -105,7 +102,7 @@ module.exports.aj_edit.__method__ = 'post';
 
 module.exports.edit = function* () {
   yield this.bindDefault();
-  checkAuth(this, this.userInfo);
+  if (!userAuthor.checkAuth(this, this.userInfo)) {return};
 
   let post;
   let post_id = this.query.id;
@@ -130,7 +127,7 @@ module.exports.edit = function* () {
 
 module.exports.aj_cate_delete = function* (){
   yield this.bindDefault();
-  checkAuth(this, this.userInfo);
+  if (!userAuthor.checkAuth(this, this.userInfo)) {return};
 
   let id = this.request.body.id;
   let result = {code:0,message:''};
@@ -155,7 +152,7 @@ module.exports.aj_cate_delete.__method__ = 'post';
 
 module.exports.aj_cate_edit = function* (){
   yield this.bindDefault();
-  checkAuth(this, this.userInfo);
+  if (!userAuthor.checkAuth(this, this.userInfo)) {return};
   
   let data = this.request.body;
   let is_new = data.is_new;
@@ -191,7 +188,7 @@ module.exports.aj_cate_edit.__method__ = 'post';
 
 module.exports.cate = function* () {
   yield this.bindDefault();
-  checkAuth(this, this.userInfo);
+  if (!userAuthor.checkAuth(this, this.userInfo)) {return};
 
   yield this.render('dashboard/post_cate',{
     breads : ['文章管理','分类管理'],

@@ -12,26 +12,16 @@
 {% block content %}
 	{% include 'bread.html'%}
 	<div class="view-content">
-	<div class="view-content-container">
-		{% if userInfo.secretId%}
-		<form class="view-content-secretid">
-		  <div class="form-group">
-		    <label>我的secret_id是<b class="text-danger">（请务必妥善保管）</b>：</label>
-		    <textarea class="form-control" rows="2" disabled>{{ userInfo.secretId }}</textarea>
-		  </div>
-		</form>
-		{% endif %}
-		<table class="table table-striped">
+	<div class="view-content-container table-responsive">
+		<table class="table table-striped table-condensed">
 	      <thead>
 	        <tr>
-	          <th>id</th>
-	          <th>姓名</th>
-	          <th>昵称</th>
-	          <th>github</th>
-	          <th>email</th>
-	          <th>blog</th>
-	          <th>权限</th>
-	          <th>操作</th>
+	          <th class="">id</th>
+	          <th class="">姓名</th>
+	          <th class="">昵称</th>
+	          <th class="">综合信息</th>
+	          <th class="">权限</th>
+	          <th class="">操作</th>
 	        </tr>
 	      </thead>
 	      <tbody id="userBody">
@@ -40,11 +30,14 @@
 	          <th scope="row">{{ user.id }}</th>
 	          <th>{{ user.name }}</th>
 	          <th>{{ user.nickname }}</th>
-	          <th>{{ user.github }}</th>
-	          <th>{{ user.email }}</th>
-	          <th>{{ user.blog }}</th>
+	          <th>
+	          	<div><i class="icon-github"></i><a href="{{ user.github }}"> {{ user.github }}</a></div>
+	          	<div><i class="icon-envelope-alt"></i><a href="emailto:{{ user.email }}"> {{ user.email }}</a></div>
+	          	<div><i class="icon-home"></i><a href="{{ user.blog }}"> {{ user.blog }}</a></div>
+	          </th>
 	          <th>{% if user.isAuthor %}作者{% endif %} {% if user.isAdmin %}管理员{% endif %}</th>
-	          <td><a>编辑</a><span> | </span><a href="#" class="delete" data-id="{{ user.id }}">删除</a></td>
+	          <td>
+	          	{% if !user.isAuthor %}<a href="#" class="author-add" data-id="{{ user.id }}">设置为作者</a><span> | </span>{% else%}<a href="#" class="author-delete" data-id="{{ user.id }}">删除作者</a><span> | </span>{% endif %}<a href="#" class="delete" data-id="{{ user.id }}">删除</a></td>
 	        </tr>
 	        {% endfor %}
 	      </tbody>

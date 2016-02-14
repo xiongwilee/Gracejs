@@ -93,6 +93,7 @@
           <h3 class="side-title">作者</h3>
           <ul class="side-ul">
             {% for user in siteInfo.users %}
+            {% if user.blog %}
               <li>
                 <a href="{{user.blog}}" class="side-ul-item clearfix" target="_blank">
                   <img src="{{user.avatar}}" class="item-img">
@@ -100,6 +101,7 @@
                   <span class="item-blog">{{ user.blog }}</span>
                 </a>
               </li>
+            {% endif %}
             {% endfor %}</ul>
         </div>
       </div>

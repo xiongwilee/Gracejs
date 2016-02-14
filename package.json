@@ -6,8 +6,7 @@
     "start": "node bin/server.js",
     "dev": "./node_modules/.bin/nodemon bin/server.js"
   },
-  "bin": {
-  },
+  "bin": {},
   "author": "wilee",
   "license": "MIT",
   "dependencies": {
@@ -30,6 +29,7 @@
     "koa-static": "^2.0.0",
     "koa-views": "^4.0.1",
     "nodemon": "^1.8.1",
-    "npm": "^3.6.0"
+    "npm": "^3.6.0",
+    "swig": "^1.4.2"
   }
 }

@@ -1,14 +1,10 @@
 'use strict';
-function checkAuth (ctx, userInfo){
-  if(!userInfo || !userInfo.isAuthor){
-    ctx.redirect('/error/403')
-  }
-}
 
+let userAuthor = require('./userAuthor');
 
 module.exports.home = function* () {
   yield this.bindDefault();
-  checkAuth(this, this.userInfo);
+  if (!userAuthor.checkAuth(this, this.userInfo)) {return};
 
   yield this.render('dashboard/site_home',{
     breads : ['站点管理','通用'],
@@ -19,7 +15,7 @@ module.exports.home = function* () {
 
 module.exports.aj_link_delete = function* (){
   yield this.bindDefault();
-  checkAuth(this, this.userInfo);
+  if (!userAuthor.checkAuth(this, this.userInfo)) {return};
 
   let id = this.request.body.id;
   let result = {code:0,message:''};
@@ -40,7 +36,7 @@ module.exports.aj_link_delete.__method__ = 'post';
 
 module.exports.aj_link_edit = function* (){
   yield this.bindDefault();
-  checkAuth(this, this.userInfo);
+  if (!userAuthor.checkAuth(this, this.userInfo)) {return};
   
   let data = this.request.body;
   let is_new = data.is_new;
@@ -76,7 +72,7 @@ module.exports.aj_link_edit.__method__ = 'post';
 
 module.exports.link = function* () {
   yield this.bindDefault();
-  checkAuth(this, this.userInfo);
+  if (!userAuthor.checkAuth(this, this.userInfo)) {return};
 
   yield this.render('dashboard/site_link',{
     breads : ['站点管理','链接管理'],

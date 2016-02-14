@@ -1,6 +1,6 @@
 'use strict';
 module.exports['403'] = function* () {
-  this.body = '您没有权限！';
+  let message = this.params.message || '您没有权限！';
+  this.body = message;
 }
-// 配置index路由为get请求
-module.exports.__method__ = 'get';
+module.exports['403'].__regular__ = '/:message'

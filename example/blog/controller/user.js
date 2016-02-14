@@ -91,14 +91,5 @@ module.exports.oauth = function*() {
     expires: new Date(expiresTime)
   });
 
-
-  // 如果已经有用户，而且不存在secretId的则将USER_ID存为secretId
-  if (this.userInfo && !this.userInfo.secretId){
-    yield this.mongo('User', {
-      id: this.userInfo.id,
-      secretId: cryptedUserId
-    }).edit();
-  }
-
   this.redirect('/home');
 }

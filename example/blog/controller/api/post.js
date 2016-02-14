@@ -140,8 +140,6 @@ module.exports.aj_cate_edit = function* (){
     return;
   }
 
-  let res = yield CateModel.edit( is_new );
-
   this.body = result;
 }
 module.exports.aj_cate_edit.__method__ = 'all';
