@@ -31,8 +31,15 @@ module.exports.cate = function* () {
   let pageNum = this.query.page;
   let posts = yield PostModel.page(pageNum,undefined,{category:id});
   let page = yield PostModel.count(pageNum,undefined,{category:id});
+  let cate = this.siteInfo.cates_item[id];
+
+  if( !cate ){
+    this.body = '分类不存在！';
+    return;
+  }
 
   yield this.render('post_cate', {
+    breads : ['分类:' + cate.name],
     cate: this.siteInfo.cates_item[id],
     page: page,
   	posts: posts,

@@ -202,8 +202,43 @@
 	margin: 0 auto;
 }
 .main .content{
+	padding-top: 30px;
 	margin-right: 240px;
 	overflow: hidden;
+}
+
+
+/* 面包屑 */
+.content .content-bread{
+	padding-bottom: 30px;
+}
+.content .content-bread .bread-list{
+	font-size: 14px;
+	color: rgba(0,0,0,.6);
+	vertical-align: middle;
+}
+.content .content-bread .bread-list a{
+	color: rgba(0,0,0,.6);
+	text-decoration: none;
+}
+.content .content-bread .bread-arrow{
+	color: rgba(0,0,0,.3);
+}
+.content .content-bread .bread-item{
+	padding: 0 5px;
+}
+
+/* 内容区 */
+.content .content-article{
+	margin-bottom: 30px;
+    margin-right: 30px;
+    min-height: 200px;
+    padding: 20px;
+    list-style: none;
+    border: 1px solid rgba(0,0,0,.04);
+    box-shadow: 0 1px 4px rgba(0,0,0,.03);
+    border-radius: 3px;
+    background: #ffffff;
 }
 
 /* 右侧栏 */

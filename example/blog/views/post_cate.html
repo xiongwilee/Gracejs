@@ -4,10 +4,6 @@
 {% endblock %} 
 
 {% block content %}
-<div class="content-bread">
-  	<span class="bread-list bread-item"><a href="/home"><i class="icon-home"></i></a></span>
-  	<span class="bread-list bread-arrow"><i class="icon-angle-right"></i></span>
-  	<span class="bread-list bread-item">分类：{{ cate.name }}</span>
-</div>
+{% include 'common/bread.html'%} 
 {% include 'common/post_list.html'%} 
 {% endblock %}

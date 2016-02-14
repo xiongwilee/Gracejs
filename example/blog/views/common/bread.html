@@ -1,0 +1,10 @@
+<div class="content-bread">
+    <span class="bread-list bread-item"><a href="/home"><i class="icon-home"></i></a></span>
+    <span class="bread-list bread-arrow"><i class="icon-angle-right"></i></span>
+    {% for bread in breads%}
+      <span class="bread-list bread-item">{{bread}}{{$index}}</span>
+      {% if !loop.last %}
+        <span class="bread-list bread-arrow"><i class="icon-angle-right"></i></span>
+      {% endif %}
+    {% endfor %}
+</div>

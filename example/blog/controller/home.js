@@ -30,6 +30,7 @@ module.exports.about = function* () {
   yield this.bindDefault();
 
   yield this.render('home_about',{
+    breads : ['关于'],
     userInfo: this.userInfo,
     siteInfo: this.siteInfo
   })
@@ -39,6 +40,7 @@ module.exports.join = function* () {
   yield this.bindDefault();
 
   yield this.render('home_join',{
+    breads : ['加入'],
     userInfo: this.userInfo,
     siteInfo: this.siteInfo
   })
