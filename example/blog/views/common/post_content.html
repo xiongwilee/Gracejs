@@ -18,7 +18,23 @@
           {{ post.htmlContent || post.content }}
         {% endautoescape %}
     </div>
+    <!-- 多说评论框 start -->
+    <div id="postComment" class="post-comment ds-thread" data-thread-key="{{ post.id }}" data-title="{{ post.title }}" data-url="{{ siteInfo.path }}"></div>
+    <!-- 多说评论框 end -->
   </article>
 </div>
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"febiz"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共JS代码 end -->
 <script src="/static/css/lib/highlight/highlight.pack.js" type="text/javascript"></script>
 <script src="/static/js/common/post_content.js" type="text/javascript"></script>

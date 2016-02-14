@@ -18,14 +18,21 @@
     	<div class="post-content">
           <a href="/post/content/{{ post.id }}" target="_blank" class="markdown-body">{% autoescape false %}{{ post.introContent || post.content }}{% endautoescape %}</a>
       </div>
+      <div class="post-more">
+          <a class="post-more-link" href="/post/content/{{ post.id }}" target="_blank">read more <i class="icon-angle-right"></i></a>
+      </div>
     	<div class="post-bottom clearfix">
-			<a class="post-bottom-more" href="/post/content/{{ post.id }}" target="_blank">read more..</a>
-			<div class="post-bottom-cate">
+        <div class="post-bottom-comment">
+          <a href="/post/content/{{ post.id }}#postComment" class="ds-thread-count" data-thread-key="{{ post.id }}" data-count-type="comments"></a>
+          <!-- <i class="icon-comment-alt"></i> -->
+        </div>
+			  <div class="post-bottom-cate">
 				<a href="/post/cate/{{post.category}}">{{ siteInfo.cates_item[post.category].name}}</a><i class="icon-bookmark-empty"></i>
 			</div>
     	</div>
     </article>
   {% endfor %}
+
   {% if !posts || posts.length == 0%}
   <div class="post-none">
     <p>没有对应文章！</p>
@@ -37,3 +44,15 @@
   </div>
   {% endif %}
 </div>
+<!-- 多说js加载开始，一个页面只需要加载一次 -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"febiz"};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+<!-- 多说js加载结束，一个页面只需要加载一次 -->

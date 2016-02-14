@@ -101,9 +101,25 @@
 .content .content-post .post-item .post-content a.markdown-body h4{
 	font-size:14px;
 }
+.content .content-post .post-item .post-more{
+	text-align: center;
+}
+.content .content-post .post-item .post-more a{
+	font-size: 14px;
+	color: rgba(0,0,0,.6);
+	text-decoration: none;
+}
+.content .content-post .post-item .post-more a i{
+	padding-left:10px;
+	font-size: 16px;
+}
+.content .content-post .post-item .post-more a:hover{
+	color: #296ad4;
+}
+
 .content .content-post .post-item .post-bottom{
 	overflow: hidden;
-	padding-top: 15px;
+	padding-top: 20px;
 }
 .content .content-post .post-item .post-bottom a{
 	font-size: 14px;
@@ -113,8 +129,16 @@
 .content .content-post .post-item .post-bottom a:hover{
 	color: #296ad4;
 }
-.content .content-post .post-item .post-bottom .post-bottom-more{
+.content .content-post .post-item .post-bottom .post-bottom-comment{
 	float: left;
+}
+.content .content-post .post-item .post-bottom .post-bottom-comment a{
+	padding-right: 5px;
+}
+.content .content-post .post-item .post-bottom .post-bottom-comment i{
+	color: rgba(0,0,0,.4);
+	font-size: 18px;
+    vertical-align: middle;
 }
 .content .content-post .post-item .post-bottom .post-bottom-cate{
 	float: right;
