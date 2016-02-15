@@ -52,7 +52,7 @@ module.exports.aj_edit = function* (){
   let author = data.author || this.userInfo.id;
   let category = this.category;
   let result = {code:0,message:''};
-
+console.log(data);
   if(!this.siteInfo.cates_item || !this.siteInfo.cates_item[category]){
     result.code = 3;
     result.message = '没有找到对应的文章分类';
