@@ -19,10 +19,6 @@ function _getItem(arr) {
   return result;
 }
 
-function _mongoMap(opt) {
-  console.log(opt)
-}
-
 module.exports = function*() {
   let UserModel = this.mongo('User');
   let CateModel = this.mongo('Category');

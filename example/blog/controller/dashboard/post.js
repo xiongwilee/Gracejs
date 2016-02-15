@@ -76,7 +76,7 @@ module.exports.aj_edit = function* (){
     title: data.title,
     image: data.image,
     from: data.from,
-    author: data.author,
+    author: author,
     content: data.content,
     htmlContent: data.htmlContent,
     introContent: data.introContent,
