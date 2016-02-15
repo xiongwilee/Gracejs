@@ -48,10 +48,13 @@
 	color: rgba(0,0,0,.8);
 	font-size: 20px;
 	line-height: 20px;
+	text-align: center;
 	text-decoration: none;
-}
-.content .content-post .post-item .post-title a{
 	display: block;
+}
+.content .content-post .post-item .post-title a:hover{
+	color: #296ad4;
+	text-decoration: underline;
 }
 .content .content-post .post-item .post-image{
 	padding-bottom: 20px;
@@ -101,6 +104,7 @@
 	font-size:14px;
 }
 .content .content-post .post-item .post-more{
+	padding-top: 20px;
 	text-align: center;
 }
 .content .content-post .post-item .post-more a{

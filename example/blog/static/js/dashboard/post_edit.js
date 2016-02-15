@@ -62,11 +62,6 @@
 			if(!htmlContent[i].outerHTML){
 				continue;
 			}
-			if(htmlContent[i].nodeName == 'A'){
-				continue;
-			}
-
-			$(htmlContent[i]).find('a').remove();
 
 			result += htmlContent[i].outerHTML;
 		}

@@ -15,8 +15,8 @@
           <a href="/post/content/{{ post.id }}" target="_blank"><img src="{{post.image}}" target="_blank"/></a>
       </div>
       {% endif %}
-    	<div class="post-content">
-          <a href="/post/content/{{ post.id }}" target="_blank" class="markdown-body">{% autoescape false %}{{ post.introContent || post.content }}{% endautoescape %}</a>
+    	<div class="post-content markdown-body">
+          {% autoescape false %}{{ post.introContent || post.content }}{% endautoescape %}
       </div>
       <div class="post-more">
           <a class="post-more-link" href="/post/content/{{ post.id }}" target="_blank">read more <i class="icon-angle-right"></i></a>
