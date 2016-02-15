@@ -15,6 +15,7 @@ module.exports.list = function* () {
   yield this.render('dashboard/post_list',{
     breads : ['文章管理','文章列表'],
     posts:posts,
+    page:page,
     userInfo: this.userInfo,
     siteInfo: this.siteInfo
   })

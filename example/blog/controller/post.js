@@ -39,7 +39,7 @@ module.exports.cate = function* () {
   }
 
   yield this.render('post_cate', {
-    breads : ['分类:' + cate.name],
+    breads : ['分类',cate.name],
     cate: this.siteInfo.cates_item[id],
     page: page,
   	posts: posts,

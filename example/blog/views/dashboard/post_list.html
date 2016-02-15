@@ -34,6 +34,14 @@
 	      	{% endfor %}
 	      </tbody>
 	    </table>
+
+	  {% if !posts || posts.length == 0%}
+	  <div class="post-none">
+	    <p>没有对应文章！</p>
+	  </div>
+	  {% else %}
+	  	{% include 'page.html'%}
+	  {% endif %}
 	</div>
 	</div>
 {% endblock %}

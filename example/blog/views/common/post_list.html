@@ -1,10 +1,11 @@
 <link rel="stylesheet" href="/static/css/common/post_theme.css" type="text/css">
 <div class="content-post">
   {% for post in posts %}
+    {% set user = siteInfo.users_item[post.author] || {} %}
     <article class="post-item">
     	<div class="post-author">
-    		<img src="{{siteInfo.users_item[post.author].avatar}}">
-    		<a href="{{siteInfo.users_item[post.author].blog}}" target="_blank">{{siteInfo.users_item[post.author].nickname}}</a>
+    		<img src="{{user.avatar}}">
+    		<a href="{{user.blog}}" target="_blank">{{user.nickname}}</a>
     		<span>{{post.time|date('Y-m-d h:m')}}</span>
     	</div>
       <h2 class="post-title">

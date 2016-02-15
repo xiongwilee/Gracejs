@@ -2,8 +2,9 @@
 <div class="content-post">
   <article class="post-item">
 	  <div class="post-author">
-		  <img src="{{siteInfo.users_item[post.author].avatar}}">
-		  <a href="{{siteInfo.users_item[post.author].blog}}" target="_blank">{{siteInfo.users_item[post.author].nickname}}</a>
+      {% set user = siteInfo.users_item[post.author] || {} %}
+		  <img src="{{user.avatar}}">
+		  <a href="{{user.blog}}" target="_blank">{{user.nickname}}</a>
 		  <span>{{post.time|date('Y-m-d h:m')}}</span>
 	  </div>
     <div class="post-cate">
