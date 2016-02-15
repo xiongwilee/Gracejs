@@ -11,6 +11,8 @@
 		$('#postListBody').on('click','.delete', function(evt){
 			evt.preventDefault();
 			
+			if(!confirm('您是否确定要删除该博客？')){return;}
+
 			var id = $(this).data('id');
 			$.post('/dashboard/post/aj_post_delete', {id:id},function(res){
 				if( res.code == 0){
