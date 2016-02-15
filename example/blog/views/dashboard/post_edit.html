@@ -35,11 +35,11 @@
 		    <label for="inputId" class="col-sm-1 control-label">作者</label>
 		    <div class="col-sm-10">
 		    	{% if userInfo.isAdmin %}
+		    		<select class="form-control" name="author" required>
 		    		{% for user in siteInfo.users%}
-			    		<select class="form-control" name="author" required>
-			    			<option value="{{user.id}}" {% if userInfo.id == user.id %}selected{% endif %}>{{ user.name }}</option>
-			    		</select>
+			    			<option value="{{user.id}}" {% if userInfo.id == user.id %}selected="true"{% endif %}>{{ user.name }}</option>
 		    		{% endfor %}
+		    		</select>
 		    	{% else %}
 		      		<input type="text" class="form-control" name="author" id="inputId" readonly=true value="{{post.author || userInfo.id}}" required>
 		    	{% endif %}
