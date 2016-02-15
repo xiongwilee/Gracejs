@@ -54,9 +54,10 @@ module.exports = function*() {
 
   let user_id = this.cookies.get('USER_ID');
   let user_info = {};
+  let isApi = (this.path.indexOf('/api/') == 0);
 
   // 如果是api开头path的话， 就认为是第三方请求， user_id密钥从请求信息中获取
-  if (this.path.indexOf('/api/') == 0) {
+  if (isApi) {
     user_id = user_id || this.query.secret_id || this.request.body.secret_id;
   }
 
@@ -70,8 +71,11 @@ module.exports = function*() {
     console.log(err)
   }
 
-  if (this.path.indexOf('/api/') !== 0) {
-    if (!user_info.user_id || user_info.ip !== this.request.ip || user_info.time < Date.now()) {
+  if (!isApi) {
+    if (!user_info.user_id 
+        || user_info.ip !== this.request.ip 
+        || user_info.time < Date.now()
+        ) {
       return;
     }
   }
