@@ -70,8 +70,10 @@ module.exports = function*() {
     console.log(err)
   }
 
-  if (!user_info.user_id || user_info.ip !== this.request.ip || user_info.time < Date.now()) {
-    return;
+  if (this.path.indexOf('/api/') !== 0) {
+    if (!user_info.user_id || user_info.ip !== this.request.ip || user_info.time < Date.now()) {
+      return;
+    }
   }
 
   this.userInfo = yield this.mongo('User', {}).getUserById(user_info.user_id);
