@@ -37,7 +37,7 @@ module.exports = function*() {
 
   let mongoResult = yield [{
     model: UserModel,
-    fun: 'getAuthor'
+    fun: 'list'
   }, {
     model: CateModel,
     fun: 'list'
