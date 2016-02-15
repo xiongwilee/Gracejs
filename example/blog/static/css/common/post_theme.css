@@ -214,6 +214,7 @@
 }
 
 .markdown-body img {
+    display: block;
     max-width: 100%;
     box-sizing: content-box;
     background-color: #fff

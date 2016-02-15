@@ -59,7 +59,17 @@ module.exports.aj_edit = function* (){
 
   let data = this.request.body;
   let is_new = data.is_new;
+  let author = data.author || userInfo.id;
+  let category = data.category;
   let result = {code:0,message:''};
+
+  if(!this.siteInfo.cates_item || !this.siteInfo.cates_item[category]){
+    result.code = 3;
+    result.message = '没有找到对应的文章分类';
+    this.body = result;
+    return;
+  }
+
 
   let PostModel = this.mongo('Post',{
     id: data.id,

@@ -2,6 +2,15 @@
 
 let userAuthor = require('../dashboard/userAuthor');
 
+module.exports.aj_cate_list = function* (){
+  yield this.bindDefault();
+  if( !userAuthor.checkAuth(this, this.userInfo, false, true) ){return};
+
+  this.body = this.siteInfo.cates;
+};
+module.exports.aj_cate_list.__method__ = 'all';
+
+
 module.exports.aj_post_delete = function* (){
   yield this.bindDefault();
   if( !userAuthor.checkAuth(this, this.userInfo, false, true) ){return};
@@ -40,18 +49,28 @@ module.exports.aj_edit = function* (){
 
   let data = this.request.body;
   let is_new = data.is_new;
+  let author = data.author || userInfo.id;
+  let category = this.category;
   let result = {code:0,message:''};
+
+  if(!this.siteInfo.cates_item || !this.siteInfo.cates_item[category]){
+    result.code = 3;
+    result.message = '没有找到对应的文章分类';
+
+    this.body = result;
+    return;
+  }
 
   let PostModel = this.mongo('Post',{
     id: data.id,
     title: data.title,
     image: data.image,
     from: data.from,
-    author: data.author,
+    author: author,
     content: data.content,
     htmlContent: data.htmlContent,
     introContent: data.introContent,
-    category: data.category
+    category: category
   });
 
   let doc = yield PostModel.getPostById(data.id);
