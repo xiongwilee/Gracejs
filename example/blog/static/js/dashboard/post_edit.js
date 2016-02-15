@@ -66,6 +66,8 @@
 				continue;
 			}
 
+			$(htmlContent[i]).find('a').remove();
+
 			result += htmlContent[i].outerHTML;
 		}
 		return result

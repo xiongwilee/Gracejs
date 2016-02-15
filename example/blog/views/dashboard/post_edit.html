@@ -37,7 +37,7 @@
 		    	{% if userInfo.isAdmin %}
 		    		<select class="form-control" name="author" required>
 		    		{% for user in siteInfo.users%}
-			    			<option value="{{user.id}}" {% if userInfo.id == user.id %}selected="true"{% endif %}>{{ user.name }}</option>
+			    			<option value="{{user.id}}" {% if !post.author && userInfo.id == user.id || post.author && post.author == user.id %}selected="true"{% endif %}>{{ user.name }}</option>
 		    		{% endfor %}
 		    		</select>
 		    	{% else %}
