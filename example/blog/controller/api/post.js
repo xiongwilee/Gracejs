@@ -49,7 +49,7 @@ module.exports.aj_edit = function* (){
 
   let data = this.request.body;
   let is_new = data.is_new;
-  let author = data.author || userInfo.id;
+  let author = data.author || this.userInfo.id;
   let category = this.category;
   let result = {code:0,message:''};
 
