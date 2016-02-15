@@ -52,6 +52,7 @@ module.exports.aj_edit = function* (){
   let author = data.author || this.userInfo.id;
   let category = data.category;
   let result = {code:0,message:''};
+  let tag = data.tag ? data.tag.split(','):[];
 
   if(!this.siteInfo.cates_item || !this.siteInfo.cates_item[category]){
     result.code = 3;
@@ -70,7 +71,8 @@ module.exports.aj_edit = function* (){
     content: data.content,
     htmlContent: data.htmlContent,
     introContent: data.introContent,
-    category: category
+    category: category,
+    tag: tag
   });
 
   let doc = yield PostModel.getPostById(data.id);
@@ -82,11 +84,7 @@ module.exports.aj_edit = function* (){
     this.body = result;
     return;
   }else if(is_new == 0 && !doc){
-    result.code = '2';
-    result.message = '文章不存在，无法编辑！';
-
-    this.body = result;
-    return;
+    is_new = 1;
   }
 
   let res = yield PostModel.edit( is_new );

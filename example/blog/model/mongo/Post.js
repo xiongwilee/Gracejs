@@ -16,7 +16,7 @@ let schema = [{
   htmlContent: {type: String,required: true},
   introContent: {type: String,required: true},
   category: {type: String,required: true},
-  tips: {type: Array}
+  tag: {type: Array}
 }, {
   autoIndex: true,
   versionKey: false
