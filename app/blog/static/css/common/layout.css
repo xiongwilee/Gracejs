@@ -11,8 +11,12 @@
 	position: relative;
 	z-index: 1;
 	height: 200px;
-
-	background: #296ad4;
+	background: -webkit-linear-gradient(left top, #296ad4,#1F54AB);
+	background: -moz-linear-gradient(left top, #296ad4,#1F54AB);
+	background: -o-linear-gradient(left top, #296ad4,#1F54AB);
+	background: linear-gradient(left top, #296ad4,#1F54AB);
+	background-color: #296ad4;
+	background-size: 100% 100%;
 }
 .header-container{
 	position: relative;
@@ -33,16 +37,16 @@
 	display: block;
 	line-height: 40px;
 	padding: 0 30px;
-	border-top: 2px #296ad4 solid;
+	border-top: 2px solid transparent;
 
-	color: #B5CAFF;
+	color: rgba(255,255,255,.75);
 	text-decoration: none;
 }
 .header .nav .nav-list .nav-item:hover{
 	color: #ffffff;
 }
 .header .nav .actived .nav-item{
-	border-color: #B5CAFF;
+	border-color: rgba(255,255,255,.75);
 	color: #ffffff;
 }
 
@@ -63,7 +67,7 @@
 	line-height: 40px;
 	border-top: 2px solid transparent;
 
-	color: #B5CAFF;
+	color: rgba(255,255,255,.75);
 	text-decoration: none;
 	overflow: hidden;
 }
@@ -80,7 +84,7 @@
 	display: none;
 }
 .header .user .user-panel:hover{
-	border-color: #4F8EF7;
+	border-color: rgba(255,255,255, 0.3);
 	background-color: rgba(0, 0, 0, 0.1);
 }
 .header .user .user-panel:hover .user-opera{
@@ -95,7 +99,7 @@
 	line-height: 24px;
 
 	font-size: 13px;
-	color: #B5CAFF;
+	color: rgba(255,255,255,.75);
 	text-decoration: none;
 }
 .header .user .user-panel .user-opera .user-opera-list a:hover{
@@ -106,7 +110,7 @@
 	display: block;
 	line-height: 40px;
 
-	color: #B5CAFF;
+	color: rgba(255,255,255,.75);
 	text-decoration: none;
 }
 .header .user .user-login i{
@@ -126,12 +130,12 @@
 	text-align: center;
 }
 .header .logo h1{
-	color: #ebf3ff;
+	color: rgba(255,255,255,.95);
 	font-size: 40px;
 	margin: 10px 0px;
 }
 .header .logo span{
-	color: #c2d8ff;
+	color: rgba(255,255,255,.6);
 }
 
 /* 搜索区域 */
@@ -274,7 +278,7 @@
 	color: #296ad4;
 }
 .main .sidebar .side-item-cate .side-ul li a:hover i{
-	color: #B5CAFF;
+	color: #296ad4;
 }
 .main .sidebar .side-item-link .side-ul{
 	padding: 10px 0px;
@@ -295,7 +299,7 @@
 	color: rgba(0,0,0,.5);
 }
 .main .sidebar .side-item-link .side-ul li a:hover{
-	border-color: #B5CAFF;
+	border-color: #296ad4;
 	color: #296ad4;
 }
 .main .sidebar .side-item-user .side-ul li{
@@ -335,7 +339,7 @@
 	color: #296ad4;
 }
 .main .sidebar .side-item-user .side-ul li a:hover span.item-blog{
-	color: #B5CAFF;
+	color: #296ad4;
 }
 
 /**
@@ -358,12 +362,18 @@
  */
 /*当屏幕尺寸小于1024px时，应用下面的CSS样式*/
 @media screen and (min-device-width: 600px) and (max-device-width: 1024px) {
+	.header{
+		background-size: auto 100%;
+	}
 	.header-container, .header .search-container, .main .main-container, .footer-container{
 		width: 90%;
 	}
 }
 /*当屏幕尺寸小于600px时，应用下面的CSS样式*/
 @media screen and (max-device-width: 600px) {
+	.header{
+		background-size: auto 100%;
+	}
 	.header .nav .nav-list .nav-item{
 		padding: 0 5px;
 	}

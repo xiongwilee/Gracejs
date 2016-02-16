@@ -168,7 +168,7 @@
 	border: 1px solid rgba(0,0,0,.1);
 	border-radius: 2px;
 	background: #ffffff;
-	color: rgba(0,0,0,.5);
+	color: rgba(0,0,0,.1);
     cursor: not-allowed;
     text-decoration: none;
 }
@@ -178,7 +178,7 @@
 	color: rgba(0,0,0,.6)
 }
 .content .content-post .post-page a.actived:hover{
-	border-color: #B5CAFF;
+	border-color: #296ad4;
 	color: #296ad4;
 }
 
