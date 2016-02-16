@@ -9,10 +9,10 @@ let schema = [{
   name: {type: String,required: true},
   isAuthor: {type: Boolean,'default': false},
   isAdmin: {type: Boolean,'default': false},
-  nickname: {type: String,required: true},
-  avatar: {type: String,required: true},
-  github: {type: String,required: true},
-  email: {type: String,required: true},
+  nickname: {type: String},
+  avatar: {type: String},
+  github: {type: String},
+  email: {type: String},
   blog: {type: String}
 }, {
   autoIndex: true,
