@@ -1,7 +1,7 @@
 "use strict";
 
 var env = process.env.NODE_ENV || 'development'
-var port = process.env.PORT || 80
+var port = process.env.PORT || 3000
 
 var DEBUG = env !== 'production'
 
