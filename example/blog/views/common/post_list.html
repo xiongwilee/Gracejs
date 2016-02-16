@@ -2,6 +2,7 @@
 <div class="content-post">
   {% for post in posts %}
     {% set user = siteInfo.users_item[post.author] || {} %}
+    {% set cate = siteInfo.cates_item[post.category] || {} %}
     <article class="post-item">
     	<div class="post-author">
     		<img src="{{user.avatar}}">
@@ -30,7 +31,7 @@
           <!-- <i class="icon-comment-alt"></i> -->
         </div>
 			  <div class="post-bottom-cate">
-				<a href="/post/cate/{{post.category}}">{{ siteInfo.cates_item[post.category].name}}</a><i class="icon-bookmark-empty"></i>
+				<a href="/post/cate/{{post.category}}">{{ cate.name}}</a><i class="icon-bookmark-empty"></i>
 			</div>
     	</div>
     </article>

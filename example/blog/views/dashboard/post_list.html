@@ -24,11 +24,12 @@
 	      </thead>
 	      <tbody id="postListBody">
 	      	{% for post in posts%}
+	      	{% set cate = siteInfo.cates_item[post.category] || {} %}
 	        <tr>
 	          <th scope="row">{{ post.id }}</th>
 	          <td><a href="/post/content/{{ post.id }}" target="_blank">{{ post.title }}</a></td>
 	          <td>{{ post.author }}</td>
-	          <td>{{ siteInfo.cates_item[post.category].name }}</td>
+	          <td>{{ cate.name }}</td>
 	          <td><a href="/dashboard/post/edit?id={{ post.id }}">编辑</a><span> | </span><a href="#" data-id="{{ post.id }}" class="delete">删除</a></td>
 	        </tr>
 	      	{% endfor %}

@@ -3,12 +3,13 @@
   <article class="post-item">
 	  <div class="post-author">
       {% set user = siteInfo.users_item[post.author] || {} %}
+      {% set cate = siteInfo.cates_item[post.category] || {} %}
 		  <img src="{{user.avatar}}">
 		  <a href="{{user.blog}}" target="_blank">{{user.nickname}}</a>
 		  <span>{{post.time|date('Y-m-d h:m')}}</span>
 	  </div>
     <div class="post-cate">
-      <a href="/post/cate/{{post.category}}">{{ siteInfo.cates_item[post.category].name}}</a><i class="icon-bookmark-empty"></i>
+      <a href="/post/cate/{{post.category}}">{{ cate.name}}</a><i class="icon-bookmark-empty"></i>
     </div>
     {% if post.from %}
     <div class="post-from"><span>[来源]</span><a href="{{ post.from }}">{{ post.from }}</a></div>
