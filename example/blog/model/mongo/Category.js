@@ -40,6 +40,19 @@ let methods = {
   getCategoryById: function* (id) {
     return this.model('Category').findOne({id:id});
   },
+  /**
+   * 更新分类数量
+   * @param {String} id            分类ID，TODO:不传id为更新所有分类数量
+   */
+  updateCateNum: function* (id) {
+    let count = yield this.model('Post').count({
+      category:id
+    });
+
+    return this.model('Category').update({id:id},{
+      numb : count
+    });
+  },
   numbAdd: function* (id, addNum) {
     let cate = yield this.model('Category').findOne({id:id});
     let num = cate.numb || 0;

@@ -43,7 +43,7 @@ module.exports.aj_post_delete = function* (){
   }
 
   if(post.category){
-    let cate = yield CateModel.numbMinus(post.category);
+    let cate = yield CateModel.updateCateNum(post.category);
 
     this.body = result;
     return;
@@ -102,8 +102,20 @@ module.exports.aj_edit = function* (){
 
   let res = yield PostModel.edit( is_new );
 
+  // 更新分类数量
+  let CateModel = this.mongo('Category');
   if(is_new == 1){
-    yield this.mongo('Category').numbAdd( data.category );    
+    yield CateModel.updateCateNum( data.category );    
+  }else if(doc.category != data.category){
+    yield [{
+      model: CateModel,
+      fun: 'updateCateNum',
+      arg: [data.category]
+    },{
+      model:CateModel,
+      fun:'updateCateNum',
+      arg: [doc.category]
+    }].map(this.mongoMap);
   }
 
   this.body = result;

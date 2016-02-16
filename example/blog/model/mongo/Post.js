@@ -27,6 +27,9 @@ let statics = {}
 
 // http://mongoosejs.com/docs/guide.html#methods
 let methods = {
+  list: function* () {
+    return this.model('Post').find();
+  },
   edit: function*(is_new) {
     let id = this.id;
 
