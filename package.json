@@ -6,14 +6,15 @@
     "start": "node bin/server.js",
     "dev": "./node_modules/.bin/nodemon bin/server.js"
   },
-  "bin": {},
+  "bin": {
+    "koa-grace": "node bin/koa-grace"
+  },
   "author": "wilee",
   "license": "MIT",
   "dependencies": {
     "commander": "^2.9.0",
     "debug": "^2.2.0",
     "ejs": "^2.4.1",
-    "install": "^0.4.2",
     "koa": "^1.1.2",
     "koa-bodyparser": "^2.0.1",
     "koa-grace-fetch": "^1.0.2",

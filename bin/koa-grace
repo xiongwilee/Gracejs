@@ -2,12 +2,6 @@
 
 var program = require('commander');
 
-var generate = require('./generate');
-var service = require('./service');
-var log = require('./log');
-
-var program = require('commander');
-
 program
   .version('0.0.1')
   .option('-r, --restart', 	'重启koa-grace服务')
@@ -21,3 +15,5 @@ program
   .option('-lm, --log-mongo', 		'查看其他mongo请求日志')
   .option('-le, --log-error', 		'查看错误日志')
   .parse(process.argv);
+
+console.log('TODO..');

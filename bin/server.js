@@ -3,53 +3,17 @@
 var config = global.config = require('../config/main');
 
 var app = require('../src/app');
-var debug = require('debug')('koa-hornbill:server');
+var debug = require('debug')('koa-grace:server');
 var http = require('http');
-/**
- * Get port from environment and store in Express.
- */
 
-var port = normalizePort(config.site.port);
-
-/**
- * Create HTTP server.
- */
-
+// create server with src/app.js
 var server = http.createServer(app.callback());
+var port = config.site.port;
 
-/**
- * Listen on provided port, on all network interfaces.
- */
-
+// start server with config.site.port
 server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
 
-/**
- * Normalize a port into a number, string, or false.
- */
-
-function normalizePort(val) {
-  var port = parseInt(val, 10);
-
-  if (isNaN(port)) {
-    // named pipe
-    return val;
-  }
-
-  if (port >= 0) {
-    // port number
-    return port;
-  }
-
-  return false;
-}
-
-/**
- * Event listener for HTTP server "error" event.
- */
-
-function onError(error) {
+server.on('error', function (error) {
   if (error.syscall !== 'listen') {
     throw error;
   }
@@ -69,14 +33,10 @@ function onError(error) {
     default:
       throw error;
   }
-}
+});
 
-/**
- * Event listener for HTTP server "listening" event.
- */
-
-function onListening() {
+server.on('listening', function () {
   var addr = server.address();
   var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
   debug('Listening on ' + bind);
-}
+});
