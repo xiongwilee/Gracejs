@@ -99,7 +99,7 @@ module.exports.aj_edit = function*() {
   let tag = data.tag ? data.tag.split(',') : [];
 
   // 校验数据
-  let result.message = _validatePostData(data);
+  result.message = _validatePostData(data);
   if(result.message){
     result.code = 2;
     return;
