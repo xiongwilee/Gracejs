@@ -333,7 +333,7 @@
 
 .markdown-body code{
     background-color: rgba(0,0,0,0.04);
-    padding: 0 3px;
+    padding: 3px;
     border-radius: 2px;
 }
 .markdown-body code br,.markdown-body tt br {
