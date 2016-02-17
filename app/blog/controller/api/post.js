@@ -73,7 +73,7 @@ function _validatePostData(data) {
     let item = params[i];
     let key = item[0];
 
-    if (item[2] && data[key] === undefined) {
+    if (item[2] && !data[key]) {
       message = '缺少参数：' + key + '，该参数为' + item[3];
       break;
     }
