@@ -43,7 +43,12 @@ let methods = {
       return result;
     }
 
+    // 更新文档更新时间
+    this._doc.updateTime = Date.now();
+
     if(is_new == 1){
+      this._doc.time = Date.now();
+
       return this.save();  
     }else{
       return this.model('Post').update({id:id},getData(this._doc));
