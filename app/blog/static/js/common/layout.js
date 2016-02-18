@@ -1,5 +1,5 @@
 (function($) {
-  var $header = $('#header');
+  var $html = $('html');
 
   var init = function() {
     setDefault();
@@ -19,17 +19,13 @@
     _setTheme();
   }
   var _setTheme = function() {
-    var theme = ['/static/image/bg_3_s.jpg',
-      '/static/image/bg_4_s.jpg',
-      '/static/image/bg_5_s.jpg',
-      '/static/image/bg_6_s.jpg',
-      '/static/image/bg_7_s.jpg',
-      '/static/image/bg_8_s.jpg'
-    ].sort(function() {
-      return Math.random() - 0.5;
-    }).slice(0, 1);
+    var theme = [
+        'theme-3','theme-4','theme-5','theme-6','theme-7','theme-8'
+      ].sort(function() {
+        return Math.random() - 0.5;
+      }).slice(0, 1);
 
-    $header.css('background-image','url('+theme+')');
+    $html.addClass(theme[0]);
   }
 
   init();
