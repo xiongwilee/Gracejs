@@ -17,6 +17,7 @@
 	background: linear-gradient(left top, #296ad4,#1F54AB);
 	background-color: #296ad4;
 	background-size: 100% 100%;
+	background-position: center;
 }
 .header-container{
 	position: relative;
