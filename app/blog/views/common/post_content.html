@@ -6,7 +6,7 @@
       {% set cate = siteInfo.cates_item[post.category] || {} %}
 		  <img src="{{user.avatar}}">
 		  <a href="{{user.blog}}" target="_blank">{{user.nickname}}</a>
-		  <span>{{post.time|date('Y-m-d h:m',-480)}}</span>
+		  <span>{{post.time|date('Y-m-d H:i',-480)}}</span>
 	  </div>
     <div class="post-cate">
       <a href="/post/cate/{{post.category}}">{{ cate.name}}</a><i class="icon-bookmark-empty"></i>
