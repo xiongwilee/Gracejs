@@ -384,7 +384,7 @@ html.theme-8 .header{
  * media query
  */
 /*当屏幕尺寸小于1024px时，应用下面的CSS样式*/
-@media screen and (min-device-width: 600px) and (max-device-width: 1024px) {
+@media screen and (min-width: 600px) and (max-width: 1024px) {
 	.header{
 		background-size: auto 100%;
 	}
@@ -393,7 +393,7 @@ html.theme-8 .header{
 	}
 }
 /*当屏幕尺寸小于600px时，应用下面的CSS样式*/
-@media screen and (max-device-width: 600px) {
+@media screen and (max-width: 600px) {
 	.header{
 		background-size: auto 100%;
 	}
