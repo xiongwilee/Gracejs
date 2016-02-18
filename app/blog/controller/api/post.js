@@ -2,7 +2,7 @@
 
 let userAuthor = require('../dashboard/userAuthor');
 
-module.exports.aj_cate_list = function*() {
+exports.aj_cate_list = function*() {
   yield this.bindDefault();
   if (!userAuthor.checkAuth(this, this.userInfo, false, true)) {
     return
@@ -10,10 +10,10 @@ module.exports.aj_cate_list = function*() {
 
   this.body = this.siteInfo.cates;
 };
-module.exports.aj_cate_list.__method__ = 'all';
+exports.aj_cate_list.__method__ = 'all';
 
 
-module.exports.aj_post_delete = function*() {
+exports.aj_post_delete = function*() {
   yield this.bindDefault();
   if (!userAuthor.checkAuth(this, this.userInfo, false, true)) {
     return
@@ -48,7 +48,7 @@ module.exports.aj_post_delete = function*() {
     return;
   }
 };
-module.exports.aj_post_delete.__method__ = 'all';
+exports.aj_post_delete.__method__ = 'all';
 
 /**
  * 校验请求参数是否合法
@@ -82,7 +82,7 @@ function _validatePostData(data) {
   return message;
 }
 
-module.exports.aj_edit = function*() {
+exports.aj_edit = function*() {
   yield this.bindDefault();
   if (!userAuthor.checkAuth(this, this.userInfo, false, true)) {
     return
@@ -160,4 +160,4 @@ module.exports.aj_edit = function*() {
 
   this.body = result;
 }
-module.exports.aj_edit.__method__ = 'all';
+exports.aj_edit.__method__ = 'all';

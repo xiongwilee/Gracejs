@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports.content = function* () {
+exports.content = function* () {
   yield this.bindDefault();
   let PostModel = this.mongo('Post');
 
@@ -20,9 +20,9 @@ module.exports.content = function* () {
   });
 }
 // 配置index路由的regular
-module.exports.content.__regular__ = '/:id';
+exports.content.__regular__ = '/:id';
 
-module.exports.cate = function* () {
+exports.cate = function* () {
   yield this.bindDefault();
   let PostModel = this.mongo('Post');
 
@@ -48,4 +48,4 @@ module.exports.cate = function* () {
   });
 }
 // 配置index路由的regular
-module.exports.cate.__regular__ = '/:id';
+exports.cate.__regular__ = '/:id';

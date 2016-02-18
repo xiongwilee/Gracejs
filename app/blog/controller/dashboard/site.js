@@ -2,7 +2,7 @@
 
 let userAuthor = require('./userAuthor');
 
-module.exports.home = function* () {
+exports.home = function* () {
   yield this.bindDefault();
   if (!userAuthor.checkAuth(this, this.userInfo)) {return};
 
@@ -13,7 +13,7 @@ module.exports.home = function* () {
   })
 }
 
-module.exports.aj_link_delete = function* (){
+exports.aj_link_delete = function* (){
   yield this.bindDefault();
   if (!userAuthor.checkAuth(this, this.userInfo)) {return};
 
@@ -32,9 +32,9 @@ module.exports.aj_link_delete = function* (){
   this.body = result;
   return;
 };
-module.exports.aj_link_delete.__method__ = 'post';
+exports.aj_link_delete.__method__ = 'post';
 
-module.exports.aj_link_edit = function* (){
+exports.aj_link_edit = function* (){
   yield this.bindDefault();
   if (!userAuthor.checkAuth(this, this.userInfo)) {return};
   
@@ -68,9 +68,9 @@ module.exports.aj_link_edit = function* (){
 
   this.body = result;
 }
-module.exports.aj_link_edit.__method__ = 'post';
+exports.aj_link_edit.__method__ = 'post';
 
-module.exports.link = function* () {
+exports.link = function* () {
   yield this.bindDefault();
   if (!userAuthor.checkAuth(this, this.userInfo)) {return};
 

@@ -1,5 +1,5 @@
 'use strict';
-module.exports.index = function* () {
+exports.index = function* () {
   yield this.bindDefault();
 
   let pageNum = this.query.page;
@@ -26,7 +26,7 @@ module.exports.index = function* () {
   })
 }
 
-module.exports.about = function* () {
+exports.about = function* () {
   yield this.bindDefault();
 
   yield this.render('home_about',{
@@ -36,7 +36,7 @@ module.exports.about = function* () {
   })
 }
 
-module.exports.join = function* () {
+exports.join = function* () {
   yield this.bindDefault();
 
   yield this.render('home_join',{

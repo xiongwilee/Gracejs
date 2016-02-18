@@ -1,7 +1,7 @@
 'use strict';
 
 // 设置为非路由
-module.exports.__controller__ = false;
+exports.__controller__ = false;
 
 function _res(ctx, isJson, message) {
 	message = message || '您的权限不够';
@@ -17,7 +17,7 @@ function _res(ctx, isJson, message) {
 	return false;
 }
 
-module.exports.checkAuth = function(ctx, userInfo, needAdmin, isJson) {
+exports.checkAuth = function(ctx, userInfo, needAdmin, isJson) {
   let message;
 
   if(!userInfo){

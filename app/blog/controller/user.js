@@ -6,7 +6,7 @@ const key = "http://mlsfe.biz/private_key"; //加密的秘钥
 let client_id = '02f5d364d2d4aff85a00';
 let client_secret = '015e99f9215438a681e4529efb47b72c6b574552';
 
-module.exports.login = function*() {
+exports.login = function*() {
   yield this.bindDefault();
 
   // 如果已经登录就不用再登录，直接重定向到首页
@@ -24,14 +24,14 @@ module.exports.login = function*() {
   this.redirect(path);
 }
 
-module.exports.logout = function*() {
+exports.logout = function*() {
   this.cookies.set('USER_ID', '', {
     expires: new Date(Date.now() - 1000 * 60 * 60 * 24 * 30),
   });
   this.redirect('/home');
 }
 
-module.exports.oauth = function*() {
+exports.oauth = function*() {
   let code = this.query.code;
 
   this.headers.Accept = 'application/json';

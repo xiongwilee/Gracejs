@@ -2,9 +2,10 @@
 module.exports = function* () {
   yield this.bindDefault();
 
-  yield this.render('about',{
-  	userInfo: this.userInfo,
-  	siteInfo: this.siteInfo
+  yield this.render('home_about',{
+    breads : ['关于'],
+    userInfo: this.userInfo,
+    siteInfo: this.siteInfo
   })
 }
 // 配置index路由为get请求

@@ -2,7 +2,7 @@
 
 let userAuthor = require('./userAuthor');
 
-module.exports.mine = function*() {
+exports.mine = function*() {
   yield this.bindDefault();
   if (!userAuthor.checkAuth(this, this.userInfo)) {return};
 
@@ -14,7 +14,7 @@ module.exports.mine = function*() {
   })
 }
 
-module.exports.list = function*() {
+exports.list = function*() {
   yield this.bindDefault();
   if (!userAuthor.checkAuth(this, this.userInfo)) {return};
 
@@ -28,7 +28,7 @@ module.exports.list = function*() {
   })
 }
 
-module.exports.aj_user_delete = function*() {
+exports.aj_user_delete = function*() {
   yield this.bindDefault();
   if (!userAuthor.checkAuth(this, this.userInfo)) {return};
 
@@ -57,9 +57,9 @@ module.exports.aj_user_delete = function*() {
   this.body = result;
   return;
 };
-module.exports.aj_user_delete.__method__ = 'post';
+exports.aj_user_delete.__method__ = 'post';
 
-module.exports.aj_user_author_add = function*() {
+exports.aj_user_author_add = function*() {
   yield this.bindDefault();
   if (!userAuthor.checkAuth(this, this.userInfo, true, true)) {
     return;
@@ -86,9 +86,9 @@ module.exports.aj_user_author_add = function*() {
   this.body = result;
   return;
 };
-module.exports.aj_user_author_add.__method__ = 'post';
+exports.aj_user_author_add.__method__ = 'post';
 
-module.exports.aj_user_author_delete = function*() {
+exports.aj_user_author_delete = function*() {
   yield this.bindDefault();
   if (!userAuthor.checkAuth(this, this.userInfo, true, true)) {
     return;
@@ -122,4 +122,4 @@ module.exports.aj_user_author_delete = function*() {
   this.body = result;
   return;
 };
-module.exports.aj_user_author_delete.__method__ = 'post';
+exports.aj_user_author_delete.__method__ = 'post';
