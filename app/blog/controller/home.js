@@ -5,15 +5,15 @@ module.exports.index = function* () {
   let pageNum = this.query.page;
   let PostModel = this.mongo('Post');
 
-  let mongoResult = yield [{
+  let mongoResult = yield this.mongoMap([{
       model: PostModel,
-      fun: 'page',
+      fun: PostModel.page,
       arg: [pageNum]
     },{
-      model:PostModel,
-      fun:'count',
+      model: PostModel,
+      fun:PostModel.count,
       arg: [pageNum]
-    }].map(this.mongoMap);
+    }]);
 
   let posts = mongoResult[0];
   let page = mongoResult[1];

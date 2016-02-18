@@ -31,16 +31,16 @@ module.exports = function*() {
   }
 
 
-  let mongoResult = yield [{
+  let mongoResult = yield this.mongoMap([{
     model: UserModel,
-    fun: 'list'
+    fun: UserModel.list
   }, {
     model: CateModel,
-    fun: 'list'
+    fun: CateModel.list
   }, {
     model: LinkModel,
-    fun: 'list'
-  }].map(this.mongoMap);
+    fun: LinkModel.list
+  }]);
 
   this.siteInfo.users = mongoResult[0];
   this.siteInfo.users_item = _getItem(this.siteInfo.users);

@@ -107,15 +107,16 @@ module.exports.aj_edit = function* (){
   if(is_new == 1){
     yield CateModel.updateCateNum( data.category );    
   }else if(doc.category != data.category){
-    yield [{
+    // 更新doc原分类的数量及doc现分类的数量
+    yield this.mongoMap([{
       model: CateModel,
-      fun: 'updateCateNum',
+      fun: CateModel.updateCateNum,
       arg: [data.category]
     },{
       model:CateModel,
-      fun:'updateCateNum',
+      fun:CateModel.updateCateNum,
       arg: [doc.category]
-    }].map(this.mongoMap);
+    }]);
   }
 
   this.body = result;
