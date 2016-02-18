@@ -7,7 +7,7 @@
     	<div class="post-author">
     		<img src="{{user.avatar}}">
     		<a href="{{user.blog}}" target="_blank">{{user.nickname}}</a>
-    		<span>{{post.time|date('Y-m-d h:m')}}</span>
+    		<span>{{post.time|date('Y-m-d h:m',-480)}}</span>
     	</div>
       <h2 class="post-title">
           <a href="/post/content/{{ post.id }}" target="_blank">{{ post.title }}</a>
