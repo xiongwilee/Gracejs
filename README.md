@@ -39,10 +39,10 @@ And then , you can visit the DEMO at [http://127.0.0.1:3000](http://127.0.0.1:30
 Or you can see live DEMO : http://mlsfe.biz
 
 ## Community
-
- - [中文文档](docs/documents.md) 
- - [Examples](https://github.com/xiongwilee/koa-grace/tree/master/app)
- - [Contribution](docs/contribution.md)
+ - [Documents](https://github.com/xiongwilee/koa-grace/wiki)
+ - [[中文文档]](https://github.com/xiongwilee/koa-grace/wiki/koa-grace%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3) 
+ - [Contribution](https://github.com/xiongwilee/koa-grace/wiki/Contribution)
+ - [More examples](https://github.com/xiongwilee/koa-grace/tree/master/app)
  - [what is koa](https://github.com/koajs/koa)
 
 ## Authors
