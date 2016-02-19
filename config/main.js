@@ -14,8 +14,6 @@ module.exports = {
 
   // 站点相关的配置
   site: {
-    name: "koa-grace",
-    keys: ['d715025d4a566a1112c82063b60aa4de13ecd550'],
     env: env,
     debug: DEBUG,
     port: port
@@ -32,8 +30,8 @@ module.exports = {
 
   // vhost配置
   vhost: {
-    'test.mlsfe.biz':'blog',
-    '127.0.0.1':'shop',
+    '127.0.0.1':'blog',
+    'localhost':'shop',
     '0.0.0.0':'reactjs-boilerplate'
   },
 
