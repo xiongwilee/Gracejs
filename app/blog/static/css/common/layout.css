@@ -11,10 +11,10 @@
 	position: relative;
 	z-index: 1;
 	height: 200px;
-	background: -webkit-linear-gradient(left top, #296ad4,#1F54AB);
+	/*background: -webkit-linear-gradient(left top, #296ad4,#1F54AB);
 	background: -moz-linear-gradient(left top, #296ad4,#1F54AB);
 	background: -o-linear-gradient(left top, #296ad4,#1F54AB);
-	background: linear-gradient(left top, #296ad4,#1F54AB);
+	background: linear-gradient(left top, #296ad4,#1F54AB);*/
 	background-color: #296ad4;
 	background-size: 100% 100%;
 	background-position: center;
@@ -123,7 +123,7 @@
 /* logo区域 */
 .header .logo{
 	position: absolute;
-	top: 45px;
+	top: 50px;
 	left: 0px;
 	right: 0px;
 	clear: both;
@@ -395,8 +395,8 @@ html.theme-8 .header{
 }
 /*当屏幕尺寸小于600px时，应用下面的CSS样式*/
 @media screen and (max-width: 600px) {
-	.header{
-		background-size: auto 100%;
+	html.theme .header{
+		background-image: none;
 	}
 	.header .nav .nav-list .nav-item{
 		padding: 0 5px;
