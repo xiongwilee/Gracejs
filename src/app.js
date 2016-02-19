@@ -21,6 +21,7 @@ let config_api = global.config.api;
 let config_path = global.config.path;
 let config_path_project = global.config.path.project;
 let config_site = global.config.site;
+let config_template = global.config.template;
 let config_mongo = global.config.mongo;
 
 let app = koa();
@@ -61,10 +62,11 @@ vhosts = vhosts.map(function(item) {
   }));
 
   // 配置模板引擎
+  let template = (typeof config_template == 'object' ? config_template[appName] : config_template);
   vapp.use(views(appPath + '/views', {
     root: appPath + '/views',
     map: {
-      html: 'swig'
+      html: template || 'swig'
     }
   }));
 

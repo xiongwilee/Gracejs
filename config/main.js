@@ -40,5 +40,8 @@ module.exports = {
   // mongo配置
   mongo: {
     'blog': 'mongodb://localhost:27017/blog'
-  }
+  },
+
+  // 模板引擎配置
+  template: 'swig'
 }
