@@ -24,7 +24,7 @@
         {% else %}
           <div class="user-panel">
       		  <a class="user-name" href="#">
-              <img src="{{userInfo.avatar}}" class="user-name-img">
+              <img src="/user/avatar?img={{userInfo.avatar}}" class="user-name-img">
               <span class="user-name-text">{{userInfo.nickname}}</span>
             </a>
       		  <ul class="user-opera">
@@ -95,7 +95,7 @@
             {% if user.blog %}
               <li>
                 <a href="{{user.blog}}" class="side-ul-item clearfix" target="_blank">
-                  <img src="{{user.avatar}}" class="item-img">
+                  <img src="/user/avatar?img={{user.avatar}}" class="item-img">
                   <span class="item-nickname">{{ user.nickname }}</span>
                   <span class="item-blog">{{ user.blog }}</span>
                 </a>

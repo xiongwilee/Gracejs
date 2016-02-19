@@ -4,7 +4,7 @@ const path = require('path'),
   koa = require('koa'),
   router = require('koa-grace-router'),
   vhost = require('koa-grace-vhost'),
-  fetch = require('koa-grace-fetch'),
+  proxy = require('koa-grace-proxy'),
   model = require('koa-grace-model'),
   mongo = require('koa-grace-mongo'),
   logger = require('koa-logger'),
@@ -51,7 +51,7 @@ vhosts = vhosts.map(function(item) {
   }))
 
   // 配置api
-  vapp.use(fetch(vapp, {
+  vapp.use(proxy(vapp, {
     api: config_api
   }));
 

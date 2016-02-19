@@ -4,7 +4,7 @@
 	  <div class="post-author">
       {% set user = siteInfo.users_item[post.author] || {} %}
       {% set cate = siteInfo.cates_item[post.category] || {} %}
-		  <img src="{{user.avatar}}">
+		  <img src="/user/avatar?img={{user.avatar}}">
 		  <a href="{{user.blog}}" target="_blank">{{user.nickname}}</a>
 		  <span>{{post.time|date('Y-m-d H:i',-480)}}</span>
 	  </div>

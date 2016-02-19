@@ -1,6 +1,7 @@
 'use strict';
 
 const crypto = require('crypto');
+const url = require('url');
 const key = "http://mlsfe.biz/private_key"; //加密的秘钥
 
 let client_id = '02f5d364d2d4aff85a00';
@@ -15,6 +16,7 @@ exports.login = function*() {
     return;
   }
 
+  // 重定向到github oauth登录页
   var path = "https://github.com/login/oauth/authorize";
   path += '?client_id=' + client_id;
   path += '&redirect_uri=' + this.request.protocol + '://' + this.request.host + '/user/oauth?from=github';
@@ -31,29 +33,52 @@ exports.logout = function*() {
   this.redirect('/home');
 }
 
-exports.oauth = function*() {
-  let code = this.query.code;
+exports.avatar = function* (){
+  let query = this.query;
+  try{
+    let urlObj = url.parse(query.img);
+    yield this.download('https://avatars.githubusercontent.com' + urlObj.path);
+  }catch(err){
+    this.body = {
+      code: '1',
+      message: 'img path error',
+      data: query
+    }
+  }
+}
 
-  this.headers.Accept = 'application/json';
+exports.oauth = function*() {
+  // 为所有的GITHUB请求设置头信息为Accept参数为'application/json'
+  this.headers.accept = 'application/json';
+
   // 获取access_token
-  yield this.fetch({
+  let code = this.query.code; 
+  yield this.proxy({
     oauthInfo: 'github:post:login/oauth/access_token?client_id=' + client_id + '&client_secret=' + client_secret + '&code=' + code
   })
   let access_token = this.backData.oauthInfo.access_token;
   // 如果没有获取到access_token则直接返回
   if (!access_token) {
-    this.body = this.backData;
+    this.body = {
+      code: 1,
+      message: 'Get access_token error',
+      data: this.backData
+    };
     return;
   }
 
   // 获取用户github信息
-  yield this.fetch({
+  yield this.proxy({
     userInfo: 'github_api:user?access_token=' + access_token
   });
   let _userInfo = this.backData.userInfo;
   // 如果没有登录信息，则返回
   if (!_userInfo.login) {
-    this.body = this.backData;
+    this.body = {
+      code: 2,
+      message: 'Get user_info error',
+      data: this.backData
+    };
     return;
   }
 
