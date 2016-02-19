@@ -1,4 +1,4 @@
-<img src="https://github.com/xiongwilee/koa-grace/blob/master/logo.png?raw=true" alt="koa middleware framework for nodejs" width="255px" />
+<img src="https://github.com/xiongwilee/koa-grace/blob/master/logo.png?raw=true" alt="koa-grace" width="255px" />
 
 # koa-grace
 
@@ -36,7 +36,7 @@ Change `config.mongo.blog` to your local mongodb path:
 
 And now , you can visit DEMO at [http://127.0.0.1:3000](http://127.0.0.1:3000/home)
 
-<img src="https://github.com/xiongwilee/koa-grace/blob/master/app/blog/static/image/demo.jpg?raw=true" alt="koa middleware framework for nodejs" width="800px" />
+<img src="https://github.com/xiongwilee/koa-grace/blob/master/app/blog/static/image/demo.png?raw=true" alt="koa-grace" width="800px" />
 
 ## Community
 
