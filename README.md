@@ -34,9 +34,7 @@ Change `config.mongo.blog` to your local mongodb path:
 	
 	$ npm run dev
 
-And now , you can visit DEMO at [http://127.0.0.1:3000](http://127.0.0.1:3000/home)
-
-<img src="https://github.com/xiongwilee/koa-grace/blob/master/app/blog/static/image/demo.png?raw=true" alt="koa-grace" width="800px" />
+And then , you can Visit DEMO at [http://127.0.0.1:3000](http://127.0.0.1:3000/home) .
 
 ## Community
 
@@ -48,7 +46,6 @@ And now , you can visit DEMO at [http://127.0.0.1:3000](http://127.0.0.1:3000/ho
 ## Authors
 
   - [Xiongwilee](https://github.com/xiongwilee)
-  - we need you!
 
 # License
 
