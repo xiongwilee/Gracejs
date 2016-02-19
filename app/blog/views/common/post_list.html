@@ -6,7 +6,7 @@
     <article class="post-item">
     	<div class="post-author">
     		<img src="/user/avatar?img={{user.avatar}}">
-    		<a href="{{user.blog||'#'}}" target="_blank">{{user.nickname}}</a>
+    		<a href="{{user.blog || user.github}}" target="_blank">{{user.nickname}}</a>
     		<span>{{post.time|date('Y-m-d H:i',-480)}}</span>
     	</div>
       <h2 class="post-title">
