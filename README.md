@@ -36,6 +36,8 @@ Change `config.mongo.blog` to your local mongodb path:
 
 And then , you can visit the DEMO at [http://127.0.0.1:3000](http://127.0.0.1:3000/home) .
 
+Or you can see live DEMO : http://mlsfe.biz
+
 ## Community
 
  - [中文文档](docs/documents.md) 
