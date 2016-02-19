@@ -34,7 +34,7 @@ Change `config.mongo.blog` to your local mongodb path:
 	
 	$ npm run dev
 
-And then , you can Visit DEMO at [http://127.0.0.1:3000](http://127.0.0.1:3000/home) .
+And then , you can visit the DEMO at [http://127.0.0.1:3000](http://127.0.0.1:3000/home) .
 
 ## Community
 
