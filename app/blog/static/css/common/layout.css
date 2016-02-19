@@ -428,6 +428,7 @@ html.theme-8 .header{
 	}
 	.main .content .content-post .post-item{
 		margin-right: 0px;
+		padding: 20px;
 	}
 	.header-container, .header .search-container, .main .main-container, .footer-container{
 		width: 98%;
