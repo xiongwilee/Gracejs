@@ -2,7 +2,7 @@
 
 let userAuthor = require('./userAuthor');
 
-module.exports.list = function* () {
+exports.list = function* () {
   yield this.bindDefault();
   if (!userAuthor.checkAuth(this, this.userInfo)) {return};
 
@@ -22,7 +22,7 @@ module.exports.list = function* () {
 }
 
 
-module.exports.aj_post_delete = function* (){
+exports.aj_post_delete = function* (){
   yield this.bindDefault();
   if (!userAuthor.checkAuth(this, this.userInfo)) {return};
 
@@ -52,9 +52,9 @@ module.exports.aj_post_delete = function* (){
     return;
   }
 };
-module.exports.aj_post_delete.__method__ = 'post';
+exports.aj_post_delete.__method__ = 'post';
 
-module.exports.aj_edit = function* (){
+exports.aj_edit = function* (){
   yield this.bindDefault();
   if (!userAuthor.checkAuth(this, this.userInfo)) {return};
 
@@ -121,10 +121,10 @@ module.exports.aj_edit = function* (){
 
   this.body = result;
 }
-module.exports.aj_edit.__method__ = 'post';
+exports.aj_edit.__method__ = 'post';
 
 
-module.exports.edit = function* () {
+exports.edit = function* () {
   yield this.bindDefault();
   if (!userAuthor.checkAuth(this, this.userInfo)) {return};
 
@@ -149,7 +149,7 @@ module.exports.edit = function* () {
 }
 
 
-module.exports.aj_cate_delete = function* (){
+exports.aj_cate_delete = function* (){
   yield this.bindDefault();
   if (!userAuthor.checkAuth(this, this.userInfo)) {return};
 
@@ -171,10 +171,10 @@ module.exports.aj_cate_delete = function* (){
   this.body = result;
   return;
 };
-module.exports.aj_cate_delete.__method__ = 'post';
+exports.aj_cate_delete.__method__ = 'post';
 
 
-module.exports.aj_cate_edit = function* (){
+exports.aj_cate_edit = function* (){
   yield this.bindDefault();
   if (!userAuthor.checkAuth(this, this.userInfo)) {return};
   
@@ -208,9 +208,9 @@ module.exports.aj_cate_edit = function* (){
 
   this.body = result;
 }
-module.exports.aj_cate_edit.__method__ = 'post';
+exports.aj_cate_edit.__method__ = 'post';
 
-module.exports.cate = function* () {
+exports.cate = function* () {
   yield this.bindDefault();
   if (!userAuthor.checkAuth(this, this.userInfo)) {return};
 

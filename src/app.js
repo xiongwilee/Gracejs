@@ -11,7 +11,6 @@ const path = require('path'),
   gzip = require('koa-gzip'),
   views = require('koa-views'),
   bodyparser = require('koa-bodyparser'),
-  onerror = require('koa-onerror'),
   mount = require('koa-mount'),
   koastatic = require('koa-static');
 

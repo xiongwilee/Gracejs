@@ -36,7 +36,7 @@ Change `config.mongo.blog` to your local mongodb path:
 
 And then , you can visit the DEMO at [http://127.0.0.1:3000](http://127.0.0.1:3000/home) .
 
-Or you can see live DEMO : http://mlsfe.biz
+Or you can visit live DEMO at: http://mlsfe.biz
 
 ## Community
  - [Documents](https://github.com/xiongwilee/koa-grace/wiki)
