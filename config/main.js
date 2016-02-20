@@ -30,6 +30,7 @@ module.exports = {
 
   // vhost配置
   vhost: {
+    'test.mlsfe.biz':'blog',
     '127.0.0.1':'blog',
     'localhost':'shop',
     '0.0.0.0':'reactjs-boilerplate'
@@ -37,7 +38,12 @@ module.exports = {
 
   // mongo配置
   mongo: {
-    'blog': 'mongodb://localhost:27017/blog'
+    options:{
+      // mongoose 配置
+    },
+    api:{
+      'blog': 'mongodb://localhost:27017/blog'
+    }
   },
 
   // 模板引擎配置

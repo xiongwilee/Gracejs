@@ -46,9 +46,9 @@ vhosts = vhosts.map(function(item) {
   let appPath = path.resolve(config_path_project + '/' + appName);
 
   // 如果配置了连接数据库
-  config_mongo[appName] && vapp.use(mongo(vapp,{
+  config_mongo.api[appName] && vapp.use(mongo(vapp,{
     root: appPath + '/model/mongo',
-    connect: config_mongo[appName]
+    connect: config_mongo.api[appName]
   }))
 
   // 配置api
