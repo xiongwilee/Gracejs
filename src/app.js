@@ -78,7 +78,8 @@ vhosts = vhosts.map(function(item) {
   // 配置控制器文件路由
   vapp.use(router(vapp, {
     root: appPath + '/controller',
-    default_path: config_path.default_path[appName]
+    default_path: config_path.default_path[appName],
+    domain: item
   }));
 
   vapp.use(logger());

@@ -1,9 +1,8 @@
 "use strict";
 
-var env = process.env.NODE_ENV || 'development'
-var port = process.env.PORT || 3000
-
-var DEBUG = env !== 'production'
+let env = process.env.NODE_ENV || 'development';
+let port = process.env.PORT || 3000;
+let DEBUG = process.env.DEBUG = process.env.DEBUG || 'koa-grace*'
 
 module.exports = {
   // controller中请求各类数据前缀和域名的键值对
@@ -15,7 +14,6 @@ module.exports = {
   // 站点相关的配置
   site: {
     env: env,
-    debug: DEBUG,
     port: port
   },
 
