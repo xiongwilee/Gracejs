@@ -1,4 +1,4 @@
-<img src="https://github.com/xiongwilee/koa-grace/blob/master/logo.png?raw=true" alt="koa-grace" width="255px" />
+<img src="https://github.com/xiongwilee/koa-grace/blob/master/logo.png?raw=true" alt="koa-grace" width="255px" title="A koa multi-app MVC framework"/>
 
 # koa-grace
 
