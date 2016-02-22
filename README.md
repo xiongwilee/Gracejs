@@ -1,8 +1,9 @@
 <img src="https://github.com/xiongwilee/koa-grace/blob/master/logo.png?raw=true" alt="koa-grace" width="255px" />
 
-[![Build Status](https://travis-ci.org/xiongwilee/koa-grace.svg?branch=master)](https://travis-ci.org/xiongwilee/koa-grace)
-
 # koa-grace
+
+[![NPM version][npm-image]][npm-url]
+[![Build Status](https://travis-ci.org/xiongwilee/koa-grace.svg?branch=master)](https://travis-ci.org/xiongwilee/koa-grace)
 
 koa-grace is a new generation Nodejs multi-app MVC framework, which build with KOA / Mongoose etc.
 
