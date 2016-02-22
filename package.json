@@ -1,7 +1,15 @@
 {
   "name": "koa-grace",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A new generation Nodejs multi-app MVC framework, which build with KOA / Mongoose etc.",
+  "Keywords":[
+    "nodejs",
+    "koa",
+    "grace",
+    "koa-grace",
+    "mvc",
+    "framework"
+  ],
   "main": "src/app.js",
   "scripts": {
     "start": "node bin/server.js",
