@@ -1,6 +1,6 @@
 {
   "name": "koa-grace",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "scripts": {
     "start": "node bin/server.js",
