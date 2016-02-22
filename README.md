@@ -2,7 +2,7 @@
 
 # koa-grace
 
-[![NPM version](https://www.npmjs.com/package/koa-grace)](https://www.npmjs.com/package/koa-grace)
+[![NPM version](https://img.shields.io/npm/v/koa-grace.svg)](https://www.npmjs.com/package/koa-grace)
 [![Build Status](https://travis-ci.org/xiongwilee/koa-grace.svg?branch=master)](https://travis-ci.org/xiongwilee/koa-grace)
 
 koa-grace is a new generation Nodejs multi-app MVC framework, which build with KOA / Mongoose etc.
