@@ -4,6 +4,7 @@
   "description": "",
   "scripts": {
     "start": "node bin/server.js",
+    "test": "mocha",
     "dev": "./node_modules/.bin/nodemon bin/server.js"
   },
   "bin": {
@@ -30,7 +31,9 @@
     "koa-static": "^2.0.0",
     "koa-views": "^4.0.1",
     "nodemon": "^1.8.1",
-    "npm": "^3.6.0",
     "swig": "^1.4.2"
+  },
+  "devDependencies": {
+    "mocha": "^2.4.5"
   }
 }
