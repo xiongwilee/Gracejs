@@ -2,7 +2,7 @@
   "name": "koa-grace",
   "version": "1.0.4",
   "description": "A new generation Nodejs multi-app MVC framework, which build with KOA / Mongoose etc.",
-  "Keywords":[
+  "Keywords": [
     "nodejs",
     "koa",
     "grace",
@@ -16,13 +16,9 @@
     "test": "mocha",
     "dev": "./node_modules/.bin/nodemon bin/server.js"
   },
-  "bin": {
-    "koa-grace": "node bin/koa-grace"
-  },
   "author": "wilee",
   "license": "MIT",
   "dependencies": {
-    "commander": "^2.9.0",
     "debug": "^2.2.0",
     "ejs": "^2.4.1",
     "koa": "^1.1.2",
