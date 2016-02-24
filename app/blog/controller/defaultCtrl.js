@@ -82,3 +82,6 @@ module.exports = function*() {
 
   this.userInfo = yield this.mongo('User', {}).getUserById(user_info.user_id);
 }
+
+// 设置为非路由
+exports.__controller__ = false;
