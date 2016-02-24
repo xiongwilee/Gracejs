@@ -57,7 +57,7 @@ vhosts = vhosts.map(function(item) {
 
   // 配置默认路由
   vapp.use(model(vapp, {
-    root: appPath + '/model'
+    root: appPath + '/controller'
   }));
 
   // 配置模板引擎
