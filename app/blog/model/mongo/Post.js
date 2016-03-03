@@ -1,10 +1,10 @@
 'use strict';
 
 // model名称，即表名
-let model = 'Post';
+exports.model = 'Post';
 
 // 表结构
-let schema = [{
+exports.schema = [{
   id: {type: String,unique: true,required: true},
   title: {type: String,required: true},
   image: {type: String},
@@ -23,10 +23,10 @@ let schema = [{
 }];
 
 // 静态方法:http://mongoosejs.com/docs/guide.html#statics
-let statics = {}
+exports.statics = {}
 
 // http://mongoosejs.com/docs/guide.html#methods
-let methods = {
+exports.methods = {
   list: function* () {
     return this.model('Post').find();
   },
@@ -91,8 +91,3 @@ let methods = {
     return this.model('Post').find(query).sort({'_id':-1}).skip((pageNum - 1) * pageSize).limit(pageSize);
   }
 }
-
-module.exports.model = model;
-module.exports.schema = schema;
-module.exports.statics = statics;
-module.exports.methods = methods;
