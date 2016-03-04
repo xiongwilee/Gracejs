@@ -1,10 +1,10 @@
 'use strict';
 
 // model名称，即表名
-let model = 'User';
+exports.model = 'User';
 
 // 表结构
-let schema = [{
+exports.schema = [{
   id: {type: String,unique: true,required: true},
   name: {type: String,required: true},
   isAuthor: {type: Boolean,'default': false},
@@ -20,10 +20,10 @@ let schema = [{
 }];
 
 // 静态方法:http://mongoosejs.com/docs/guide.html#statics
-let statics = {}
+exports.statics = {}
 
 // http://mongoosejs.com/docs/guide.html#methods
-let methods = {
+exports.methods = {
   add: function*() {
     return this.save();
   },
@@ -69,8 +69,3 @@ let methods = {
     return this.model('User').find();
   }
 }
-
-module.exports.model = model;
-module.exports.schema = schema;
-module.exports.statics = statics;
-module.exports.methods = methods;
