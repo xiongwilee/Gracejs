@@ -5,6 +5,9 @@ let port = process.env.PORT || 3000;
 let DEBUG = process.env.DEBUG = process.env.DEBUG || 'koa-grace*'
 
 module.exports = {
+  // 扩展配置文件
+  extend: '../koa-grace-app/config/main.js',
+  
   // controller中请求各类数据前缀和域名的键值对
   api: {
     github_api:'https://api.github.com/',
