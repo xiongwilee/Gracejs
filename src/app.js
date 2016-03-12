@@ -11,8 +11,7 @@ const path = require('path'),
   gzip = require('koa-gzip'),
   views = require('koa-views'),
   bodyparser = require('koa-bodyparser'),
-  mount = require('koa-mount'),
-  koastatic = require('koa-static');
+  _static = require('koa-grace-static');
 
 let config = global.config;
 let config_vhost = global.config.vhost;
@@ -32,6 +31,9 @@ app.use(bodyparser({
 
 // gzip
 app.use(gzip());
+
+// 配置静态文件路由
+app.use(_static('/static', config_path_project, config_vhost));
 
 let vhosts = [];
 for (let item in config_vhost) {
@@ -68,11 +70,6 @@ vhosts = vhosts.map(function(item) {
       html: template || 'swig'
     }
   }));
-
-  // 配置静态文件路由
-  vapp.use(mount('/static',
-    koastatic(appPath + '/static')
-  ));
 
   // 配置控制器文件路由
   vapp.use(router(vapp, {
