@@ -1,6 +1,6 @@
 "use strict";
 
-let env = process.env.NODE_ENV || 'development';
+let env = process.env.ENV || 'development';
 let port = process.env.PORT || 3000;
 let DEBUG = process.env.DEBUG = process.env.DEBUG || 'koa-grace*'
 
