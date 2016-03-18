@@ -1,34 +1,11 @@
 #!/usr/bin/env node
 
 var http = require('http');
-var fs = require('fs');
-var util = require('util');
-var path = require('path');
 
 var debug = require('debug')('koa-grace:server');
+var config = require('../src/config');
 
-var config;
-
-getConfig();
 startServer();
-
-/**
- * get config
- * @return 
- */
-function getConfig(){
-  config = require('../config/main');
-  var extendConfig = {};
-
-  if(config.extend){
-    var extPath = path.resolve((config.extend));
-    extendConfig = fs.existsSync(extPath) ? require(extPath) : extendConfig;
-  }
-
-  config = util._extend(config, extendConfig);
-
-  global.config = config;
-}
 
 /**
  * start server
