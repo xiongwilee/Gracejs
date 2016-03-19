@@ -14,4 +14,4 @@ if (config.extend) {
   extendConfig = fs.existsSync(extPath) ? require(extPath) : extendConfig;
 }
 
-module.exports = global.config = util._extend(config, extendConfig);
+module.exports = util._extend(config, extendConfig);

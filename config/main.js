@@ -22,6 +22,8 @@ module.exports = {
 
   // 路径相关的配置
   path: {
+    // app
+    app: './app/',
     // project
     project: './app/',
     default_path:{
