@@ -57,11 +57,6 @@ vhosts = vhosts.map(function(item) {
     api: config_api
   }));
 
-  // 配置默认路由
-  vapp.use(model(vapp, {
-    root: appPath + '/controller'
-  }));
-
   // 配置模板引擎
   let template = (typeof config_template == 'object' ? config_template[appName] : config_template);
   vapp.use(views(appPath + '/views', {
