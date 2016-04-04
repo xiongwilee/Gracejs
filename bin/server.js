@@ -2,8 +2,8 @@
 
 var http = require('http');
 
-var debug = require('debug')('koa-grace:server');
 var config = global.config =  require('../src/config');
+var debug = require('debug')('koa-grace:server');
 
 startServer();
 
