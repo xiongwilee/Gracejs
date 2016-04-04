@@ -5,11 +5,10 @@ const path = require('path'),
   router = require('koa-grace-router'),
   vhost = require('koa-grace-vhost'),
   proxy = require('koa-grace-proxy'),
-  model = require('koa-grace-model'),
   mongo = require('koa-grace-mongo'),
   logger = require('koa-logger'),
   gzip = require('koa-gzip'),
-  views = require('koa-views'),
+  views = require('koa-grace-views'),
   bodyparser = require('koa-bodyparser'),
   _static = require('koa-grace-static');
 
