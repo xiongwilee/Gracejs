@@ -12,9 +12,11 @@
   ],
   "main": "src/app.js",
   "scripts": {
-    "start": "node bin/server.js",
+    "start": "node bin/server.js --online",
+    "start.dev": "node bin/server.js",
     "test": "mocha",
-    "dev": "./node_modules/.bin/nodemon bin/server.js"
+    "dev": "./node_modules/.bin/nodemon bin/server.js",
+    "dev.ol": "./node_modules/.bin/nodemon bin/server.js --online"
   },
   "author": "wilee",
   "license": "MIT",
@@ -24,7 +26,7 @@
     "koa": "^1.2.0",
     "koa-bodyparser": "^2.0.1",
     "koa-grace-mongo": "^1.0.0",
-    "koa-grace-proxy": "^1.0.3",
+    "koa-grace-proxy": "^1.0.7",
     "koa-grace-router": "^1.0.24",
     "koa-grace-static": "^1.0.3",
     "koa-grace-vhost": "^1.0.6",
