@@ -12,11 +12,11 @@
   ],
   "main": "src/app.js",
   "scripts": {
-    "start": "node bin/server.js --online",
+    "start": "node bin/server.js -online",
     "start.dev": "node bin/server.js",
     "test": "mocha",
     "dev": "./node_modules/.bin/nodemon bin/server.js",
-    "dev.ol": "./node_modules/.bin/nodemon bin/server.js --online"
+    "dev.ol": "./node_modules/.bin/nodemon bin/server.js -online"
   },
   "author": "wilee",
   "license": "MIT",
