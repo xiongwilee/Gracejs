@@ -26,7 +26,7 @@ module.exports = function*() {
 
   this.siteInfo = {
     path: this.path,
-    title: '美丽说商业前端团队博客-http://mlsfe.biz',
+    title: '前端俱乐部-http://blog.feclub.cn',
     year: new Date().getFullYear()
   }
 

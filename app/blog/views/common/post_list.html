@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/static/css/common/post_theme.css" type="text/css">
+<link rel="stylesheet" href="/static/blog/css/common/post_theme.css" type="text/css">
 <div class="content-post">
   {% for post in posts %}
     {% set user = siteInfo.users_item[post.author] || {} %}
@@ -18,7 +18,7 @@
       </div>
       {% endif %}
     	<div class="post-content markdown-body">
-          {% autoescape false %}{{ post.introContent || post.content }}{% endautoescape %}
+          {{ post.introContent || post.content | safe }}
       </div>
       <div class="post-more">
           <a class="post-more-link" href="/post/content/{{ post.id }}" target="_blank">read more <i class="icon-angle-right"></i></a>
