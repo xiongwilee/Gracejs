@@ -2,6 +2,7 @@
 
 const path = require('path'),
   koa = require('koa'),
+  mock = require('koa-grace-mock'),
   router = require('koa-grace-router'),
   vhost = require('koa-grace-vhost'),
   proxy = require('koa-grace-proxy'),
@@ -20,6 +21,7 @@ let config_path_project = global.config.path.project;
 let config_site = global.config.site;
 let config_template = global.config.template;
 let config_mongo = global.config.mongo;
+let config_mock = global.config.mock;
 
 let app = koa();
 
@@ -45,6 +47,12 @@ vhosts = vhosts.map(function(item) {
   let appName = config_vhost[item];
   let appPath = path.resolve(config_path_project + '/' + appName);
 
+  // 如果是在开发环境才使用mock数据功能
+  config_site.env == 'development' && vapp.use(mock(vapp,{
+    root: appPath + '/mock/',
+    prefix: config_mock.prefix + appName
+  }))
+
   // 如果配置了连接数据库
   config_mongo.api[appName] && vapp.use(mongo(vapp,{
     root: appPath + '/model/mongo',
@@ -62,7 +70,8 @@ vhosts = vhosts.map(function(item) {
     root: appPath + '/views',
     map: {
       html: template || 'swig'
-    }
+    },
+    cache: (config_site.env == 'production' ? 'memory' : false)
   }));
 
   // 配置控制器文件路由
