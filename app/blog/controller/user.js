@@ -37,7 +37,7 @@ exports.avatar = function* (){
   let query = this.query;
   try{
     let urlObj = url.parse(query.img);
-    yield this.download('https://avatars.githubusercontent.com' + urlObj.path);
+    yield this.fetch('https://avatars.githubusercontent.com' + urlObj.path);
   }catch(err){
     this.body = {
       code: '1',
