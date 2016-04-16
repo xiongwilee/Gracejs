@@ -13,6 +13,11 @@ module.exports = {
     github:'https://github.com/'
   },
 
+  // mock server配置
+  mock: {
+    prefix: '/__MOCK__/'
+  },
+
   // 站点相关的配置
   site: {
     env: env,
