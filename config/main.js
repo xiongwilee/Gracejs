@@ -7,6 +7,11 @@ module.exports = {
   // 扩展配置文件
   extend: '../koa-grace-app/config/main.js',
   
+  // proxy timeout时间
+  proxy: {
+    timeout: 15000
+  },
+  
   // controller中请求各类数据前缀和域名的键值对
   api: {
     github_api:'https://api.github.com/',
@@ -54,5 +59,17 @@ module.exports = {
   },
 
   // 模板引擎配置
-  template: 'swig'
+  template: 'swig',
+
+  // 上传下载配置
+  xload: {
+    path: 'files/',
+    upload: {
+      encoding: 'utf-8',
+      maxFieldsSize: 2 * 1024 * 1024,
+      maxFields: 1000,
+      keepExtensions: true
+    },
+    download: {}
+  }
 }
