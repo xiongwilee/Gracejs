@@ -32,11 +32,14 @@
     "koa-grace-static": "^1.0.5",
     "koa-grace-vhost": "^1.0.6",
     "koa-grace-views": "^1.0.3",
+    "koa-grace-xload": "^1.0.12",
     "koa-gzip": "^0.1.0",
     "koa-logger": "^1.3.0",
     "koa-mongo": "^0.5.0",
     "koa-onerror": "^1.3.1",
-    "nodemon": "^1.9.2"
+    "koa-response-time": "^1.0.2",
+    "nodemon": "^1.8.1",
+    "nunjucks": "^2.4.2"
   },
   "devDependencies": {
     "mocha": "^2.4.5"
