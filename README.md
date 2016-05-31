@@ -15,8 +15,7 @@ Before getting started ,please make sure you have already installed:
 
 ### Install 
 
-	$ npm install koa-grace-cli -g 
-	$ koa-grace -i
+	$ git clone https://github.com/xiongwilee/koa-grace.git
 	$ cd koa-grace && npm install
 
 ### Config 
