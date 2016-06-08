@@ -5,7 +5,7 @@
 [![NPM version](https://img.shields.io/npm/v/koa-grace.svg)](https://www.npmjs.com/package/koa-grace)
 [![Build Status](https://travis-ci.org/xiongwilee/koa-grace.svg?branch=master)](https://travis-ci.org/xiongwilee/koa-grace)
 
-koa-grace is a new generation Nodejs SFS(Separation of Front and Service ends) framework, build with [KOA](https://github.com/koajs/koa).
+koa-grace is a new generation Nodejs SFB(Separation of Front and Back ends) framework, build with [KOA](https://github.com/koajs/koa).
 
 ## Getting started
 
