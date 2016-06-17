@@ -62,10 +62,8 @@ app.use(_static(['/static/**/*', '/*/static/**/*'], {
 // 上传下载功能
 app.use(xload(app, config_xload));
 
-let vhosts = [];
-for (let item in config_vhost) {
-  vhosts.push(item);
-}
+// 获取vhost
+let vhosts = Object.keys(config.vhost);
 
 vhosts = vhosts.map(function(item) {
   let vapp = koa();
