@@ -5,7 +5,7 @@
 [![NPM version](https://img.shields.io/npm/v/koa-grace.svg)](https://www.npmjs.com/package/koa-grace)
 [![Build Status](https://travis-ci.org/xiongwilee/koa-grace.svg?branch=master)](https://travis-ci.org/xiongwilee/koa-grace)
 
-koa-grace is a new generation Nodejs multi-app MVC framework, which build with KOA / Mongoose etc.
+koa-grace is a new generation Nodejs SFB(Separation of Front and Back ends) framework, build with [KOA](https://github.com/koajs/koa).
 
 ## Getting started
 
@@ -15,8 +15,7 @@ Before getting started ,please make sure you have already installed:
 
 ### Install 
 
-	$ npm install koa-grace-cli -g 
-	$ koa-grace -i
+	$ git clone https://github.com/xiongwilee/koa-grace.git
 	$ cd koa-grace && npm install
 
 ### Config 
