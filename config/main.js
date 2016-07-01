@@ -1,11 +1,13 @@
 "use strict";
 
+process.env.DEBUG = process.env.DEBUG || 'koa-grace*';
+
 let env = process.env.NODE_ENV || 'development';
 let port = process.env.PORT || 3000;
 
 module.exports = {
   // 扩展配置文件
-  extend: '../koa-grace-app/config/main.js',
+  extend: './config/',
   
   // proxy timeout时间
   proxy: {
@@ -31,12 +33,14 @@ module.exports = {
 
   // 路径相关的配置
   path: {
-    // app
-    app: './app/',
     // project
     project: './app/',
     default_path:{
       blog:'/home'
+    },
+    // 如果设置jump为false，则当直接访问域名时不重定向到default_path
+    default_jump: {
+      blog: true
     }
   },
 

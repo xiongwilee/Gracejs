@@ -1,31 +1,38 @@
 #!/usr/bin/env node
 
-var http = require('http');
+'use strict';
 
-var config = global.config =  require('../src/config');
-var debug = require('debug')('koa-grace:server');
+const http = require('http');
+const fs = require('fs');
+const path = require('path');
+const args = parseArg();
 
+const config = global.config = require('../src/config')(args);
+const debug = require('debug')('koa-grace:server');
+
+// 启动服务
 startServer();
 
 /**
  * start server
  */
-function startServer(){
-  var app = require('../src/app');
+function startServer() {
+  let app = require('../src/app');
 
   // create server with src/app.js
-  var server = http.createServer(app.callback());
-  var port = config.site.port;
+  let server = http.createServer(app.callback());
+
+  let port = config.site.port;
 
   // start server with config.site.port
   server.listen(port);
 
-  server.on('error', function (error) {
+  server.on('error', function(error) {
     if (error.syscall !== 'listen') {
       throw error;
     }
 
-    var bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
+    let bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
 
     // handle specific listen errors with friendly messages
     switch (error.code) {
@@ -42,9 +49,34 @@ function startServer(){
     }
   });
 
-  server.on('listening', function () {
-    var addr = server.address();
-    var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
+  server.on('listening', function() {
+    let addr = server.address();
+    let bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
+
     debug('Listening on ' + bind);
   });
+}
+
+/**
+ * 通过 process.argv 获取命令行配置项
+ * @return {object} 配置项
+ */
+function parseArg() {
+  let argvs = process.argv;
+  let result = {};
+
+  let REG = /^--[a-zA-Z0-9]+\=[a-zA-Z0-9]+$/;
+
+  argvs.map(function(item) {
+    if (!REG.test(item)) {
+      return
+    }
+
+    let arr = item.split('=');
+    let key = arr[0].slice(2);
+
+    result[key] = arr[1];
+  })
+
+  return result;
 }
