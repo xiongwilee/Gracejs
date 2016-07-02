@@ -43,7 +43,7 @@ Or you can visit live DEMO at: http://mlsfe.biz
 
 ## Community
  - [Documents](https://github.com/xiongwilee/koa-grace/wiki)
- - [[中文文档]](https://github.com/xiongwilee/koa-grace/wiki/koa-grace) 
+ - [[中文文档]](https://github.com/xiongwilee/koa-grace/wiki/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3) 
  - [ISSUE](https://github.com/xiongwilee/koa-grace/issues)
  - [More examples](https://github.com/xiongwilee/koa-grace/tree/master/app)
  - [what is koa](https://github.com/koajs/koa)
