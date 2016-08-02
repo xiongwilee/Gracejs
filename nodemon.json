@@ -1,0 +1,4 @@
+{
+  "verbose": true,
+  "ignore": ["app/*/static/**/*","app/*/views/**/*","config/server.json","app/*/courier/**/*"]
+}

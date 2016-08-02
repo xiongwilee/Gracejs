@@ -8,6 +8,7 @@ const vhost = require('koa-grace-vhost');
 const proxy = require('koa-grace-proxy');
 const mongo = require('koa-grace-mongo');
 const xload = require('koa-grace-xload');
+const eagle = require('koa-grace-eagle');
 const views = require('koa-grace-views');
 const body = require('koa-grace-body');
 const _static = require('koa-grace-static');
@@ -16,6 +17,9 @@ const compress = require('koa-compress');
 let config = global.config;
 
 let app = koa();
+
+// eagle
+app.use(eagle(app, config.eagle));
 
 // compress
 app.use(compress());
@@ -57,7 +61,8 @@ vhosts = vhosts.map(function(item) {
 
   // 配置api
   vapp.use(proxy(vapp, config.api, {
-    timeout: config.proxy.timeout // 接口超时时间
+    timeout: config.proxy.timeout, // 接口超时时间
+    dsn: config.proxy.dsn // 线上才传dsn
   }));
 
   // 配置模板引擎
@@ -65,8 +70,10 @@ vhosts = vhosts.map(function(item) {
   vapp.use(views(appPath + '/views', {
     root: appPath + '/views',
     map: {
-      html: template || 'swig'
+      vm: 'velocityjs',
+      html: 'velocityjs'
     },
+    extension: 'vm',
     cache: config.site.env == 'production' && 'memory'
   }));
 
