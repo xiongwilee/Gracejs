@@ -7,39 +7,25 @@
 
 koa-grace is a new generation Nodejs SFB(Separation of Front and Back ends) framework, build with [KOA](https://github.com/koajs/koa).
 
+[[中文文档]](https://github.com/xiongwilee/koa-grace/wiki/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3) 
+
 ## Getting started
 
 Before getting started ,please make sure you have already installed:
 * Nodejs (v4+)
-* MongoDB
 
 ### Install 
 
 	$ git clone https://github.com/xiongwilee/koa-grace.git
 	$ cd koa-grace && npm install
 
-### Config 
-
-Open configuration file :
-
-	$ vi config/main.js
-
-Change `config.mongo.blog` to your local mongodb path:
-
-	// mongo configuration
-	mongo: {
-	  'blog': 'mongodb://localhost:27017/blog'
-	}
-
-**more configuration details at [here](https://github.com/xiongwilee/koa-grace/wiki/koa-grace#3-%E8%AF%A6%E7%BB%86%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3)**
-
 ### Run
 	
 	$ npm run dev
 
-And then , you can visit the DEMO at [http://127.0.0.1:3000](http://127.0.0.1:3000/home) .
+And then you can visit the DEMO at [http://127.0.0.1:3000](http://127.0.0.1:3000/) .
 
-Or you can visit live DEMO at: http://feclub.cn
+Or you can visit live DEMO at: http://127.0.0.1:3000
 
 ## Community
  - [Documents](https://github.com/xiongwilee/koa-grace/wiki)
