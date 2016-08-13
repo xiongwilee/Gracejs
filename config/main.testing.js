@@ -84,4 +84,3 @@ module.exports = {
     download: {}
   }
 }
-w
