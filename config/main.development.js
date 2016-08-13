@@ -43,8 +43,6 @@ module.exports = {
 
   // 路径相关的配置
   path: {
-    // app
-    app: './app/',
     // project
     project: './app/',
     // 当直接访问域名时的默认路由
