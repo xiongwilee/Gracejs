@@ -12,11 +12,12 @@
   ],
   "main": "src/app.js",
   "scripts": {
-    "start": "node bin/server.js -online",
-    "start.dev": "node bin/server.js",
+    "start": "node bin/server.js --env=production",
+    "start.dev": "node bin/server.js --env=development",
+    "start.test": "node bin/server.js --env=testing",
+    "start.pro": "node bin/server.js --env=production",
     "test": "mocha",
-    "dev": "./node_modules/.bin/nodemon bin/server.js",
-    "dev.ol": "./node_modules/.bin/nodemon bin/server.js -online"
+    "dev": "./node_modules/.bin/nodemon bin/server.js --env=development"
   },
   "author": "wilee",
   "license": "MIT",

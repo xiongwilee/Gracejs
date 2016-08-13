@@ -1,0 +1,71 @@
+* {
+  padding: 0px;
+  margin: 0px;
+}
+
+body {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  display: -webkit-box;
+  -moz-box-orient: vertical;
+  -moz-box-pack: center;
+  -moz-box-align: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-pack: center;
+  -webkit-box-align: center;
+  box-orient: vertical;
+  box-pack: center;
+  box-align: center;
+}
+
+h1 {
+  width: 50%;
+  padding-top: 240px;
+  background: url(/demo/static/image/logo.png) top center no-repeat;
+  background-size: 240px;
+  text-align: center;
+  font-size: 48px;
+  font-weight: normal;
+  font-family: serif;
+  color: #2b3442;
+}
+
+span {
+  display: block;
+  padding-bottom: 50px;
+  line-height: 3em;
+  font-size: 18px;
+  font-family: serif;
+  color: #4b5566;
+}
+
+.github-corner:hover .octo-arm {
+  animation: octocat-wave 560ms ease-in-out
+}
+
+@keyframes octocat-wave {
+  0%,
+  100% {
+    transform: rotate(0)
+  }
+  20%,
+  60% {
+    transform: rotate(-25deg)
+  }
+  40%,
+  80% {
+    transform: rotate(10deg)
+  }
+}
+
+@media (max-width:500px) {
+  .github-corner:hover .octo-arm {
+    animation: none
+  }
+  .github-corner .octo-arm {
+    animation: octocat-wave 560ms ease-in-out
+  }
+}

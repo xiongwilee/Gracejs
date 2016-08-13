@@ -36,8 +36,8 @@ app.use(xload(app, config.xload));
 
 // 获取vhost
 let vhosts = Object.keys(config.vhost);
-
-vhosts = vhosts.map(function(item) {
+// 注入vhost路由
+app.use(vhost(vhosts.map((item) => {
   let vapp = koa();
 
   let appName = config.vhost[item];
@@ -57,7 +57,8 @@ vhosts = vhosts.map(function(item) {
 
   // 配置api
   vapp.use(proxy(vapp, config.api, {
-    timeout: config.proxy.timeout // 接口超时时间
+    timeout: config.proxy.timeout, // 接口超时时间
+    dsn: config.proxy.dsn // 线上才传dsn
   }));
 
   // 配置模板引擎
@@ -83,11 +84,8 @@ vhosts = vhosts.map(function(item) {
     host: item,
     app: vapp
   };
-}).filter(function(item) {
+}).filter((item) => {
   return !!item;
-});
-
-// 注入vhost路由
-app.use(vhost(vhosts));
+})));
 
 module.exports = app;
