@@ -2,9 +2,10 @@
 
 # koa-grace
 
+[[中文文档]](https://github.com/xiongwilee/koa-grace/wiki/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3) 
+
 [![NPM version](https://img.shields.io/npm/v/koa-grace.svg)](https://www.npmjs.com/package/koa-grace)
 [![Build Status](https://travis-ci.org/xiongwilee/koa-grace.svg?branch=master)](https://travis-ci.org/xiongwilee/koa-grace)
-[[中文文档]](https://github.com/xiongwilee/koa-grace/wiki/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3) 
 
 koa-grace is a new generation Nodejs SFB(Separation of Front and Back ends) framework, build with [koa](https://github.com/koajs/koa).
 
