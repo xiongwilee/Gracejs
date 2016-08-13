@@ -12,7 +12,7 @@
   ],
   "main": "src/app.js",
   "scripts": {
-    "start": "node bin/server.js --env=production",
+    "start": "pm2 start process.json",
     "start.dev": "node bin/server.js --env=development",
     "start.test": "node bin/server.js --env=testing",
     "start.pro": "node bin/server.js --env=production",
