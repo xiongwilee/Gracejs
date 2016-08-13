@@ -4,10 +4,9 @@
 
 [![NPM version](https://img.shields.io/npm/v/koa-grace.svg)](https://www.npmjs.com/package/koa-grace)
 [![Build Status](https://travis-ci.org/xiongwilee/koa-grace.svg?branch=master)](https://travis-ci.org/xiongwilee/koa-grace)
-
-koa-grace is a new generation Nodejs SFB(Separation of Front and Back ends) framework, build with [KOA](https://github.com/koajs/koa).
-
 [[中文文档]](https://github.com/xiongwilee/koa-grace/wiki/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3) 
+
+koa-grace is a new generation Nodejs SFB(Separation of Front and Back ends) framework, build with [koa](https://github.com/koajs/koa).
 
 ## Getting started
 
@@ -23,9 +22,7 @@ Before getting started ,please make sure you have already installed:
 	
 	$ npm run dev
 
-And then you can visit the DEMO at [http://127.0.0.1:3000](http://127.0.0.1:3000/) .
-
-Or you can visit live DEMO at: http://127.0.0.1:3000
+And then you can visit the DEMO at [http://127.0.0.1:3000](http://127.0.0.1:3000/) . 
 
 ## Community
  - [Documents](https://github.com/xiongwilee/koa-grace/wiki)
