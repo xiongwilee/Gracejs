@@ -42,8 +42,6 @@ Thanks for My GirlFriend - Grace Wang
 
 Thanks for Tj's [koa](https://github.com/koajs/koa)
 
-Thanks all
-
 # License
 
   MIT
