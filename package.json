@@ -33,7 +33,7 @@
     "koa-grace-proxy": "^1.0.31",
     "koa-grace-router": "^1.0.34",
     "koa-grace-static": "^1.0.5",
-    "koa-grace-vhost": "^1.0.6",
+    "koa-grace-vhost": "^1.0.7",
     "koa-grace-views": "^1.0.5",
     "koa-grace-xload": "^1.0.14",
     "koa-logger": "^1.3.0",
