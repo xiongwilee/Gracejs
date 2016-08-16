@@ -8,7 +8,7 @@ body {
   font-family: "Open Sans";
   font-size: 14px;
   font-smoothing: antialiased;
-  background-image: url(/static/blog/image/dashboard/bg.jpg);
+  background-image: url(/blog/static/image/dashboard/bg.jpg);
 }
 
 input{

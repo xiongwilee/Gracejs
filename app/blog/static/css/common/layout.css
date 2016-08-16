@@ -364,22 +364,22 @@
  */
 
 html.theme-3 .header{
-	background-image: url('/static/blog/image/bg_3_s.jpg');
+	background-image: url('/blog/static/image/bg_3_s.jpg');
 }
 html.theme-4 .header{
-	background-image: url('/static/blog/image/bg_4_s.jpg');
+	background-image: url('/blog/static/image/bg_4_s.jpg');
 }
 html.theme-5 .header{
-	background-image: url('/static/blog/image/bg_5_s.jpg');
+	background-image: url('/blog/static/image/bg_5_s.jpg');
 }
 html.theme-6 .header{
-	background-image: url('/static/blog/image/bg_6_s.jpg');
+	background-image: url('/blog/static/image/bg_6_s.jpg');
 }
 html.theme-7 .header{
-	background-image: url('/static/blog/image/bg_7_s.jpg');
+	background-image: url('/blog/static/image/bg_7_s.jpg');
 }
 html.theme-8 .header{
-	background-image: url('/static/blog/image/bg_8_s.jpg');
+	background-image: url('/blog/static/image/bg_8_s.jpg');
 }
 /**
  * media query

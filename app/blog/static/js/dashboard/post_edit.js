@@ -83,9 +83,9 @@
 		    autoSave: 100
 		  },
 		  theme: {
-		    base: 'static/css/lib/epiceditor/themes/base/epiceditor.css',
-		    preview: 'static/css/lib/epiceditor/themes/preview/preview-dark.css',
-		    editor: 'static/css/lib/epiceditor/themes/editor/epic-dark.css'
+		    base: 'blog/static/css/lib/epiceditor/themes/base/epiceditor.css',
+		    preview: 'blog/static/css/lib/epiceditor/themes/preview/preview-dark.css',
+		    editor: 'blog/static/css/lib/epiceditor/themes/editor/epic-dark.css'
 		  },
 		  button: {
 		    preview: true,
