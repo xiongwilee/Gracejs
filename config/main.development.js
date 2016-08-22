@@ -6,7 +6,8 @@ module.exports = {
   // vhost配置
   vhost: {
     '127.0.0.1': 'demo',
-    'localhost': 'blog'
+    'localhost': 'blog',
+    'feclub.cn': 'blog'
   },
 
   // proxy配置

@@ -22,8 +22,7 @@
 .header-container{
 	position: relative;
 	z-index: 2;
-	margin: 0 auto;
-	width: 80%;
+	margin: 0 20px;
 }
 
 /* 头部导航 */
@@ -152,8 +151,7 @@
 	clear: both;
 }
 .header .search-container{
-	width: 80%;
-	margin: 0 auto;
+	margin: 0 20px;
 }
 .header .search .search-tips{
 	float: left;
@@ -204,8 +202,7 @@
 	background: #fafafa;
 }
 .main .main-container{
-	width: 80%;
-	margin: 0 auto;
+	margin: 0 20px;
 }
 .main .content{
 	padding-top: 30px;
@@ -352,8 +349,7 @@
 	font-size: 14px;
 }
 .footer-container{
-	width: 80%;
-	margin: 0 auto;
+	margin: 0 20px;;
 }
 .footer p{
 	padding: 20px 0px;
@@ -391,6 +387,7 @@ html.theme-8 .header{
 	}
 	.header-container, .header .search-container, .main .main-container, .footer-container{
 		width: 90%;
+		margin: 0 auto;
 	}
 }
 /*当屏幕尺寸小于600px时，应用下面的CSS样式*/
@@ -432,5 +429,6 @@ html.theme-8 .header{
 	}
 	.header-container, .header .search-container, .main .main-container, .footer-container{
 		width: 98%;
+		margin: 0 auto;
 	}
 }
