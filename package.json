@@ -31,7 +31,7 @@
     "koa-grace-mock": "^1.0.5",
     "koa-grace-mongo": "^1.0.8",
     "koa-grace-proxy": "^1.0.31",
-    "koa-grace-router": "^1.0.35",
+    "koa-grace-router": "^1.0.36",
     "koa-grace-static": "^1.0.5",
     "koa-grace-vhost": "^1.0.7",
     "koa-grace-views": "^1.0.5",
