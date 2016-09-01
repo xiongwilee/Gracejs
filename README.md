@@ -27,9 +27,9 @@ And then you can visit the DEMO at [http://127.0.0.1:3000](http://127.0.0.1:3000
 
 ## Resourse
  - [[中文文档]](https://github.com/xiongwilee/koa-grace/wiki/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3) 
- - [grace-vue-webpack-boilerplate](https://github.com/Thunf/grace-vue-webpack-boilerplate)
- - [grace-gulp-requirejs-boilerplate](https://github.com/xiongwilee/gulp-requirejs-boilerplate)
- - [More examples..](https://github.com/xiongwilee/koa-grace/tree/master/app)
+ - [koa-grace+vue+webpack](https://github.com/Thunf/grace-vue-webpack-boilerplate)
+ - [koa-grace+gulp+requirejs](https://github.com/xiongwilee/gulp-requirejs-boilerplate)
+ - [More examples..](https://github.com/koa-grace/koa-grace-app)
  - [what is koa?](https://github.com/koajs/koa)
 
 ## Authors
