@@ -10,6 +10,7 @@ const mongo = require('koa-grace-mongo');
 const xload = require('koa-grace-xload');
 const views = require('koa-grace-views');
 const body = require('koa-grace-body');
+const csrf = require('koa-grace-csrf');
 const _static = require('koa-grace-static');
 const compress = require('koa-compress');
 
@@ -42,6 +43,9 @@ app.use(vhost(vhosts.map((item) => {
 
   let appName = config.vhost[item];
   let appPath = path.resolve(config.path.project + '/' + appName);
+
+  // 如果在csrf的module名单里才使用csrf防护功能
+  config.csrf.module.indexOf(appName) > -1 && vapp.use(csrf(vapp))
 
   // 在开发环境才使用mock数据功能
   config.site.env == 'development' && vapp.use(mock(vapp, {

@@ -82,5 +82,11 @@ module.exports = {
       keepExtensions: true
     },
     download: {}
+  },
+
+  // csrf配置
+  csrf: {
+    // 需要进行xsrf防护的模块
+    module: []
   }
 }
