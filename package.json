@@ -28,7 +28,7 @@
     "koa-bodyparser": "^2.0.1",
     "koa-compress": "^1.0.9",
     "koa-grace-body": "^1.0.2",
-    "koa-grace-csrf": "0.0.5",
+    "koa-grace-csrf": "0.0.6",
     "koa-grace-mock": "^1.0.5",
     "koa-grace-mongo": "^1.0.8",
     "koa-grace-proxy": "^1.0.31",

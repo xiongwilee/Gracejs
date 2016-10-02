@@ -45,7 +45,9 @@ app.use(vhost(vhosts.map((item) => {
   let appPath = path.resolve(config.path.project + '/' + appName);
 
   // 如果在csrf的module名单里才使用csrf防护功能
-  config.csrf.module.indexOf(appName) > -1 && vapp.use(csrf(vapp))
+  config.csrf.module.indexOf(appName) > -1 && vapp.use(csrf(vapp, {
+    throw: true
+  }))
 
   // 在开发环境才使用mock数据功能
   config.site.env == 'development' && vapp.use(mock(vapp, {
