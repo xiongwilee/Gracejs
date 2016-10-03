@@ -11,6 +11,7 @@ const xload = require('koa-grace-xload');
 const views = require('koa-grace-views');
 const body = require('koa-grace-body');
 const csrf = require('koa-grace-csrf');
+const session = require('koa-grace-session');
 const _static = require('koa-grace-static');
 const compress = require('koa-compress');
 
@@ -20,6 +21,10 @@ let app = koa();
 
 // compress
 app.use(compress());
+
+// session配置，默认使用内存，不推荐在生产环境使用
+// 生产环境推荐配置redis，参考：https://github.com/koa-grace/koa-grace-session
+app.use(session(app, config.session));
 
 // body
 app.use(body({

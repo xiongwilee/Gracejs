@@ -88,5 +88,9 @@ module.exports = {
   csrf: {
     // 需要进行xsrf防护的模块
     module: []
+  },
+
+  // session配置
+  session: {
   }
 }
