@@ -1,0 +1,5 @@
+<div class="post-page">
+	<a class="btn btn-primary" {% if !page.hasPrePage %}disabled="disabled"{% endif %} {% if page.hasPrePage %}href="?page={{page.pageNum - 1}}"{% endif %}><i class=" icon-angle-left"></i></a>
+	<a class="btn btn-primary" {% if !page.hasNexPage %}disabled="disabled"{% endif %} {% if page.hasNexPage %}href="?page={{page.pageNum + 1}}"{% endif %}><i class=" icon-angle-right"></i></a>
+	<a class="btn btn-link" disabled="disabled"> （当前第{{ page.pageNum }}/{{ page.totalPage }}页 ，共{{ page.totalNum }}条数据）</a>
+</div>
