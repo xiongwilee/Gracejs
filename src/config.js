@@ -1,7 +1,6 @@
 'use strict';
 
 const fs = require('fs');
-const util = require('util');
 const path = require('path');
 
 /**
@@ -16,7 +15,7 @@ module.exports = function config(args) {
   }
 
   // 获取默认配置
-  let config = require('../config/main');
+  let cfg = require('../config/main');
   let extendConfig = {};
   let env = args.env || 'development';
 
@@ -24,13 +23,13 @@ module.exports = function config(args) {
   let fileName = 'main.' + env + '.js';
  
   // 如果允许增量配置，则继承增量配置
-  if (config.extend) {
+  if (cfg.extend) {
 
-    let extPath = path.resolve(config.extend, fileName);
+    let extPath = path.resolve(cfg.extend, fileName);
 
     extendConfig = fs.existsSync(extPath) ? require(extPath) : extendConfig;
 
   }
 
-  return util._extend(config, extendConfig);
+  return Object.assign(cfg, extendConfig);
 }

@@ -1,12 +1,14 @@
 "use strict";
 
-process.env.DEBUG = process.env.DEBUG || 'koa-grace-error*';
+process.env.DEBUG = process.env.DEBUG || '*';
 
-module.exports = {
+const serverConfig = require('./server.json');
+const makeConfig = require('../src/utils').makeConfig;
+
+module.exports = serverConfig({
   // vhost配置
   vhost: {
     '127.0.0.1': 'demo',
-    'grace.wilee.me': 'demo',
     'localhost': 'blog',
     'feclub.cn': 'blog'
   },
@@ -46,7 +48,7 @@ module.exports = {
   // 路径相关的配置
   path: {
     // project
-    project: '../app/',
+    project: './app/',
     // 当直接访问域名时的默认路由
     default_path: {
       demo: '/home/index',
@@ -69,9 +71,8 @@ module.exports = {
     }
   },
 
-  // 模板引擎配置，默认：swig
+  // 模板引擎配置，默认：swiger
   template: {
-    demo: 'swig'
   },
 
   // 上传文件配置
@@ -90,5 +91,8 @@ module.exports = {
   csrf: {
     // 需要进行xsrf防护的模块
     module: []
-  }
-}
+  },
+
+  // session配置
+  session: {}
+}, serverConfig)

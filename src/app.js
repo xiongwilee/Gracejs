@@ -1,25 +1,31 @@
-'use strict';
-
 const path = require('path');
 const koa = require('koa');
-const mock = require('koa-grace-mock');
-const router = require('koa-grace-router');
-const vhost = require('koa-grace-vhost');
-const proxy = require('koa-grace-proxy');
-const mongo = require('koa-grace-mongo');
-const xload = require('koa-grace-xload');
-const views = require('koa-grace-views');
-const body = require('koa-grace-body');
-const csrf = require('koa-grace-csrf');
-const session = require('koa-grace-session');
-const _static = require('koa-grace-static');
-const compress = require('koa-compress');
 
-let config = global.config;
+const body = require('../middleware/body');
+const compress = require('../middleware/compress');
+const mock = require('../middleware/mock');
+const mongo = require('../middleware/mongo');
+const proxy = require('../middleware/proxy');
+const router = require('../middleware/router');
+const secure = require('../middleware/secure');
+const session = require('../middleware/session');
+const _static = require('../middleware/static');
+const vhost = require('../middleware/vhost');
+const views = require('../middleware/views');
+const xload = require('../middleware/xload');
 
-let app = koa();
 
-// compress
+/**
+ * 生成app
+ *
+ * @todo 需要将middleware中的node_modules清除到根目录下的package.json中
+ * @todo autoload功能加载各个中间件
+ *
+ * @export app
+ */
+const app = new koa()
+
+// compress(gzip)
 app.use(compress());
 
 // session配置，默认使用内存，不推荐在生产环境使用
@@ -27,9 +33,7 @@ app.use(compress());
 app.use(session(app, config.session));
 
 // body
-app.use(body({
-  formLimit: '5mb'
-}));
+app.use(body());
 
 // 配置静态文件路由
 app.use(_static(['/static/**/*', '/*/static/**/*'], {
@@ -42,15 +46,16 @@ app.use(xload(app, config.xload));
 
 // 获取vhost
 let vhosts = Object.keys(config.vhost);
+
 // 注入vhost路由
 app.use(vhost(vhosts.map((item) => {
-  let vapp = koa();
+  let vapp = new koa();
 
   let appName = config.vhost[item];
   let appPath = path.resolve(config.path.project + '/' + appName);
 
   // 如果在csrf的module名单里才使用csrf防护功能
-  config.csrf.module.indexOf(appName) > -1 && vapp.use(csrf(vapp, {
+  config.csrf.module.indexOf(appName) > -1 && vapp.use(secure(vapp, {
     throw: true
   }))
 
@@ -77,7 +82,7 @@ app.use(vhost(vhosts.map((item) => {
   vapp.use(views(appPath + '/views', {
     root: appPath + '/views',
     map: {
-      html: template || 'swig'
+      html: template || 'swiger'
     },
     cache: config.site.env == 'production' && 'memory'
   }));
@@ -94,9 +99,7 @@ app.use(vhost(vhosts.map((item) => {
   return {
     host: item,
     app: vapp
-  };
-}).filter((item) => {
-  return !!item;
+  }
 })));
 
 module.exports = app;

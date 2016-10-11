@@ -1,6 +1,6 @@
 "use strict";
 
-process.env.DEBUG = process.env.DEBUG || 'koa-grace*';
+process.env.DEBUG = process.env.DEBUG || '*';
 
 module.exports = {
   // vhost配置
@@ -18,7 +18,8 @@ module.exports = {
 
   // controller中请求各类数据前缀和域名的键值对
   api: {
-    github: 'https://api.github.com/'
+    github_api: 'https://api.github.com/',
+    github: 'https://github.com/',
   },
 
   // mock server配置
@@ -68,9 +69,7 @@ module.exports = {
   },
 
   // 模板引擎配置，默认：swig
-  template: {
-    demo: 'swig'
-  },
+  template: {},
 
   // 上传文件配置
   xload: {

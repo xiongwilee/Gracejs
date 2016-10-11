@@ -1,51 +1,65 @@
 {
-  "name": "koa-grace",
-  "version": "1.0.4",
-  "description": "A new generation Nodejs multi-app MVC framework, which build with KOA / Mongoose etc.",
-  "Keywords": [
-    "nodejs",
-    "koa",
-    "grace",
-    "koa-grace",
-    "mvc",
-    "framework"
-  ],
-  "main": "src/app.js",
-  "scripts": {
-    "start": "pm2 start process.json",
-    "start.dev": "node bin/server.js --env=development",
-    "start.test": "node bin/server.js --env=testing",
-    "start.pro": "node bin/server.js --env=production",
-    "test": "mocha",
-    "dev": "./node_modules/.bin/nodemon bin/server.js --env=development"
+  "name": "gracejs",
+  "version": "1.0.0",
+  "description": "A Nodejs SFB(Separation of Front and Back ends) framework, build with koa 2.x",
+  "main": "./src/app.js",
+  "directories": {
+    "test": "test"
   },
-  "author": "wilee",
+  "scripts": {
+    "test": "mocha",
+    "dev": "./node_modules/.bin/nodemon bin/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xiongwilee/koa-grace.git"
+  },
+  "keywords": [
+    "koa",
+    "koajs",
+    "koa-grace",
+    "gracejs"
+  ],
+  "author": "xiongwilee",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/xiongwilee/koa-grace/issues"
+  },
+  "homepage": "https://github.com/xiongwilee/koa-grace",
   "dependencies": {
-    "debug": "^2.2.0",
-    "ejs": "^2.4.1",
-    "koa": "^1.2.0",
-    "koa-bodyparser": "^2.0.1",
-    "koa-compress": "^1.0.9",
-    "koa-grace-body": "^1.0.2",
-    "koa-grace-csrf": "0.0.6",
-    "koa-grace-mock": "^1.0.5",
-    "koa-grace-mongo": "^1.0.8",
-    "koa-grace-proxy": "^1.0.31",
-    "koa-grace-router": "^1.0.36",
-    "koa-grace-session": "^1.0.0",
-    "koa-grace-static": "^1.0.5",
-    "koa-grace-vhost": "^1.0.7",
-    "koa-grace-views": "^1.0.5",
-    "koa-grace-xload": "^1.0.14",
-    "koa-logger": "^1.3.0",
-    "koa-mongo": "^0.5.0",
-    "koa-onerror": "^1.3.1",
-    "koa-response-time": "^1.0.2",
-    "nodemon": "^1.8.1",
-    "nunjucks": "^2.4.2"
+    "bytes": "^2.4.0",
+    "co": "^4.6.0",
+    "co-body": "^4.2.0",
+    "compressible": "^2.0.8",
+    "copy-to": "^2.0.1",
+    "formidable": "^1.0.17",
+    "grace-consolidate": "^0.14.3",
+    "http-errors": "^1.5.0",
+    "koa": "^2.0.0-alpha.7",
+    "koa-compose": "^3.1.0",
+    "koa-generic-session": "^1.11.3",
+    "koa-is-json": "^1.0.0",
+    "koa-redis": "^2.1.2",
+    "koa-send": "^3.2.0",
+    "methods": "^1.1.2",
+    "mongoose": "^4.6.3",
+    "path-to-regexp": "^1.6.0",
+    "raven": "^0.12.1",
+    "request": "^2.75.0",
+    "statuses": "^1.3.0",
+    "strip-json-comments": "^2.0.1",
+    "swiger": "0.0.2"
   },
   "devDependencies": {
-    "mocha": "^2.4.5"
+    "babel-plugin-syntax-async-functions": "^6.13.0",
+    "babel-plugin-transform-async-to-generator": "^6.16.0",
+    "babel-preset-es2015-node5": "^1.2.0",
+    "babel-preset-stage-0": "^6.16.0",
+    "babel-register": "^6.16.3",
+    "mm": "^2.0.0",
+    "mocha": "^3.1.0",
+    "nodemon": "^1.10.2",
+    "should": "^11.1.0",
+    "supertest": "^2.0.0"
   }
 }

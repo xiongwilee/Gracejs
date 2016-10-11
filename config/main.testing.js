@@ -1,12 +1,16 @@
 "use strict";
 
-process.env.DEBUG = process.env.DEBUG || 'koa-grace*';
+process.env.DEBUG = process.env.DEBUG || '*';
 
-module.exports = {
+const serverConfig = require('./server.json');
+const makeConfig = require('../src/utils').makeConfig;
+
+module.exports = serverConfig({
   // vhost配置
   vhost: {
     '127.0.0.1': 'demo',
-    'localhost': 'blog'
+    'localhost': 'blog',
+    'feclub.cn': 'blog'
   },
 
   // proxy配置
@@ -67,9 +71,8 @@ module.exports = {
     }
   },
 
-  // 模板引擎配置，默认：swig
+  // 模板引擎配置，默认：swiger
   template: {
-    demo: 'swig'
   },
 
   // 上传文件配置
@@ -88,5 +91,8 @@ module.exports = {
   csrf: {
     // 需要进行xsrf防护的模块
     module: []
-  }
-}
+  },
+
+  // session配置
+  session: {}
+}, serverConfig)
