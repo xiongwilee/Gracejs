@@ -25,6 +25,10 @@ Before getting started ,please make sure you have already installed:
 
 And then you can visit the DEMO at [http://127.0.0.1:3000](http://127.0.0.1:3000/) . 
 
+## koa-grace v2
+
+[koa-grace 2.x](https://github.com/xiongwilee/koa-grace/tree/v2.x)(for koa 2.x) is ready! It will be released immediately after koa v2 came out (**JUST WAITING FOR NODEJS 7.0.0**).
+
 ## Resourse
  - [[中文文档]](https://github.com/xiongwilee/koa-grace/wiki/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3) 
  - [koa-grace + vue + webpack](https://github.com/Thunf/grace-vue-webpack-boilerplate)
