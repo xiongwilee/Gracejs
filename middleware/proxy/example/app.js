@@ -16,7 +16,8 @@ app.use(proxy(app, {
   local: 'http://127.0.0.1:3001/',
   test: 'http://192.168.1.10:10086/'
 }, {
-  timeout: 15000 // 超时时间
+  timeout: 15000, // 超时时间
+  allowShowApi: true
 }));
 
 app.use(router(app, {

@@ -35,6 +35,9 @@ module.exports = function proxy(app, api, options) {
     let req = ctx.req;
     let res = ctx.res;
 
+    // 如果配置了allowShowApi而且页面的URL以__data__结尾则命中debug模式
+    let isDebug = options.allowShowApi && /__data__$/.test(ctx.req.url);
+
     /**
      * proxy
      * @param {object} opt 需要并发请求的url，例如:{user1: 'local:/data/1',user2: 'local:/data/2'}
@@ -76,6 +79,8 @@ module.exports = function proxy(app, api, options) {
             destObj[opt.dest] = data;
             // 设置cookie
             requestRes && setResCookies(ctx, requestRes.headers)
+              // 获取后端api配置
+            isDebug && setApiOpt(ctx, realReq.url, data, requestRes && requestRes.headers);
 
             return data;
           })
@@ -115,7 +120,12 @@ module.exports = function proxy(app, api, options) {
       }
     });
 
-    await next()
+    await next();
+
+    // debug模式下，返回后端api数据
+    if (isDebug && ctx.__back__) {
+      ctx.body = ctx.__back__
+    }
   };
 
 
@@ -279,5 +289,26 @@ module.exports = function proxy(app, api, options) {
     }
 
     return true
+  }
+
+  /**
+   * 保存后端api配置信息
+   * @param  {Object} ctx  koa 上下文
+   * @param  {String} url  api URL
+   * @param  {Object} data api 数据
+   * @param  {Object} headers 返回头信息
+   * @return {}
+   */
+  function setApiOpt(ctx, url, data, headers) {
+    // 保存后端api配置
+    ctx.__back__ = ctx.__back__ || {};
+
+    ctx.__back__[url] = {
+      url: url,
+      data: data,
+      headers: headers
+    }
+
+    return
   }
 }

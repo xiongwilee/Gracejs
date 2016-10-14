@@ -74,7 +74,7 @@ app.use(vhost(vhosts.map((item) => {
   // 配置api
   vapp.use(proxy(vapp, config.api, {
     timeout: config.proxy.timeout, // 接口超时时间
-    dsn: config.proxy.dsn // 线上才传dsn
+    allowShowApi: config.site.env == 'production'
   }));
 
   // 配置模板引擎
