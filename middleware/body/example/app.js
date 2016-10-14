@@ -2,10 +2,15 @@
 
 import http from 'http'
 import Koa from 'koa'
-import compress from '../index'
+import body from '../index'
 
 const app = new Koa()
 
-app.use(compress())
+app.use(body())
+
+app.use(async (ctx, next) => {
+  ctx.body = ctx.request.body || 'no body!';
+  await next();
+});
 
 module.exports = http.createServer(app.callback());

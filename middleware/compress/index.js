@@ -24,6 +24,8 @@ var encodingMethods = {
  * @param {Object} [options]
  * @return {Function}
  * @api public
+ *
+ * @todo 完善测试用例
  */
 
 module.exports = function (options) {
