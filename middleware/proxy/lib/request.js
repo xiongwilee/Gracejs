@@ -25,9 +25,8 @@ module.exports = function request(param, options, callback) {
     headers: undefined, // 头信息
     json: false, // 是否是json数据
     gzip: true, //是否gzip
-    timeout: 15000 // 超时时间
-  }, {
-    form: param.ctx.request.body
+    timeout: 15000, // 超时时间
+    form: undefined // post的form参数，默认为undefined
   }, options);
 
   debug('proxying : ' + opt.uri);
@@ -87,8 +86,10 @@ module.exports = function request(param, options, callback) {
     // 发送请求
     let ProxyServer = _createReq(resolve);
 
-    // 如果ctx.request.body已经有值，说明request pipe已经结束，则不需要pipe
-    if (param.ctx.req.readable) {
+
+    // 如果ctx.req.readable是可读的而且当前请求不为GET
+    // 则可以pipe
+    if (param.ctx.req.readable && param.ctx.method !== 'GET') {
       param.ctx.req.pipe(ProxyServer);
     }
 

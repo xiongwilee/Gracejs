@@ -68,7 +68,8 @@ module.exports = function proxy(app, api, options) {
             uri: realReq.url,
             method: realReq.method,
             headers: realReq.headers,
-            json: true
+            json: true,
+            form: config.form || ctx.request.body
           }, config.conf);
 
           return request({
@@ -110,7 +111,8 @@ module.exports = function proxy(app, api, options) {
           headers: realReq.headers,
           timeout: undefined,
           gzip: false,
-          encoding: null
+          encoding: null,
+          form: config.form || ctx.request.body
         }, config.conf);
 
         return request({
