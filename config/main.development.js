@@ -19,7 +19,8 @@ module.exports = {
   // controller中请求各类数据前缀和域名的键值对
   api: {
     github_api: 'https://api.github.com/',
-    github: 'https://github.com/'
+    github: 'https://github.com/',
+    local: 'http://127.0.0.1:3000/'
   },
 
   // mock server配置
