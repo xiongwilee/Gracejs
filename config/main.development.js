@@ -20,7 +20,8 @@ module.exports = {
   api: {
     github_api: 'https://api.github.com/',
     github: 'https://github.com/',
-    local: 'http://127.0.0.1:3000/'
+    // local: 'http://127.0.0.1:3000/',
+    local: 'http://127.0.0.1:3000/__MOCK__/demo/'
   },
 
   // mock server配置
