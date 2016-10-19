@@ -146,12 +146,7 @@ module.exports = function proxy(app, api, options) {
     let url = addQuery(urlObj.url, query);
 
     // 复制一份头信息
-    let result = {};
-    for (let item in headers) {
-      if (headers.hasOwnProperty(item)) {
-        result[item] = headers[item];
-      }
-    }
+    let result = Object.assign({}, headers);
 
     // 配置host，先把当前用户host存入user-host,然后把请求host赋值给headers
     result['user-host'] = result.host;
@@ -159,6 +154,9 @@ module.exports = function proxy(app, api, options) {
 
     // 由于字段参数发生改变，content-length不再可信删除content-length字段
     delete result['content-length'];
+
+    // 干掉请求中的if-modified-since字段，以防命中服务端缓存，返回304
+    delete result['if-modified-since'];
 
     // 如果用户请求为POST，但proxy为GET，则删除头信息中不必要的字段
     if (ctx.method == 'POST' && method == 'GET') {
