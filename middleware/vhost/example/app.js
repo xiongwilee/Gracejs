@@ -8,7 +8,7 @@ import vhost from '../index'
 
 let app = new Koa();
 
-let vhosts = ['localhost'];
+let vhosts = ['localhost','localhost/test'];
 
 vhosts = vhosts.map(function(item) {
   try {

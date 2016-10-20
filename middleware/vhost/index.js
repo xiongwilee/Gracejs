@@ -39,18 +39,39 @@ module.exports = function graceVhost(host, app) {
   // 用以缓存vhost记录
   let HOST_CACHE = {};
   return async function vhost(ctx, next) {
+    // 当前的hostname,不含端口号
     let host = ctx.hostname;
+    // 限制只取第一层级的PATH
+    let path = ctx.path.split('/')[1] || '';
 
-    let curHost = HOST_CACHE[host];
+    // 获取当前的hostpath
+    let hostPath = host + '/' + path;
+    let curHost = HOST_CACHE[hostPath];
+
     if (!curHost) {
+      // 设置匹配缓存
+      let mapCache;
+
       vhosts.some((item) => {
-        if (item.host === host || (isRegExp(item.host) && item.host.test(host))) {
-          curHost = HOST_CACHE[host] = item;
-          debug('matched host: %s', item.host);
+        let isSubpath = ~item.host.indexOf('/');
+
+        if (isSubpath && item.host === hostPath) {
+          // 如果当前item.host配置是子目录模式，且等于hostPath，则不再往下查找，return true
+          mapCache = item;
           return true;
+        } else if (!isSubpath && item.host === host) {
+          // 如果当前item.host配置不是子目录模式，且等于host，则继续查找更适合的条件，return false
+          mapCache = item;
+          return false;
+        } else {
+          return false;
         }
-        return false;
       });
+      
+      if (mapCache) {
+        curHost = HOST_CACHE[hostPath] = mapCache;
+        debug('matched host: %s', mapCache.host);
+      }
     }
 
     if (!curHost) {
