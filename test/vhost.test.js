@@ -27,8 +27,20 @@ describe('test/vhost.test.js', function() {
 
     it('vhost访问阻断', function(done) {
       request(app)
-        .get('/index/generator')
+        .get('/')
         .expect(200, 'error: there is no host matched!', done);
+    });
+
+    it('命中子目录404页', function(done) {
+      request(app)
+        .get('/index/')
+        .expect(200, '这是自定义的404页', done);
+    });
+
+    it('命中子目录hello world!', function(done) {
+      request(app)
+        .get('/index/generator')
+        .expect(200, 'hello world!', done);
     });
   });
 });
