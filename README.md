@@ -7,6 +7,7 @@
 Gracejs是[koa-grace](https://github.com/xiongwilee/koa-grace)的升级版，也可以叫koa-grace v2。
 
 主要特性包括：
+
 1. 支持MVC架构，可以更便捷地生成服务端路由；
 2. 标准的RESTful架构，支持后端接口异步并发，页面性能更优；
 3. 一套Node环境经服务服务多个站点应用，部署更简单；
@@ -64,6 +65,7 @@ Gracejs与koa-grace v1.x版本的目录结构完全一致：
 ```
 
 其中：
+
 * `controller`用以存放路由及控制器文件
 * `static`用以存放静态文件
 * `views`用以存放模板文件
@@ -81,6 +83,7 @@ Gracejs与koa-grace v1.x版本的目录结构完全一致：
 ![mvc](https://raw.githubusercontent.com/xiongwilee/demo/master/photo/mvc-%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB.jpg)
 
 如上图，具体流程如下：
+
 * 第一步，Nodejs server（也就是Gracejs服务）监听到用户请求；
 * 第二步，Gracejs的各个中间件（Middlewares）对请求上下文进行处理；
 * 第三步，根据当前请求的path和method，进入对应的Controller；
@@ -100,11 +103,13 @@ Gracejs与koa-grace v1.x版本的目录结构完全一致：
 ![proxy](https://raw.githubusercontent.com/xiongwilee/demo/master/photo/proxy-%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB.jpg)
 
 这样有几个好处：
+
 1. 在Nodejs层（服务端）异步并发向后端（服务端）获取数据，可以使HTTP走内网，性能更优；
 2. 后端的接口可以同时提供给客户端，实现接口给Web+APP复用，后端开发成本更低；
 3. 在Nodejs层获取数据后，直接交给页面，不管前端用什么技术栈，可以使首屏体验更佳。
 
 那么，这么做是不是就完美了呢？肯定不是：
+
 1. 后端接口在外网开放之后，如何保证接口安全性？
 2. 如果当前页面请求是GET方法，但我想POST到后端怎么办？
 3. 我想在Controller层重置post参数怎么办？
@@ -124,6 +129,7 @@ Gracejs与koa-grace v1.x版本的目录结构完全一致：
 所有中间件都在[middleware](https://github.com/xiongwilee/koa-grace/tree/v2.x/middleware)目录下，配置由`config/main.*.js`管理。
 
 关于配置文件：
+
 1. 配置文件extend关系为：config/server.json的merge字段 > config/main.*.js > config.js；
 2. 配置生成后保存在Gracejs下的全局作用域`global.config`里，方便读取。
 
@@ -184,6 +190,7 @@ exports.hello = function(){
 }
 ```
 则生成`/home/index`、`/home`、`/home/hello`的路由。需要说明几点：
+
 1. 如果路由是以`/index`结尾的话，Gracejs会"赠送"一个去掉`/index`的同样路由；
 2. 如果当前文件是一个依赖，仅仅被其他文件引用；则在文件中配置`exports.__controller__ = false`，该文件就不会生成路由了；参考`defaultCtrl.js`
 3. 这里的控制器函数可以是`await/async`或`generator`函数，也可以是一个普通的函数；Gracejs中推荐使用`await/async`；
@@ -277,6 +284,7 @@ exports.main = async function() {
 ### proxy——数据代理
 
 Gracejs支持两种数据代理场景：
+
 1. 单纯的数据代理，任意请求到后端接口，然后返回json数据（也包括文件流请求到后端，后端返回json数据）；
 2. 文件代理，请求后端接口，返回一个文件（例如验证码图片）；
 
@@ -328,6 +336,7 @@ exports.demo = async function (){
 ##### 说明
 
 `github:post:user/login/oauth/access_token?client_id=****`说明如下：
+
 * `github`： 为在`config/main.*.js`的 `api` 对象中进行配置；
 * `post` ： 为数据代理请求的请求方法，该参数可以不传，默认为`get`
 * `path`： 后面请求路径中的query参数会覆盖当前页面的请求参数（this.query），将query一同传到请求的接口
@@ -410,6 +419,7 @@ app.use(Middles.static(['/static/**/*', '/*/static/**/*'], {
 以案例中`blog`的静态文件为例，静态文件在blog项目下的路径为：`app/blog/static/image/bg.jpg`，则访问路径为http://127.0.0.1/blog/static/image/bg.jpg 或者 http://127.0.0.1/static/blog/image/bg.jpg
 
 注意两点：
+
 1. 静态文件端口和当前路由的端口一致，所以`/static/**/`或者`/*/static/*`形式的路由会是无效的；
 2. 推荐在生产环境中，使用Nginx做静态文件服务，购买CDN托管静态文件；
 
@@ -559,6 +569,7 @@ module.exports.methods = methods;
 ```
 
 主要有四个参数：
+
 * `model` ， 即表名，最好与当前文件同名
 *  `schema` ， 即mongoose schema
 *  `methods` ， 即schema扩展方法，**推荐把数据库元操作都定义在这个对象中**
@@ -686,6 +697,7 @@ exports.download = async function() {
 ### 其他
 
 Gracejs中几个核心的中间件都介绍完毕。此外，还有几个中间件不做详细介绍，了解即可：
+
 1. **gzip实现**：使用gzip压缩response中的body；
 2. **http body内容解析**：解析request中的body，存到`this.request.body`字段中；
 3. **简单的session实现**：通过内存或者redis保存session，不推荐在生产环境中使用；生产环境的session服务由后端自行完成。
@@ -699,6 +711,7 @@ Gracejs中几个核心的中间件都介绍完毕。此外，还有几个中间�
 在介绍如何结合Gracejs进行前端构建之前，先提一下：这种“更彻底”的前后端分离方案相比于基于MVVM框架的单页面应用具体有什么不同呢？
 
 个人认为有以下几点：
+
 1. **运维部署更灵活**
   基于Nodejs server的服务端构建，服务器的部署可以与后端机器独立出来。而且后端同学就仅仅需要关注接口的实现。
 2. **前端技术栈更统一**
@@ -707,6 +720,7 @@ Gracejs中几个核心的中间件都介绍完毕。此外，还有几个中间�
   比如你可以很容易通过模板引擎完成BigPipe的架构，你也可以从内网异步并发获取首屏数据。
 
 当然Gracejs是只是服务端框架，前端架构如何选型，随你所愿。目前已经有基于Vue和requirejs的boilerplate。
+
 * Vue： https://github.com/Thunf/grace-vue-webpack-boilerplate （by [@thunf](https://github.com/Thunf)）
 * requirejs:  https://github.com/xiongwilee/gulp-requirejs-boilerplate
 
