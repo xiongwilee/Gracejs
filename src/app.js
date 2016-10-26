@@ -1,8 +1,3 @@
-/**
- * 生成app
- * @export app
- */
-
 const path = require('path');
 const koa = require('koa');
 const Middles = require('../middleware/')
