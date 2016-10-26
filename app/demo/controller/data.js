@@ -1,12 +1,12 @@
 'use strict';
 
 exports.info = {
-  repo: function*() {
-    yield this.proxy('github_api:repos/xiongwilee/koa-grace')
+  repo: async function() {
+    await this.proxy('github_api:repos/xiongwilee/koa-grace')
   }
 }
 
-exports.session = function*() {
+exports.session = async function() {
   this.session.test = this.session.test || 0;
   this.session.test++;
 

@@ -1,5 +1,11 @@
 'use strict';
 
-import { autoload } from '../src/utils'
+const fs = require('fs');
+const curPath = __dirname;
 
-export default autoload(__dirname)
+fs.readdirSync(curPath).forEach((item) => {
+  let filePath = `${curPath}/${item}/index.js`;
+  if (fs.existsSync(filePath)) {
+    exports[item] = require(filePath)
+  }
+})

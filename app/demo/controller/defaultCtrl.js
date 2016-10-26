@@ -1,4 +1,4 @@
-module.exports = function* () {
+module.exports = async function () {
 	console.log('this is a base controller!')
 }
 
