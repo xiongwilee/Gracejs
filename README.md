@@ -78,7 +78,7 @@ Gracejs与koa-grace v1.x版本的目录结构完全一致：
 
 但准确的说，前后端的分离的Nodejs框架都是VC架构，并没有Model层。因为**前后端分离框架不应该有任何数据库、SESSION存储的职能**。
 
-https://raw.githubusercontent.com/xiongwilee/demo/master/photo/mvc-%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB.jpg)
+![mvc](https://raw.githubusercontent.com/xiongwilee/demo/master/photo/mvc-%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB.jpg)
 
 如上图，具体流程如下：
 * 第一步，Nodejs server（也就是Gracejs服务）监听到用户请求；
@@ -97,7 +97,7 @@ https://raw.githubusercontent.com/xiongwilee/demo/master/photo/mvc-%E5%89%8D%E5%
 
 如下图：
 
-https://raw.githubusercontent.com/xiongwilee/demo/master/photo/proxy-%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB.jpg
+![proxy](https://raw.githubusercontent.com/xiongwilee/demo/master/photo/proxy-%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB.jpg)
 
 这样有几个好处：
 1. 在Nodejs层（服务端）异步并发向后端（服务端）获取数据，可以使HTTP走内网，性能更优；
