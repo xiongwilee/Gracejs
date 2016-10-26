@@ -1,11 +1,11 @@
 "use strict";
 
-process.env.DEBUG = process.env.DEBUG || '*';
+process.env.DEBUG = process.env.DEBUG || 'koa-grace-error:*';
 
 const serverConfig = require('./server.json');
 const makeConfig = require('../src/utils').makeConfig;
 
-module.exports = serverConfig({
+module.exports = makeConfig({
   // vhost配置
   vhost: {
     '127.0.0.1': 'demo',

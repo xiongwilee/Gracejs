@@ -82,7 +82,7 @@ exports.makeConfig = function makeConfig (obj, data) {
   if (data.merge) {
     obj = merge(obj, data.merge);
   }
-  return replace(obj, data);
+  return exports.replace(obj, data);
 }
 
 /**

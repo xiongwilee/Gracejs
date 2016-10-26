@@ -2,7 +2,10 @@
 
 process.env.DEBUG = process.env.DEBUG || '*';
 
-module.exports = {
+const serverConfig = require('./server.json');
+const makeConfig = require('../src/utils').makeConfig;
+
+module.exports = makeConfig({
   // vhost配置
   vhost: {
     '127.0.0.1': 'demo',
@@ -92,4 +95,4 @@ module.exports = {
   // session配置
   session: {
   }
-}
+}, serverConfig)
