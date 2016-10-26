@@ -1,17 +1,13 @@
-const path = require('path');
-const koa = require('koa');
-
-const Middles = require('../middleware/')
-
 /**
  * 生成app
- *
- * @todo 需要将middleware中的node_modules清除到根目录下的package.json中
- * @todo autoload功能加载各个中间件
- *
  * @export app
  */
-const app = new koa()
+
+const path = require('path');
+const koa = require('koa');
+const Middles = require('../middleware/')
+
+const app = new koa();
 
 // compress(gzip)
 app.use(Middles.compress());
