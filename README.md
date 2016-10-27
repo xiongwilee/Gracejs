@@ -1,8 +1,8 @@
+> koa-grace v1.x版本请移步： https://github.com/xiongwilee/koa-grace/tree/master
+
 # koa-grace v2
 
 [Gracejs](https://github.com/xiongwilee/koa-grace/tree/v2.x)(又称:koa-grace v2)  是全新的基于[koa v2.x](https://github.com/koajs/koa/tree/v2.x)的MVC+RESTful架构的前后端分离框架。
-
-> koa-grace v1.x版本请移步： https://github.com/xiongwilee/koa-grace/tree/master
 
 ## 一、简介
 
