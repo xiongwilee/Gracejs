@@ -10,7 +10,8 @@ module.exports = makeConfig({
   vhost: {
     '127.0.0.1': 'demo',
     'localhost': 'blog',
-    'feclub.cn': 'blog'
+    'feclub.cn': 'blog',
+    'localhost/test': 'test'
   },
 
   // proxy配置
