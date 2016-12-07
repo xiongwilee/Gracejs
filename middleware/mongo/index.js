@@ -6,13 +6,15 @@ const co = require('co');
 const mongoose = require('mongoose');
 const debug = require('debug')('koa-grace:mongo');
 
+mongoose.Promise = global.Promise;
+
 /**
  * 生成mongoose操作方法
  * @param  {string} app     context
  * @param  {object} options 配置项
  *         {string} options.root mongo的model配置路径
  *         {string} options.connect mongo连接路径
- * @return {function} 
+ * @return {function}
  *
  * @todo 完善测试用例
  * @todo 优化mongo的接入方式，使其支持：1、单个模块支持多个数据库，2、支持引入插件
