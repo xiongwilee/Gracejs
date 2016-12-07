@@ -14,6 +14,13 @@ module.exports = makeConfig({
     'localhost/test': 'test'
   },
 
+  // router配置
+  router: {
+    prefix: {
+      test: '/test'
+    }
+  },
+
   // proxy配置
   proxy: {
     // 超时配置 

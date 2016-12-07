@@ -68,8 +68,10 @@ app.use(Middles.vhost(vhosts.map((item) => {
   }));
 
   // 配置控制器文件路由
+  let prefix = config.router && config.router.prefix  && config.router.prefix[appName]; 
   vapp.use(Middles.router(vapp, {
     root: appPath + '/controller',
+    prefix: prefix,
     default_path: config.path.default_path[appName],
     default_jump: config.path.default_jump[appName],
     domain: item,
