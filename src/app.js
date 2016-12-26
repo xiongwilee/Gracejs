@@ -53,8 +53,12 @@ app.use(Middles.vhost(vhosts.map((item) => {
 
   // 配置api
   vapp.use(Middles.proxy(vapp, config.api, {
-    timeout: config.proxy.timeout, // 接口超时时间
-    allowShowApi: config.site.env == 'production'
+    // proxy 配置
+    hosts: config.hosts, // 接口域名hosts配置，可以不配置
+    allowShowApi: config.site.env !== 'production'
+  }, {
+    // request 配置
+    timeout: config.proxy.timeout // 接口超时时间
   }));
 
   // 配置模板引擎
@@ -68,7 +72,7 @@ app.use(Middles.vhost(vhosts.map((item) => {
   }));
 
   // 配置控制器文件路由
-  let prefix = config.router && config.router.prefix  && config.router.prefix[appName]; 
+  let prefix = config.router && config.router.prefix && config.router.prefix[appName];
   vapp.use(Middles.router(vapp, {
     root: appPath + '/controller',
     prefix: prefix,

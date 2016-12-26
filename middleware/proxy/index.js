@@ -7,10 +7,14 @@ const request = require('./lib/request');
 const raven = require('raven');
 const error = require('debug')('koa-grace-error:proxy');
 
+// 用以缓存当前 github:post:/test/test 到真实URL的分析结果
+let PATH_TO_URL = {};
+
 /**
  * 
  * @param  {string} app     context
  * @param  {object} api     api配置项
+ * @param  {object} config  proxy 补充配置项
  * @param  {object} options request配置项
  * 
  * @return {function}
@@ -18,9 +22,10 @@ const error = require('debug')('koa-grace-error:proxy');
  * @todo this.proxy返回http statusCode 
  * @todo 提供看有哪些接口的快捷方式
  */
-module.exports = function proxy(app, api, options) {
+module.exports = function proxy(app, api, config, options) {
 
   api = api || {};
+  config = config || {};
   options = options || {};
 
   let ravenClient;
@@ -36,7 +41,7 @@ module.exports = function proxy(app, api, options) {
     let res = ctx.res;
 
     // 如果配置了allowShowApi而且页面的URL以__data__结尾则命中debug模式
-    let isDebug = options.allowShowApi && /__data__$/.test(ctx.req.url);
+    let isDebug = config.allowShowApi && /__data__$/.test(ctx.req.url);
 
     /**
      * proxy
@@ -65,7 +70,7 @@ module.exports = function proxy(app, api, options) {
 
           // 请求request的最终配置
           let requestOpt = Object.assign({}, options, {
-            uri: realReq.url,
+            uri: realReq.uri,
             method: realReq.method,
             headers: realReq.headers,
             json: true,
@@ -81,7 +86,7 @@ module.exports = function proxy(app, api, options) {
             // 设置cookie
             requestRes && setResCookies(ctx, requestRes.headers)
               // 获取后端api配置
-            isDebug && setApiOpt(ctx, realReq.url, data, requestRes && requestRes.headers);
+            isDebug && setApiOpt(ctx, realReq.uri, data, requestRes && requestRes.headers);
 
             return data;
           })
@@ -106,7 +111,7 @@ module.exports = function proxy(app, api, options) {
         let realReq = setRequest(ctx, url);
         // 请求request的最终配置
         let requestOpt = Object.assign({}, options, {
-          uri: realReq.url,
+          uri: realReq.uri,
           method: realReq.method,
           headers: realReq.headers,
           timeout: undefined,
@@ -140,17 +145,20 @@ module.exports = function proxy(app, api, options) {
     let headers = ctx.headers || {};
     let query = ctx.query;
 
-    // 获取实际要请求的method和url
+    // 获取实际要请求的method和url:
+    //  首先通过analyUrl方法将 github:post:/test/test 转换成真正的URL，
+    //  然后通过addQuery方法将 当前页面中的query 添加到URL中
+    //  最后通过getUri方法 分析URL 的真实URI和HOST
     let urlObj = analyUrl(ctx, path);
-    let method = urlObj.method;
     let url = addQuery(urlObj.url, query);
+    let uriObj = getUri(url);
 
     // 复制一份头信息
     let result = Object.assign({}, headers);
 
     // 配置host，先把当前用户host存入user-host,然后把请求host赋值给headers
     result['user-host'] = result.host;
-    result.host = url_opera.parse(url).host;
+    result.host = uriObj.host;
 
     // 由于字段参数发生改变，content-length不再可信删除content-length字段
     delete result['content-length'];
@@ -159,15 +167,15 @@ module.exports = function proxy(app, api, options) {
     delete result['if-modified-since'];
 
     // 如果用户请求为POST，但proxy为GET，则删除头信息中不必要的字段
-    if (ctx.method == 'POST' && method == 'GET') {
+    if (ctx.method == 'POST' && urlObj.method == 'GET') {
       delete result['content-type'];
     }
 
     return {
-      method: method,
-      url: url,
+      method: urlObj.method,
+      uri: uriObj.uri,
       headers: result
-    }
+    } 
   }
 
   /**
@@ -176,6 +184,11 @@ module.exports = function proxy(app, api, options) {
    * @return {Object}      返回真正的url和方法
    */
   function analyUrl(ctx, path) {
+    // 获取缓存，有缓存结果，则直接返回
+    if (PATH_TO_URL[path]) {
+      return PATH_TO_URL[path];
+    }
+
     let url, method;
 
     let isUrl = /^(http:\/\/|https:\/\/)/;
@@ -206,10 +219,13 @@ module.exports = function proxy(app, api, options) {
       throw `"${path}" get undefined proxy url , please check your api config!`
     }
 
-    return {
+    // 将分析结果赋值result并存入缓存
+    let result = PATH_TO_URL[path] = {
       url: url,
       method: method
     }
+
+    return result
   }
 
   /**
@@ -310,5 +326,30 @@ module.exports = function proxy(app, api, options) {
     }
 
     return
+  }
+
+  /**
+   * 根据当前host配置，生成正确的URL
+   * @param  {url} url    当前请求的URL
+   * @return {Object}     返回请求的正确URL及uri
+   */
+  function getUri(url) {
+    let uriObj = url_opera.parse(url);
+
+    let uri = url;
+    let host = uriObj.host;
+
+    // 如果有hosts的配置，且有对应域名的IP，则更改uri中的域名为IP
+    if (config.hosts && config.hosts[host]) {
+      let protocol = uriObj.protocol + '//';
+      let ip = config.hosts[host];
+
+      uri = url.replace(protocol + uriObj.host, protocol + ip);
+    }
+
+    return {
+      uri: uri,
+      host: host
+    }
   }
 }
