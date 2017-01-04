@@ -18,7 +18,7 @@ Gracejs是[koa-grace](https://github.com/xiongwilee/koa-grace)的升级版，也
 3. 一套Node环境经服务服务多个站点应用，部署更简单；
 4. 优雅的MOCK功能，开发环境模拟数据更流畅；
 5. 完美支持async/await及generator语法，随心所欲；
-6. 更灵活的前端构建选型，默认支持Vue及Require.js。
+6. 更灵活的前端构建选型，想用什么就用什么，随你所愿。
 
 相比于koa-grace v1（以下简称：koa-grace）：**Gracejs完美支持koa v2**，同时做了优化虚拟host匹配和路由匹配的性能、还完善了部分测试用例等诸多升级。当然，如果你正在使用koa-grace也不用担心，我们会把Gracejs中除了支持koa2的性能和功能特性移植到koa-grace的相应中间件中。
 
