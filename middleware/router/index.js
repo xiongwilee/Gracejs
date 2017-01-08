@@ -4,6 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const router = require('./lib/router');
 const debug = require('debug')('koa-grace:router');
+const error = require('debug')('koa-grace-error:router');
 
 /**
  * [_routerVerb 可以注册的方法]
@@ -44,19 +45,25 @@ module.exports = function graceRouter(app, options) {
 
   // 如果root不存在则直接跳过
   if (!fs.existsSync(root)) {
-    debug('error : can\'t find route path ' + root);
+    error('error : can\'t find route path ' + root);
     return function* ctrl(next) { yield next; };
   }
 
-  _ls(root).forEach(function(filePath) {
+  _ls(root).forEach((filePath) => {
     if (!/([a-zA-Z0-9_\-]+)(\.js)$/.test(filePath)) {
       return;
     }
 
-    let exportFuncs = require(filePath);
+    try {
+      var exportFuncs = require(filePath);
+    } catch (err) {
+      error(`error: require ${filePath} error ${err}`);
+      return;
+    }
+
     let pathRegexp = _formatPath(filePath, root);
 
-    getRoute(exportFuncs, function(exportFun, ctrlpath) {
+    getRoute(exportFuncs, (exportFun, ctrlpath) => {
       _setRoute(Router, {
         domain: Domain,
         method: exportFun.__method__,
@@ -76,7 +83,7 @@ module.exports = function graceRouter(app, options) {
       return require(defaultCtrlPath);
     } catch (err) {
       return new Promise((resolve) => {
-        debug(`Cannot find default controller '${defaultCtrlPath}'`)
+        error(`Cannot find default controller '${defaultCtrlPath}'`)
         resolve();
       })
     }
