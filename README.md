@@ -1,3 +1,7 @@
+<p align="center"><img width="30%" src="http://img002.qufenqi.com/products/0e/64/0e648f3e91454d406b3ac8a2941ad15f.png" /></p>
+
+--------------------------------------------------------------------------------
+
 > koa-grace v1.x版本请移步： https://github.com/xiongwilee/koa-grace/tree/master
 
 # koa-grace v2
