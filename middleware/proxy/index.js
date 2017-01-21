@@ -72,14 +72,12 @@ module.exports = function proxy(app, api, config, options) {
           let requestOpt = Object.assign({}, options, {
             uri: realReq.uri,
             method: realReq.method,
-            headers: realReq.headers,
-            json: true,
-            form: config.form || ctx.request.body
+            headers: realReq.headers
           }, config.conf);
 
-          return request({
-            ctx: ctx,
-            needPipeRes: false
+          return request(ctx, {
+            needPipeRes: false,
+            data: config.form || ctx.request.body
           }, requestOpt, (requestRes, data) => {
             // 将获取到的数据注入到上下文的destObj参数中
             destObj[opt.dest] = data;
@@ -116,13 +114,12 @@ module.exports = function proxy(app, api, config, options) {
           headers: realReq.headers,
           timeout: undefined,
           gzip: false,
-          encoding: null,
-          form: config.form || ctx.request.body
+          encoding: null
         }, config.conf);
 
-        return request({
-          ctx: ctx,
-          needPipeRes: true
+        return request(ctx, {
+          needPipeRes: true,
+          data: config.form || ctx.request.body
         }, requestOpt);
       }
     });
@@ -175,7 +172,7 @@ module.exports = function proxy(app, api, config, options) {
       method: urlObj.method,
       uri: uriObj.uri,
       headers: result
-    } 
+    }
   }
 
   /**

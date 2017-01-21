@@ -5,18 +5,26 @@ const Request = require('request');
 const debug = require('debug')('koa-grace:proxy');
 const error = require('debug')('koa-grace-error:proxy');
 
+// json types
+let JSON_TYPES = [
+  'application/json',
+  'application/json-patch+json',
+  'application/vnd.api+json',
+  'application/csp-report',
+];
 
 /**
  * request包装成promise函数
+ * @param  {Object}  ctx 上下文
  * @param  {Object}   param    参数
- *         {Object}   param.ctx.req request
- *         {Object}   param.ctx.res response
  *         {Boolean}   param.needPipeRes 是否需要pipe response
  * @param  {Object}   options  Request配置项
  * @param  {Function} callback 回调函数
  */
-module.exports = function request(param, options, callback) {
+module.exports = function request(ctx, param, options, callback) {
   callback = callback || (() => {});
+
+  let isJSON = ctx.request.is(JSON_TYPES);
 
   // 获取request参数
   let opt = Object.assign({
@@ -28,6 +36,14 @@ module.exports = function request(param, options, callback) {
     timeout: 15000, // 超时时间
     form: undefined // post的form参数，默认为undefined
   }, options);
+console.log(isJSON,'~~~~~~~~~~0')
+  // 如果是JSON格式的请求，则赋值json为数据对象
+  if (isJSON) {
+    opt.json = param.data || true;
+  } else {
+    opt.json = !param.needPipeRes;
+    opt.form = param.data;
+  }
 
   debug('proxying : ' + opt.uri);
 
@@ -89,16 +105,16 @@ module.exports = function request(param, options, callback) {
 
     // 如果ctx.req.readable是可读的而且当前请求不为GET
     // 则可以pipe
-    if (param.ctx.req.readable && param.ctx.method !== 'GET') {
-      param.ctx.req.pipe(ProxyServer);
+    if (ctx.req.readable && ctx.method !== 'GET') {
+      ctx.req.pipe(ProxyServer);
     }
 
     if (param.needPipeRes) {
-      ProxyServer.pipe(param.ctx.res);
+      ProxyServer.pipe(ctx.res);
       // pipe response到body中
       //  more at:https://github.com/request/request/issues/887#issuecomment-53965077
       // 在文件很大的情况下以下这种方式会有问题：
-      // param.ctx.body = ProxyServer.pipe(Stream.PassThrough());
+      // ctx.body = ProxyServer.pipe(Stream.PassThrough());
     }
   })
 }
