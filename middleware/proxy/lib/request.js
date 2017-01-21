@@ -24,26 +24,25 @@ let JSON_TYPES = [
 module.exports = function request(ctx, param, options, callback) {
   callback = callback || (() => {});
 
-  let isJSON = ctx.request.is(JSON_TYPES);
+  // 如果是JSON格式的请求，则赋值json为数据对象
+  let json, form;
+  if (ctx.request.is(JSON_TYPES)) {
+    json = param.data || true;
+  } else {
+    json = !param.needPipeRes;
+    form = param.data;
+  }
 
   // 获取request参数
   let opt = Object.assign({
     uri: undefined, // 请求路径
     method: undefined, // method
     headers: undefined, // 头信息
-    json: false, // 是否是json数据
     gzip: true, //是否gzip
     timeout: 15000, // 超时时间
-    form: undefined // post的form参数，默认为undefined
+    json: json, // json数据
+    form: form // post的form参数，默认为undefined
   }, options);
-  
-  // 如果是JSON格式的请求，则赋值json为数据对象
-  if (isJSON) {
-    opt.json = param.data || true;
-  } else {
-    opt.json = !param.needPipeRes;
-    opt.form = param.data;
-  }
 
   debug('proxying : ' + opt.uri);
 
