@@ -36,7 +36,7 @@ module.exports = function request(ctx, param, options, callback) {
     timeout: 15000, // 超时时间
     form: undefined // post的form参数，默认为undefined
   }, options);
-console.log(isJSON,'~~~~~~~~~~0')
+  
   // 如果是JSON格式的请求，则赋值json为数据对象
   if (isJSON) {
     opt.json = param.data || true;
