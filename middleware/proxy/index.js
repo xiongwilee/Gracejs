@@ -51,22 +51,27 @@ module.exports = function proxy(app, api, config, options) {
       proxy: function(opt, config) {
         config = config || {}
 
+        // 装载proxy结果的容器
         let destObj = config.dest;
-        if (!destObj) { destObj = ctx.backData = (ctx.backData || {}) }
-
-        let reqsParam = [];
-        if (typeof opt == 'string') {
-          destObj = ctx;
-          reqsParam.push({ url: opt, dest: 'body' })
-        } else {
-          for (let item in opt) {
-            reqsParam.push({ url: opt[item], dest: item });
-          }
+        if (!destObj) {
+          destObj = ctx.backData = (ctx.backData || {})
         }
 
-        let reqs = reqsParam.map((opt) => {
+        // 抽离opt为string的情况：
+        // 如果当前语法为：this.proxy('test:test/test')， 
+        // 则直接将返回内容注入到this.body
+        if (typeof opt === 'string') {
+          destObj = ctx;
+          opt = { 'body': opt };
+        }
+
+        // 装载头信息的容器
+        let headerObj = config.headers;
+        
+        let reqsParam = Object.keys(opt);
+        let reqs = reqsParam.map((proxyName) => {
           // 分析当前proxy请求的URL
-          let realReq = setRequest(ctx, opt.url);
+          let realReq = setRequest(ctx, opt[proxyName]);
 
           // 请求request的最终配置
           let requestOpt = Object.assign({}, options, {
@@ -80,7 +85,7 @@ module.exports = function proxy(app, api, config, options) {
             data: config.form || ctx.request.body
           }, requestOpt, (requestRes, data) => {
             // 将获取到的数据注入到上下文的destObj参数中
-            destObj[opt.dest] = data;
+            destObj[proxyName] = data;
             // 设置cookie
             requestRes && setResCookies(ctx, requestRes.headers)
               // 获取后端api配置
