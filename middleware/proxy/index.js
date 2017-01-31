@@ -67,8 +67,10 @@ module.exports = function proxy(app, api, config, options) {
 
         // 装载头信息的容器
         let headerObj = config.headers;
-        
+
         let reqsParam = Object.keys(opt);
+        let proxyProto = '__proxyname__';
+        
         let reqs = reqsParam.map((proxyName) => {
           // 分析当前proxy请求的URL
           let realReq = setRequest(ctx, opt[proxyName]);
@@ -83,24 +85,32 @@ module.exports = function proxy(app, api, config, options) {
           return request(ctx, {
             needPipeRes: false,
             data: config.form || ctx.request.body
-          }, requestOpt, (requestRes, data) => {
+          }, requestOpt, (response, data) => {
+            response && (response[proxyProto] = proxyName);
+
             // 将获取到的数据注入到上下文的destObj参数中
             destObj[proxyName] = data;
             // 将获取到的头信息注入到配置的参数中
-            headerObj && (headerObj[proxyName] = requestRes.headers);
+            headerObj && (headerObj[proxyName] = response.headers);
             // 设置cookie
-            requestRes && setResCookies(ctx, requestRes.headers)
-            // 获取后端api配置
-            isDebug && setApiOpt(ctx, realReq.uri, data, requestRes && requestRes.headers);
+            response && setResCookies(ctx, response.headers)
+              // 获取后端api配置
+            isDebug && setApiOpt(ctx, realReq.uri, data, response && response.headers);
 
-            return data;
+            return response;
           })
         })
 
         // 并发异步数据请求
         return new Promise((resolve) => {
           Promise.all(reqs).then((data) => {
-            resolve(destObj)
+            let result = {}
+            data.forEach((response) => {
+              if (!response) return;
+              let proxyName = response[proxyProto];
+              result[proxyName] = response
+            })
+            resolve(result)
           });
         })
       },
