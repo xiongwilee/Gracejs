@@ -86,9 +86,11 @@ module.exports = function proxy(app, api, config, options) {
           }, requestOpt, (requestRes, data) => {
             // 将获取到的数据注入到上下文的destObj参数中
             destObj[proxyName] = data;
+            // 将获取到的头信息注入到配置的参数中
+            headerObj && (headerObj[proxyName] = requestRes.headers);
             // 设置cookie
             requestRes && setResCookies(ctx, requestRes.headers)
-              // 获取后端api配置
+            // 获取后端api配置
             isDebug && setApiOpt(ctx, realReq.uri, data, requestRes && requestRes.headers);
 
             return data;
