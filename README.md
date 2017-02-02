@@ -311,9 +311,73 @@ Gracejs支持两种数据代理场景：
 this.proxy(object|string,[opt])
 ```
 
-##### 场景一：多个数据请求的代理
+##### 使用方法
 
-使用`this.proxy`方法实现多个数据异步并发请求非常简单：
+`this.proxy` 方法返回的是一个Promise，所以这里你可以根据当前Controller的类型使用`async/await`或者`Generator`实现异步并发。例如：
+
+**async/await：**
+
+```
+exports.demo = async function () {
+  await this.proxy({ /* ... */ })
+}
+```
+
+**Generator：**
+
+```
+exports.demo = function * () {
+  yield this.proxy({ /* ... */ })
+}
+```
+
+为了使语法更简便，可以在执行`this.proxy`之后，直接在上下文中的`backData`字段中获取到数据。例如：
+
+```
+exports.demo = async function () {
+  await this.proxy({
+    userInfo:'github:post:user/login/oauth/access_token?client_id=****',
+    otherInfo:'github:other/info?test=test',
+  })
+  
+  console.log(this.backData);
+  /**
+   *  {
+   *    userInfo : {...},
+   *    otherInfo : {...}
+   *  }
+   */
+}
+```
+
+`Generator`方法亦然。
+
+此外，如果要获取proxy的请求头信息，你可以在proxy方法返回的内容中获取到，例如：
+
+```javascript
+exports.demo = async function (){
+  let res = await this.proxy({
+    userInfo:'github:post:user/login/oauth/access_token?client_id=****',
+    otherInfo:'github:other/info?test=test',
+  });
+  
+  console.log(res);
+  /**
+   *  {
+   *    userInfo : {
+   *      headers: {...}  // 头信息
+   *      body: {...}     // 未处理的response body
+   *      ...             // ... 
+   *    },
+   *    otherInfo : {...}
+   *  }
+   */
+}
+```
+
+##### 使用场景一：多个数据请求的代理
+
+可以发现，上文的案例就是多个数据同时请求的代理方案，这里也就是**异步并发**获取数据的实现。使用`this.proxy`方法实现多个数据异步并发请求非常简单：
 
 ```javascript
 exports.demo = async function (){
@@ -336,7 +400,7 @@ exports.demo = async function (){
 
 
 
-##### 场景二：单个数据请求的代理
+##### 使用场景二：单个数据请求的代理
 
 如果只是为了实现一个接口请求代理，可以这么写：
 
@@ -345,6 +409,8 @@ exports.demo = async function (){
   await this.proxy('github:post:user/login/oauth/access_token?client_id=****');
 }
 ```
+
+这样proxy请求返回的数据体会直接赋值给`this.body`，也就是将这个请求直接返回给客户端。
 
 ##### 说明
 
