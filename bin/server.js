@@ -9,7 +9,6 @@ require("babel-register");
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
-const debug = require('debug')('koa-grace:server');
 const utils = require('../src/utils');
 
 const args = utils.parseArg();
