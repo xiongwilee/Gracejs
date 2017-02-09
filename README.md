@@ -228,6 +228,7 @@ exports.index.__regular__ = null;
 
 * 如果需要配置dashboard/post/list请求为`DELETE`方法，则post.js中声明 `exports.list.__method__ = 'delete'`即可（**不声明默认注入get及post方法**）;
 * 如果要配置更灵活的路由，则中声明`exports.list.__regular__ = '/:id';`即可，更多相关配置请参看：[koa-router#named-routes](https://github.com/alexmingoia/koa-router#named-routes)
+* 需要注意的是：如果`__regular__`配置为正则表达式的话，则会生成当前控制器默认路由及正则可匹配的路由
 
 当然，如果路由文件中的所有控制器方法都是post方法，您可以在控制器文件最底部加入：`module.exports.__method__ = 'post'`即可，`__regular__`的配置同理。
 
