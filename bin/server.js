@@ -3,7 +3,6 @@
 'use strict';
 
 global.Promise = require('bluebird')
-require("babel-register");
 
 
 const http = require('http');
