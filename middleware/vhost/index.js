@@ -75,8 +75,8 @@ module.exports = function graceVhost(host, app) {
     }
 
     if (!curHost) {
-      debug('there is no host match to ' + ctx.request.headers.host + ctx.request.url);
-      ctx.body = 'error: there is no host matched!';
+      debug(`Invalid hostname ${ctx.request.headers.host}, please check vhost config!`);
+      ctx.body = 'Invalid hostname!';
 
       return await next();
     }

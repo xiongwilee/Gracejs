@@ -16,4 +16,4 @@ const config = global.config = require('../src/config')(args);
 let app = require('../src/app');
 let server = require('http').createServer(app.callback());
 
-server.listen(3000);
+server.listen(config.site.port);
