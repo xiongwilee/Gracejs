@@ -802,7 +802,7 @@ Gracejs中几个核心的中间件都介绍完毕。此外，还有几个中间�
 当然Gracejs是只是服务端框架，前端架构如何选型，随你所愿。目前已经有基于Vue和requirejs的boilerplate。
 
 * Vue 1.x： https://github.com/Thunf/grace-vue-webpack-boilerplate （by [@thunf](https://github.com/Thunf)）
-* Vue 2.x： https://github.com/haoranw/grace-vue2-webpack-boilerplate （by [@haoranw](https://github.com/haoranw）
+* Vue 2.x： https://github.com/haoranw/grace-vue2-webpack-boilerplate （by [@haoranw](https://github.com/haoranw)
 * requirejs:  https://github.com/xiongwilee/gulp-requirejs-boilerplate
 
 这里以基于Vue的构建为例。 
