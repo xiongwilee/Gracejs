@@ -85,7 +85,7 @@ Gracejs与koa-grace v1.x版本的目录结构完全一致：
 
 需要强调的是，**这个目录结构是生产环境代码的标准目录结构。在开发环境里你可以任意调整你的目录结构，只要保证编译之后的产出文件以这个路径输出即可**。
 
-如果你对这一点仍有疑问，可以参考[grace-vue-webpack-boilerplate](https://github.com/Thunf/grace-vue-webpack-boilerplate)。
+如果你对这一点仍有疑问，可以参考[grace-vue-webpack-boilerplate](https://github.com/Thunf/grace-vue-webpack-boilerplate)或[grace-vue2-webpack-boilerplate](https://github.com/haoranw/grace-vue2-webpack-boilerplate)。
 
 ### MVC模型实现
 
@@ -801,7 +801,8 @@ Gracejs中几个核心的中间件都介绍完毕。此外，还有几个中间�
 
 当然Gracejs是只是服务端框架，前端架构如何选型，随你所愿。目前已经有基于Vue和requirejs的boilerplate。
 
-* Vue： https://github.com/Thunf/grace-vue-webpack-boilerplate （by [@thunf](https://github.com/Thunf)）
+* Vue 1.x： https://github.com/Thunf/grace-vue-webpack-boilerplate （by [@thunf](https://github.com/Thunf)）
+* Vue 2.x： https://github.com/haoranw/grace-vue2-webpack-boilerplate （by [@haoranw](https://github.com/haoranw）
 * requirejs:  https://github.com/xiongwilee/gulp-requirejs-boilerplate
 
 这里以基于Vue的构建为例。 
