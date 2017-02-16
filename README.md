@@ -821,26 +821,26 @@ Gracejs中几个核心的中间件都介绍完毕。此外，还有几个中间�
 │         ├── static
 │         ├── views
 │         └── vues
-└── gracejs
+└── server
     ├── app
     │    └── demo
     ├── middleware
     ├── ...
 ```
 
-当然，Gracejs允许你配置app目录路径，你可以放到任意你想要的目录里。
+当然，server（即：Gracejs）允许你配置app目录路径，你可以放到任意你想要的目录里。
 
-这里的demo模块比默认的Gracejs下的demo模块多出来两个目录：`build`和`vues`。
+这里的demo模块比默认的server下的demo模块多出来两个目录：`build`和`vues`。
 
 ### 构建思路
 
 其实，到这里也能猜到如何进行构建了：`build`目录是基于webpack的编译脚本，`vues`目录是所有的.vue的前端业务文件。
 
-webpack将vues下的vue文件编译之后产出到`gracejs/app/demo/static`下；其他`controller`等没有必要编译的文件，直接使用webpack的复制插件复制到`gracejs/app/demo/`的对应目录下即可。
+webpack将vues下的vue文件编译之后产出到`server/app/demo/static`下；其他`controller`等没有必要编译的文件，直接使用webpack的复制插件复制到`server/app/demo/`的对应目录下即可。
 
 有兴趣的同学，推荐看`grace-vue-webpack-boilerplate`下的build实现源码；当然，需要对webpack和vue有一定的了解。
 
-欢迎同学们贡献基于`React`、`Angular`的boilerplate，以邮件或者ISSUE的形式通知我们之后，添加到gracejs的官方文档中。
+欢迎同学们贡献基于`React`、`Angular`的boilerplate，以邮件或者ISSUE的形式通知我们之后，添加到Gracejs的官方文档中。
 
 ## 结语
 
