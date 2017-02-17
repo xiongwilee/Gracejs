@@ -85,7 +85,7 @@ Gracejs与koa-grace v1.x版本的目录结构完全一致：
 
 需要强调的是，**这个目录结构是生产环境代码的标准目录结构。在开发环境里你可以任意调整你的目录结构，只要保证编译之后的产出文件以这个路径输出即可**。
 
-如果你对这一点仍有疑问，可以参考: [前端构建-Boilerplate](https://github.com/xiongwilee/koa-grace#Boilerplate)
+如果你对这一点仍有疑问，可以参考: [前端构建-Boilerplate](https://github.com/xiongwilee/koa-grace#boilerplate)
 
 ### MVC模型实现
 
