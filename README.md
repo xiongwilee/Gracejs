@@ -85,7 +85,7 @@ Gracejs与koa-grace v1.x版本的目录结构完全一致：
 
 需要强调的是，**这个目录结构是生产环境代码的标准目录结构。在开发环境里你可以任意调整你的目录结构，只要保证编译之后的产出文件以这个路径输出即可**。
 
-如果你对这一点仍有疑问，可以参考[grace-vue-webpack-boilerplate](https://github.com/Thunf/grace-vue-webpack-boilerplate)或[grace-vue2-webpack-boilerplate](https://github.com/haoranw/grace-vue2-webpack-boilerplate)。
+如果你对这一点仍有疑问，可以参考: [前端构建-Boilerplate](https://github.com/xiongwilee/koa-grace#Boilerplate)
 
 ### MVC模型实现
 
@@ -799,11 +799,17 @@ Gracejs中几个核心的中间件都介绍完毕。此外，还有几个中间�
 3. **前端架构和选型更便捷**
   比如你可以很容易通过模板引擎完成BigPipe的架构，你也可以从内网异步并发获取首屏数据。
 
-当然Gracejs是只是服务端框架，前端架构如何选型，随你所愿。目前已经有基于Vue和requirejs的boilerplate。
+当然Gracejs是只是服务端框架，前端架构如何选型，随你所愿。
 
-* Vue 1.x： https://github.com/Thunf/grace-vue-webpack-boilerplate （by [@thunf](https://github.com/Thunf)）
-* Vue 2.x： https://github.com/haoranw/grace-vue2-webpack-boilerplate （by [@haoranw](https://github.com/haoranw)）
-* requirejs:  https://github.com/xiongwilee/gulp-requirejs-boilerplate
+### Boilerplate
+
+目前已经有基于Vue和requirejs的boilerplate。
+
+* [gulp-requirejs-boilerplate](https://github.com/xiongwilee/gulp-requirejs-boilerplate) [![gulp-requirejs-boilerplate](https://img.shields.io/github/stars/xiongwilee/gulp-requirejs-boilerplate.svg?label=%E2%98%85)](https://github.com/xiongwilee/gulp-requirejs-boilerplate)  **Requirejs supported.**（by [@xiongwilee](https://github.com/xiongwilee)）
+
+* [grace-vue-webpack-boilerplate](https://github.com/Thunf/grace-vue-webpack-boilerplate) [![grace-vue-webpack-boilerplate](https://img.shields.io/github/stars/Thunf/grace-vue-webpack-boilerplate.svg?label=%E2%98%85)](https://github.com/Thunf/grace-vue-webpack-boilerplate)  **Both Vue@1.x & Vue@2.x supported.**（by [@thunf](https://github.com/Thunf)）
+
+* [grace-vue2-webpack-boilerplate](https://github.com/haoranw/grace-vue2-webpack-boilerplate) [![grace-vue2-webpack-boilerplate](https://img.shields.io/github/stars/haoranw/grace-vue2-webpack-boilerplate.svg?label=%E2%98%85)](https://github.com/haoranw/grace-vue2-webpack-boilerplate)  Vue@2.x supported.（by [@haoranw](https://github.com/haoranw)）
 
 这里以基于Vue的构建为例。 
 
