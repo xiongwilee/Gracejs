@@ -35,15 +35,17 @@ Gracejs及前后端分离问题交流群：
 ## 二、快速开始
 
 **注意：请确保你的运行环境中Nodejs的版本至少是`v7.6.0`** 
-（或者你也可以考虑支持 v4.x+ 的[koa-grace v1.x](https://github.com/xiongwilee/koa-grace/tree/v1.0.4)）
+（或者你也可以考虑支持 Nodejs v4.x+ 的[koa-grace v1.x](https://github.com/xiongwilee/koa-grace/tree/v1.0.4)）
 
 ### 安装
 
 执行命令：
 ```
-$ git clone -b v2.x https://github.com/xiongwilee/koa-grace.git
+$ git clone https://github.com/xiongwilee/koa-grace.git
 $ cd koa-grace && npm install
 ```
+
+**BTW: 由于众所周知的原因，npm install可能不稳定，推荐使用[cnpm](https://github.com/cnpm/cnpm#cnpm)安装。**
 
 ### 运行
 
