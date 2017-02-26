@@ -1,11 +1,11 @@
 'use strict';
 
-import path from 'path'
-import http from 'http'
-import Koa from 'koa'
-import body from '../../body/index'
-import router from '../../router/index'
-import proxy from '../index'
+const path = require('path');
+const http = require('http');
+const Koa = require('koa');
+const body = require('../../body/index');
+const router = require('../../router/index');
+const proxy = require('../index');
 
 const app = new Koa()
 

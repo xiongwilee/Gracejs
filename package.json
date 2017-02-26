@@ -38,7 +38,7 @@
     "formidable": "^1.0.17",
     "grace-consolidate": "^0.14.3",
     "http-errors": "^1.5.0",
-    "koa": "^2.0.0-alpha.7",
+    "koa": "^2.0.1",
     "koa-compose": "^3.1.0",
     "koa-generic-session": "^1.11.3",
     "koa-is-json": "^1.0.0",
@@ -55,11 +55,6 @@
     "swiger": "0.0.2"
   },
   "devDependencies": {
-    "babel-plugin-syntax-async-functions": "^6.13.0",
-    "babel-plugin-transform-async-to-generator": "^6.16.0",
-    "babel-preset-es2015-node5": "^1.2.0",
-    "babel-preset-stage-0": "^6.16.0",
-    "babel-register": "^6.16.3",
     "mm": "^2.0.0",
     "mocha": "^3.1.0",
     "nodemon": "^1.10.2",

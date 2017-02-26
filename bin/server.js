@@ -13,7 +13,4 @@ const utils = require('../src/utils');
 const args = utils.parseArg();
 const config = global.config = require('../src/config')(args);
 
-let app = require('../src/app');
-let server = require('http').createServer(app.callback());
-
-server.listen(config.site.port);
+require('../src/app').listen(config.site.port);

@@ -1,9 +1,9 @@
 'use strict';
 
-import path from 'path'
-import http from 'http'
-import Koa from 'koa'
-import router from '../index'
+const path = require('path');
+const http = require('http');
+const Koa = require('koa');
+const router = require('../index');
 
 const app = new Koa()
 

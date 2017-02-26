@@ -1,8 +1,8 @@
 'use strict';
 
-import http from 'http'
-import Koa from 'koa'
-import compress from '../index'
+const http = require('http');
+const Koa = require('koa');
+const compress = require('../index');
 
 const app = new Koa()
 
