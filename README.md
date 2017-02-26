@@ -138,7 +138,7 @@ Gracejs与koa-grace v1.x版本的目录结构完全一致：
 
 ## 四、详细使用手册
 
-在看详细使用手册之前，建议先看一下Gracejs的主文件源码：https://github.com/xiongwilee/koa-grace/blob/v2.x/src/app.js 。
+在看详细使用手册之前，建议先看一下Gracejs的主文件源码：https://github.com/xiongwilee/koa-grace/blob/master/src/app.js 。
 
 这里不再浪费篇幅贴代码了，其实想说明的就是：**Gracejs是一个个关键中间件的集合**。
 
