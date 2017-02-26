@@ -2,7 +2,7 @@
 
 --------------------------------------------------------------------------------
 
-> koa-grace v1.x版本请移步： https://github.com/xiongwilee/koa-grace/tree/master
+> koa-grace v1.x版本请移步： https://github.com/xiongwilee/koa-grace/tree/v1.0.4
 
 # koa-grace v2
 
@@ -34,7 +34,8 @@ Gracejs及前后端分离问题交流群：
 
 ## 二、快速开始
 
-**注意：请确保你的运行环境中Nodejs的版本至少是`v4.0.0`，目前需要依赖Babel。**（当然26日凌晨`nodejs v7`已经release，你也可以不依赖Babel，直接通过`--harmony_async_await`模式启动。）
+**注意：请确保你的运行环境中Nodejs的版本至少是`v7.6.0`** 
+（或者你也可以考虑支持 v4.x+ 的[koa-grace v1.x](https://github.com/xiongwilee/koa-grace/tree/v1.0.4)）
 
 ### 安装
 
