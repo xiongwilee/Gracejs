@@ -6,7 +6,7 @@
 
 # koa-grace v2
 
-[Gracejs](https://github.com/xiongwilee/koa-grace/tree/v2.x)(又称:koa-grace v2)  是全新的基于[koa v2.x](https://github.com/koajs/koa/tree/v2.x)的MVC+RESTful架构的前后端分离框架。
+[Gracejs](https://github.com/xiongwilee/koa-grace)(又称:koa-grace v2)  是全新的基于[koa v2.x](https://github.com/koajs/koa)的MVC+RESTful架构的前后端分离框架。
 
 [![NPM version](https://img.shields.io/npm/v/gracejs.svg)](https://www.npmjs.com/package/gracejs)
 [![Build Status](https://travis-ci.org/xiongwilee/koa-grace.svg?branch=master)](https://travis-ci.org/xiongwilee/koa-grace)
@@ -58,7 +58,7 @@ $ npm run dev
 
 ## 三、案例说明
 
-这里参考 https://github.com/xiongwilee/koa-grace/tree/v2.x 中`app/demo`目录下的示例，详解Gracejs的MVC+RESTful架构的实现。
+这里参考 https://github.com/xiongwilee/koa-grace 中`app/demo`目录下的示例，详解Gracejs的MVC+RESTful架构的实现。
 
 此前也有文章简单介绍过koa-grace的实现（ https://github.com/xiongwilee/koa-grace/wiki ），但考虑到Gracejs的差异性，这里再从**目录结构**、**MVC模型实现**、**proxy机制**这三个关键点做一些比较详细的说明。
 
@@ -134,7 +134,7 @@ Gracejs与koa-grace v1.x版本的目录结构完全一致：
 6. 如果当前请求是一个file文件流，又该怎么办呢？
 ...
 
-好消息是，这些问题在proxy中间件中都考虑过了。这里不再一一讲解，有兴趣可以看koa-grace-proxy的源码：https://github.com/xiongwilee/koa-grace/tree/v2.x/middleware/proxy 。
+好消息是，这些问题在proxy中间件中都考虑过了。这里不再一一讲解，有兴趣可以看koa-grace-proxy的源码：https://github.com/xiongwilee/koa-grace/middleware/proxy 。
 
 ## 四、详细使用手册
 
@@ -142,7 +142,7 @@ Gracejs与koa-grace v1.x版本的目录结构完全一致：
 
 这里不再浪费篇幅贴代码了，其实想说明的就是：**Gracejs是一个个关键中间件的集合**。
 
-所有中间件都在[middleware](https://github.com/xiongwilee/koa-grace/tree/v2.x/middleware)目录下，配置由`config/main.*.js`管理。
+所有中间件都在[middleware](https://github.com/xiongwilee/koa-grace/middleware)目录下，配置由`config/main.*.js`管理。
 
 关于配置文件：
 
@@ -433,7 +433,7 @@ exports.demo = async function (){
  `conf` | `Obejct` | `{}` | this.proxy使用[Request.js](https://github.com/request/request)实现，此为传给request的重置配置（你可以在这里设置接口超时时间：`conf: { timeout: 25000 }`）
  `form` | `Object` | `{}` | 指定post方法的post数据，默认为当前页面的post数据
 
-关于this.proxy方法还有很多有趣的细节，推荐有兴趣的同学看源码：https://github.com/xiongwilee/koa-grace/tree/v2.x/middleware/proxy
+关于this.proxy方法还有很多有趣的细节，推荐有兴趣的同学看源码：https://github.com/xiongwilee/koa-grace/middleware/proxy
 
 #### 2、 文件代理
 
