@@ -269,7 +269,13 @@ module.exports = function proxy(app, api, config, options) {
     query = query || {};
     // 把页面url中的请求参数和数据连接中的请求参数合并
     urlQue = Object.assign({}, query, urlQue);
-
+    // 将query urlComponent编码化
+    Object.keys(urlQue).map(function(wd){
+      urlQue[encodeURIComponent(wd)] = encodeURIComponent(urlQue[wd]);
+      if(encodeURIComponent(wd) != wd){
+          delete urlQue[wd]
+      }
+    });
     // 把合并之后参数进行stringify，作为新的参数
     let queStr = querystring.stringify(urlQue);
     let urlStr = urlObj.protocol + '//' + urlObj.host + urlObj.pathname;
