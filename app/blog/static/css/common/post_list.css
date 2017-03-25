@@ -44,7 +44,7 @@
 	clear: both;
 	padding: 20px 0px;
 
-	color: rgba(0,0,0,.8);
+	color: #2b3a53;
 	font-size: 20px;
 	line-height: 20px;
 	text-align: center;
@@ -52,7 +52,6 @@
 	display: block;
 }
 .content .content-post .post-item .post-title a:hover{
-	color: #296ad4;
 	text-decoration: underline;
 }
 .content .content-post .post-item .post-image{
@@ -71,6 +70,9 @@
 
 .content .content-post .post-item .post-image a:hover img{
 	opacity: .9;
+}
+.content .content-post .post-item .post-content {
+	color: #31415c;
 }
 .content .content-post .post-item .markdown-body p{
 	line-height: 20px;

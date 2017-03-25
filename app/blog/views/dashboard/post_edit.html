@@ -7,11 +7,6 @@
 {% endblock %}
 
 {% block foot %}
-<script>
-	window.constant = {
-		isNew:{{ isNew }}
-	}
-</script>
 <script src="/blog/static/js/dashboard/post_edit.js" type="text/javascript"></script>
 {% endblock %}
 
@@ -21,19 +16,19 @@
 	<div class="view-content-container">
 		<form id="contentForm" class="form-horizontal" method="POST" action="/dashboard/post/aj_edit">
 		  <div class="form-group">
-		    <label for="inputTitle" class="col-sm-1 control-label">标题</label>
+		    <label for="inputTitle" class="col-sm-1 control-label"><i>*</i>标题</label>
 		    <div class="col-sm-10">
 		      <input value="{{post.title}}" type="text" class="form-control" name="title" id="inputTitle" placeholder="文章标题" required>
 		    </div>
 		  </div>
 		  <div class="form-group">
-		    <label for="inputId" class="col-sm-1 control-label">ID</label>
+		    <label for="inputId" class="col-sm-1 control-label"><i>*</i>ID</label>
 		    <div class="col-sm-10">
 		      <input value="{{post.id}}" type="text" class="form-control" name="id" id="inputId" placeholder="文章ID，仅限英文，数字，中划线，下划线" required {% if post.id %}readonly=true{% endif %}>
 		    </div>
 		  </div>
 		  <div class="form-group">
-		    <label for="inputId" class="col-sm-1 control-label">作者</label>
+		    <label for="inputId" class="col-sm-1 control-label"><i>*</i>作者</label>
 		    <div class="col-sm-10">
 		    	{% if userInfo.isAdmin %}
 		    		<select class="form-control" name="author" required>
@@ -47,7 +42,7 @@
 		    </div>
 		  </div>
 		  <div class="form-group">
-		    <label for="inputId" class="col-sm-1 control-label">分类</label>
+		    <label for="inputId" class="col-sm-1 control-label"><i>*</i>分类</label>
 		    <div class="col-sm-10">
 		    	<select class="form-control" name="category" value="{{ post.category }}" required>
 		    		{% for cate in siteInfo.cates%}
@@ -69,13 +64,14 @@
 		    </div>
 		  </div>
 		  <div class="form-group">
-		    <label for="inputContent" class="col-sm-1 control-label">内容</label>
+		    <label for="inputContent" class="col-sm-1 control-label"><i>*</i>内容</label>
 		    <div class="col-sm-10">
-		      <textarea type="image" class="form-control" name="content" id="inputContent" placeholder="文章内容" required>{{ post.content }}</textarea>
+		      <textarea type="image" class="form-control" name="content" id="inputContent" placeholder="文章内容">{{ post.content }}</textarea>
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <div class="col-sm-offset-1 col-sm-10">
+		      <input type="hidden" name="is_new" value="{{ isNew }}">
 		      <button type="submit" class="btn btn-default">提交</button>
 		    </div>
 		  </div>

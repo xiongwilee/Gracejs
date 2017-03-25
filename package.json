@@ -22,11 +22,13 @@
     "gracejs"
   ],
   "author": "xiongwilee",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/xiongwilee/koa-grace/issues"
   },
   "homepage": "https://github.com/xiongwilee/koa-grace",
+  "engines": {
+    "node": ">=4.0.0"
+  },
   "dependencies": {
     "bluebird": "3.4.6",
     "bytes": "^2.4.0",
@@ -60,5 +62,6 @@
     "nodemon": "^1.10.2",
     "should": "^11.1.0",
     "supertest": "^2.0.0"
-  }
+  },
+  "license": "MIT"
 }

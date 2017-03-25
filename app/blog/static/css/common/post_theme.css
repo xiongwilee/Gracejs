@@ -1,6 +1,6 @@
 @import url(../lib/highlight/styles/default.css);
 .markdown-body {
-    font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-family: Helvetica Neue,Helvetica,Arial,PingFang SC,Hiragino Sans GB,WenQuanYi Micro Hei,Microsoft Yahei,sans-serif;
     font-size: 14px;
     line-height: 1.6;
     word-wrap: break-word
@@ -335,6 +335,10 @@
     background-color: rgba(0,0,0,0.04);
     padding: 3px;
     border-radius: 2px;
+    font-family: Source Code Pro,Consolas,Menlo,Monaco,Courier New,monospace;
+}
+.markdown-body code *{
+    font-family: Source Code Pro,Consolas,Menlo,Monaco,Courier New,monospace;   
 }
 .markdown-body code br,.markdown-body tt br {
     display: none

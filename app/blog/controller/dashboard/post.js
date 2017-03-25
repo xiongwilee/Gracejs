@@ -106,7 +106,7 @@ exports.aj_edit = function* (){
   let CateModel = this.mongo('Category');
   if(is_new == 1){
     yield CateModel.updateCateNum( data.category );    
-  }else if(doc.category != data.category){
+  }else if(doc && doc.category !== data.category){
     // 更新doc原分类的数量及doc现分类的数量
     yield this.mongoMap([{
       model: CateModel,
@@ -140,7 +140,7 @@ exports.edit = function* () {
   }
 
   yield this.render('dashboard/post_edit',{
-    isNew: !post_id,
+    isNew: !post_id ? 1 : 0,
     breads : ['文章管理',(!post_id ? '新文章':'编辑文章')],
     post:post,
     userInfo: this.userInfo,

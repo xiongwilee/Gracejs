@@ -26,11 +26,8 @@ app.use(Middles.static(['/static/**/*', '/*/static/**/*'], {
 // 上传下载功能
 app.use(Middles.xload(app, config.xload));
 
-// 获取vhost
-let vhosts = Object.keys(config.vhost);
-
-// 注入vhost路由
-app.use(Middles.vhost(vhosts.map((item) => {
+// 获取vhosts
+let vhosts = Object.keys(config.vhost).map((item) => {
   let vapp = new koa();
 
   let appName = config.vhost[item];
@@ -89,6 +86,9 @@ app.use(Middles.vhost(vhosts.map((item) => {
     host: item,
     app: vapp
   }
-})));
+});
+
+// 注入vhosts路由
+app.use(Middles.vhost(vhosts));
 
 module.exports = app;
