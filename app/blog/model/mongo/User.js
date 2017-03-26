@@ -24,19 +24,19 @@ exports.statics = {}
 
 // http://mongoosejs.com/docs/guide.html#methods
 exports.methods = {
-  add: function*() {
+  add: async function() {
     return this.save();
   },
-  deleteUser : function* (id) {
-    let user = yield this.model('User').findOne({id:id});
+  deleteUser : async function (id) {
+    let user = await this.model('User').findOne({id:id});
 
     if(user){
-      yield this.model('User').remove({id:id});
+      await this.model('User').remove({id:id});
     }
 
     return user;
   },
-  edit: function*() {
+  edit: async function() {
     let id = this.id;
 
     function getData(data) {
@@ -55,17 +55,17 @@ exports.methods = {
       return this.model('User').update({id: id}, getData(this._doc));
     }
   },
-  getUserById: function*(id) {
+  getUserById: async function(id) {
     return this.model('User').findOne({
       id: id
     });
   },
-  getAuthor: function*() {
+  getAuthor: async function() {
     return this.model('User').find({
       isAuthor: true
     });
   },
-  list: function*() {
+  list: async function() {
     return this.model('User').find();
   }
 }

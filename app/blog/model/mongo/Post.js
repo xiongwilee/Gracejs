@@ -27,10 +27,10 @@ exports.statics = {}
 
 // http://mongoosejs.com/docs/guide.html#methods
 exports.methods = {
-  list: function* () {
+  list: async function () {
     return this.model('Post').find();
   },
-  edit: function*(is_new) {
+  edit: async function(is_new) {
     let id = this.id;
 
     function getData(data){
@@ -52,26 +52,26 @@ exports.methods = {
       return this.model('Post').update({id:id},getData(this._doc));
     }
   },
-  deletePost : function* (id) {
-    let post = yield this.model('Post').findOne({id:id});
+  deletePost : async function (id) {
+    let post = await this.model('Post').findOne({id:id});
 
     if(post){
-      yield this.model('Post').remove({id:id});
+      await this.model('Post').remove({id:id});
     }
 
     return post;
   },
-  getPostById: function* (id) {
+  getPostById: async function (id) {
     return this.model('Post').findOne({id:id});
   },
-  count: function*(pageNum, pageSize, query){
+  count: async function(pageNum, pageSize, query){
     pageNum = pageNum*1 || 1;
     pageSize = pageSize || 10;
     query = query || {};
     let result = {};
 
     // 数据量
-    result.totalNum = yield this.model('Post').count(query);
+    result.totalNum = await this.model('Post').count(query);
     // 当前多少页
     result.pageNum = pageNum;
     // 一共多少页
@@ -83,7 +83,7 @@ exports.methods = {
 
     return result;
   },
-  page: function*(pageNum, pageSize, query) {
+  page: async function(pageNum, pageSize, query) {
     pageNum = pageNum || 1;
     pageSize = pageSize || 10;
     query = query || {};
