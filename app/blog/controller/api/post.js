@@ -2,8 +2,8 @@
 
 let userAuthor = require('../dashboard/userAuthor');
 
-exports.aj_cate_list = function*() {
-  yield this.bindDefault();
+exports.aj_cate_list = async function() {
+  await this.bindDefault();
   if (!userAuthor.checkAuth(this, this.userInfo, false, true)) {
     return
   };
@@ -13,8 +13,8 @@ exports.aj_cate_list = function*() {
 exports.aj_cate_list.__method__ = 'all';
 
 
-exports.aj_post_delete = function*() {
-  yield this.bindDefault();
+exports.aj_post_delete = async function() {
+  await this.bindDefault();
   if (!userAuthor.checkAuth(this, this.userInfo, false, true)) {
     return
   };
@@ -28,7 +28,7 @@ exports.aj_post_delete = function*() {
   let PostModel = this.mongo('Post');
   let CateModel = this.mongo('Category');
 
-  let post = yield PostModel.deletePost(id);
+  let post = await PostModel.deletePost(id);
 
   if (!post) {
     result.code = 1;
@@ -39,7 +39,7 @@ exports.aj_post_delete = function*() {
   }
 
   if (post.category) {
-    let cate = yield CateModel.updateCateNum(post.category);
+    let cate = await CateModel.updateCateNum(post.category);
 
     this.body = result;
     return;
@@ -67,9 +67,10 @@ function _validatePostData(data) {
     ['content', 'String', true, '博客Markwown源码'],
     ['htmlContent', 'String', true, '博客markdown编译之后的html内容，用以展示在文档内容页'],
     ['introContent', 'String', true, '博客html格式的介绍内容，用以展示再文档列表页'],
-    ['category', 'String', true, '博客分类的id，文档分类必须从博客分类列表接口中获取']];
+    ['category', 'String', true, '博客分类的id，文档分类必须从博客分类列表接口中获取']
+  ];
 
-  for (let i=0; i < params.length; i++) {
+  for (let i = 0; i < params.length; i++) {
     let item = params[i];
     let key = item[0];
 
@@ -82,8 +83,8 @@ function _validatePostData(data) {
   return message;
 }
 
-exports.aj_edit = function*() {
-  yield this.bindDefault();
+exports.aj_edit = async function() {
+  await this.bindDefault();
   if (!userAuthor.checkAuth(this, this.userInfo, false, true)) {
     return
   };
@@ -100,7 +101,7 @@ exports.aj_edit = function*() {
 
   // 校验数据
   result.message = _validatePostData(data);
-  if(result.message){
+  if (result.message) {
     result.code = 2;
     return;
   }
@@ -127,7 +128,7 @@ exports.aj_edit = function*() {
     tag: tag
   });
 
-  let doc = yield PostModel.getPostById(data.id);
+  let doc = await PostModel.getPostById(data.id);
 
   if (is_new == 1 && doc) {
     result.code = '1';
@@ -139,20 +140,20 @@ exports.aj_edit = function*() {
     is_new = 1;
   }
 
-  let res = yield PostModel.edit(is_new);
+  let res = await PostModel.edit(is_new);
 
   let CateModel = this.mongo('Category');
   if (is_new == 1) {
-    yield CateModel.updateCateNum(data.category);
+    await CateModel.updateCateNum(data.category);
   } else if (doc.category != data.category) {
     // 更新doc原分类的数量及doc现分类的数量
-    yield this.mongoMap([{
+    await this.mongoMap([{
       model: CateModel,
       fun: CateModel.updateCateNum,
       arg: [data.category]
-    },{
-      model:CateModel,
-      fun:CateModel.updateCateNum,
+    }, {
+      model: CateModel,
+      fun: CateModel.updateCateNum,
       arg: [doc.category]
     }]);
   }

@@ -1,5 +1,5 @@
 'use strict';
-exports['403'] = function* () {
+exports['403'] = async function () {
   let message = this.params.message || '您没有权限！';
   this.body = message;
 }

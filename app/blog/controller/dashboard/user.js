@@ -2,11 +2,11 @@
 
 let userAuthor = require('./userAuthor');
 
-exports.mine = function*() {
-  yield this.bindDefault();
+exports.mine = async function() {
+  await this.bindDefault();
   if (!userAuthor.checkAuth(this, this.userInfo)) {return};
 
-  yield this.render('dashboard/user_mine', {
+  await this.render('dashboard/user_mine', {
     breads: ['用户管理', '我的信息'],
     secretId: this.cookies.get('USER_ID'),
     userInfo: this.userInfo,
@@ -14,13 +14,13 @@ exports.mine = function*() {
   })
 }
 
-exports.list = function*() {
-  yield this.bindDefault();
+exports.list = async function() {
+  await this.bindDefault();
   if (!userAuthor.checkAuth(this, this.userInfo)) {return};
 
-  let users = yield this.mongo('User').list();
+  let users = await this.mongo('User').list();
 
-  yield this.render('dashboard/user_list', {
+  await this.render('dashboard/user_list', {
     breads: ['用户管理', '用户列表'],
     users: users,
     userInfo: this.userInfo,
@@ -28,8 +28,8 @@ exports.list = function*() {
   })
 }
 
-exports.aj_user_delete = function*() {
-  yield this.bindDefault();
+exports.aj_user_delete = async function() {
+  await this.bindDefault();
   if (!userAuthor.checkAuth(this, this.userInfo)) {return};
 
   let id = this.request.body.id;
@@ -47,7 +47,7 @@ exports.aj_user_delete = function*() {
   }
 
   let UserModel = this.mongo('User');
-  let User = yield UserModel.deleteUser(id);
+  let User = await UserModel.deleteUser(id);
 
   if (!User) {
     result.code = 1;
@@ -59,8 +59,8 @@ exports.aj_user_delete = function*() {
 };
 exports.aj_user_delete.__method__ = 'post';
 
-exports.aj_user_author_add = function*() {
-  yield this.bindDefault();
+exports.aj_user_author_add = async function() {
+  await this.bindDefault();
   if (!userAuthor.checkAuth(this, this.userInfo, true, true)) {
     return;
   };
@@ -76,7 +76,7 @@ exports.aj_user_author_add = function*() {
     isAuthor: true
   });
 
-  let User = yield UserModel.edit();
+  let User = await UserModel.edit();
 
   if (!User) {
     result.code = 1;
@@ -88,8 +88,8 @@ exports.aj_user_author_add = function*() {
 };
 exports.aj_user_author_add.__method__ = 'post';
 
-exports.aj_user_author_delete = function*() {
-  yield this.bindDefault();
+exports.aj_user_author_delete = async function() {
+  await this.bindDefault();
   if (!userAuthor.checkAuth(this, this.userInfo, true, true)) {
     return;
   };
@@ -112,7 +112,7 @@ exports.aj_user_author_delete = function*() {
     isAuthor: false
   });
 
-  let User = yield UserModel.edit();
+  let User = await UserModel.edit();
 
   if (!User) {
     result.code = 1;

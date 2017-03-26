@@ -2,69 +2,72 @@
 
 let userAuthor = require('./userAuthor');
 
-exports.list = function* () {
-  yield this.bindDefault();
-  if (!userAuthor.checkAuth(this, this.userInfo)) {return};
+exports.list = async function() {
+  await this.bindDefault();
+  if (!userAuthor.checkAuth(this, this.userInfo)) {
+    return };
 
   let pageNum = this.query.page;
 
   let PostModel = this.mongo('Post');
-  let posts = yield PostModel.page(pageNum,20);
-  let page = yield PostModel.count(pageNum,20);
+  let posts = await PostModel.page(pageNum, 20);
+  let page = await PostModel.count(pageNum, 20);
 
-  yield this.render('dashboard/post_list',{
-    breads : ['文章管理','文章列表'],
-    posts:posts,
-    page:page,
+  await this.render('dashboard/post_list', {
+    breads: ['文章管理', '文章列表'],
+    posts: posts,
+    page: page,
     userInfo: this.userInfo,
     siteInfo: this.siteInfo
   })
 }
 
 
-exports.aj_post_delete = function* (){
-  yield this.bindDefault();
-  if (!userAuthor.checkAuth(this, this.userInfo)) {return};
+exports.aj_post_delete = async function() {
+  await this.bindDefault();
+  if (!userAuthor.checkAuth(this, this.userInfo)) {
+    return };
 
   let id = this.request.body.id;
-  let result = {code:0,message:''};
+  let result = { code: 0, message: '' };
 
   let PostModel = this.mongo('Post');
   let CateModel = this.mongo('Category');
 
-  let post = yield PostModel.deletePost(id);
+  let post = await PostModel.deletePost(id);
 
-  if(!post){
+  if (!post) {
     result.code = 1;
     result.message = '文章不存在！';
-    
+
     this.body = result;
     return;
   }
 
-  if(post.category){
-    let cate = yield CateModel.updateCateNum(post.category);
+  if (post.category) {
+    let cate = await CateModel.updateCateNum(post.category);
 
     this.body = result;
     return;
-  }else{
+  } else {
     this.body = result;
     return;
   }
 };
 exports.aj_post_delete.__method__ = 'post';
 
-exports.aj_edit = function* (){
-  yield this.bindDefault();
-  if (!userAuthor.checkAuth(this, this.userInfo)) {return};
+exports.aj_edit = async function() {
+  await this.bindDefault();
+  if (!userAuthor.checkAuth(this, this.userInfo)) {
+    return };
 
   let data = this.request.body;
   let is_new = data.is_new;
   let author = data.author || userInfo.id;
   let category = data.category;
-  let result = {code:0,message:''};
+  let result = { code: 0, message: '' };
 
-  if(!this.siteInfo.cates_item || !this.siteInfo.cates_item[category]){
+  if (!this.siteInfo.cates_item || !this.siteInfo.cates_item[category]) {
     result.code = 3;
     result.message = '没有找到对应的文章分类';
     this.body = result;
@@ -72,7 +75,7 @@ exports.aj_edit = function* (){
   }
 
 
-  let PostModel = this.mongo('Post',{
+  let PostModel = this.mongo('Post', {
     id: data.id,
     title: data.title,
     image: data.image,
@@ -84,15 +87,15 @@ exports.aj_edit = function* (){
     category: data.category
   });
 
-  let doc = yield PostModel.getPostById(data.id);
+  let doc = await PostModel.getPostById(data.id);
 
-  if(is_new == 1 && doc){
+  if (is_new == 1 && doc) {
     result.code = '1';
     result.message = '文章已经存在，请勿重复添加！';
 
     this.body = result;
     return;
-  }else if(is_new == 0 && !doc){
+  } else if (is_new == 0 && !doc) {
     result.code = '2';
     result.message = '文章不存在，无法编辑！';
 
@@ -100,21 +103,21 @@ exports.aj_edit = function* (){
     return;
   }
 
-  let res = yield PostModel.edit( is_new );
+  let res = await PostModel.edit(is_new);
 
   // 更新分类数量
   let CateModel = this.mongo('Category');
-  if(is_new == 1){
-    yield CateModel.updateCateNum( data.category );    
-  }else if(doc && doc.category !== data.category){
+  if (is_new == 1) {
+    await CateModel.updateCateNum(data.category);
+  } else if (doc && doc.category !== data.category) {
     // 更新doc原分类的数量及doc现分类的数量
-    yield this.mongoMap([{
+    await this.mongoMap([{
       model: CateModel,
       fun: CateModel.updateCateNum,
       arg: [data.category]
-    },{
-      model:CateModel,
-      fun:CateModel.updateCateNum,
+    }, {
+      model: CateModel,
+      fun: CateModel.updateCateNum,
       arg: [doc.category]
     }]);
   }
@@ -124,48 +127,50 @@ exports.aj_edit = function* (){
 exports.aj_edit.__method__ = 'post';
 
 
-exports.edit = function* () {
-  yield this.bindDefault();
-  if (!userAuthor.checkAuth(this, this.userInfo)) {return};
+exports.edit = async function() {
+  await this.bindDefault();
+  if (!userAuthor.checkAuth(this, this.userInfo)) {
+    return };
 
   let post;
   let post_id = this.query.id;
 
-  if(post_id){
-    post = yield this.mongo('Post').getPostById(post_id);
-    if(!post){
+  if (post_id) {
+    post = await this.mongo('Post').getPostById(post_id);
+    if (!post) {
       this.body = '文章不存在';
       return;
     }
   }
 
-  yield this.render('dashboard/post_edit',{
+  await this.render('dashboard/post_edit', {
     isNew: !post_id ? 1 : 0,
-    breads : ['文章管理',(!post_id ? '新文章':'编辑文章')],
-    post:post,
+    breads: ['文章管理', (!post_id ? '新文章' : '编辑文章')],
+    post: post,
     userInfo: this.userInfo,
     siteInfo: this.siteInfo
   })
 }
 
 
-exports.aj_cate_delete = function* (){
-  yield this.bindDefault();
-  if (!userAuthor.checkAuth(this, this.userInfo)) {return};
+exports.aj_cate_delete = async function() {
+  await this.bindDefault();
+  if (!userAuthor.checkAuth(this, this.userInfo)) {
+    return };
 
   let id = this.request.body.id;
-  let result = {code:0,message:''};
+  let result = { code: 0, message: '' };
 
   let CateModel = this.mongo('Category');
 
-  let cate = yield CateModel.deleteCate(id);
+  let cate = await CateModel.deleteCate(id);
 
-  if(!cate){
+  if (!cate) {
     result.code = 1;
-    result.message = '分类不存在！'; 
-  }else if(cate.numb > 0){
+    result.message = '分类不存在！';
+  } else if (cate.numb > 0) {
     result.code = 2;
-    result.message = '该分类下还有文章，请删除后再试'; 
+    result.message = '该分类下还有文章，请删除后再试';
   }
 
   this.body = result;
@@ -174,29 +179,30 @@ exports.aj_cate_delete = function* (){
 exports.aj_cate_delete.__method__ = 'post';
 
 
-exports.aj_cate_edit = function* (){
-  yield this.bindDefault();
-  if (!userAuthor.checkAuth(this, this.userInfo)) {return};
-  
+exports.aj_cate_edit = async function() {
+  await this.bindDefault();
+  if (!userAuthor.checkAuth(this, this.userInfo)) {
+    return };
+
   let data = this.request.body;
   let is_new = data.is_new;
-  let result = {code:0,message:''};
+  let result = { code: 0, message: '' };
 
-  let CateModel = this.mongo('Category',{
+  let CateModel = this.mongo('Category', {
     id: data.id,
     name: data.name,
     numb: data.numb
   });
 
-  let doc = yield CateModel.getCategoryById(data.id);
+  let doc = await CateModel.getCategoryById(data.id);
 
-  if(is_new == 1 && doc){
+  if (is_new == 1 && doc) {
     result.code = '1';
     result.message = '分类已经存在，请勿重复添加！';
 
     this.body = result;
     return;
-  }else if(is_new == 0 && !doc){
+  } else if (is_new == 0 && !doc) {
     result.code = '2';
     result.message = '该分类不存在，无法编辑！';
 
@@ -204,18 +210,19 @@ exports.aj_cate_edit = function* (){
     return;
   }
 
-  let res = yield CateModel.edit( is_new );
+  let res = await CateModel.edit(is_new);
 
   this.body = result;
 }
 exports.aj_cate_edit.__method__ = 'post';
 
-exports.cate = function* () {
-  yield this.bindDefault();
-  if (!userAuthor.checkAuth(this, this.userInfo)) {return};
+exports.cate = async function() {
+  await this.bindDefault();
+  if (!userAuthor.checkAuth(this, this.userInfo)) {
+    return };
 
-  yield this.render('dashboard/post_cate',{
-    breads : ['文章管理','分类管理'],
+  await this.render('dashboard/post_cate', {
+    breads: ['文章管理', '分类管理'],
     userInfo: this.userInfo,
     siteInfo: this.siteInfo
   })

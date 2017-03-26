@@ -19,7 +19,7 @@ function _getItem(arr) {
   return result;
 }
 
-module.exports = function*() {
+module.exports = async function() {
   let UserModel = this.mongo('User');
   let CateModel = this.mongo('Category');
   let LinkModel = this.mongo('Link');
@@ -31,7 +31,7 @@ module.exports = function*() {
   }
 
 
-  let mongoResult = yield this.mongoMap([{
+  let mongoResult = await this.mongoMap([{
     model: UserModel,
     fun: UserModel.list
   }, {
@@ -80,7 +80,7 @@ module.exports = function*() {
     }
   }
 
-  this.userInfo = yield this.mongo('User', {}).getUserById(user_info.user_id);
+  this.userInfo = await this.mongo('User', {}).getUserById(user_info.user_id);
 }
 
 // 设置为非路由

@@ -2,19 +2,19 @@
 
 let userAuthor = require('./userAuthor');
 
-exports.home = function* () {
-  yield this.bindDefault();
+exports.home = async function () {
+  await this.bindDefault();
   if (!userAuthor.checkAuth(this, this.userInfo)) {return};
 
-  yield this.render('dashboard/site_home',{
+  await this.render('dashboard/site_home',{
     breads : ['站点管理','通用'],
     userInfo: this.userInfo,
     siteInfo: this.siteInfo
   })
 }
 
-exports.aj_link_delete = function* (){
-  yield this.bindDefault();
+exports.aj_link_delete = async function (){
+  await this.bindDefault();
   if (!userAuthor.checkAuth(this, this.userInfo)) {return};
 
   let id = this.request.body.id;
@@ -22,7 +22,7 @@ exports.aj_link_delete = function* (){
 
   let LinkModel = this.mongo('Link');
 
-  let link = yield LinkModel.deleteLink(id);
+  let link = await LinkModel.deleteLink(id);
 
   if(!link){
     result.code = 1;
@@ -34,8 +34,8 @@ exports.aj_link_delete = function* (){
 };
 exports.aj_link_delete.__method__ = 'post';
 
-exports.aj_link_edit = function* (){
-  yield this.bindDefault();
+exports.aj_link_edit = async function (){
+  await this.bindDefault();
   if (!userAuthor.checkAuth(this, this.userInfo)) {return};
   
   let data = this.request.body;
@@ -48,7 +48,7 @@ exports.aj_link_edit = function* (){
     href: data.href
   });
 
-  let link = yield LinkModel.getLinkById(data.id);
+  let link = await LinkModel.getLinkById(data.id);
 
   if(is_new == 1 && link){
     result.code = '1';
@@ -64,17 +64,17 @@ exports.aj_link_edit = function* (){
     return;
   }
 
-  let res = yield LinkModel.edit( is_new );
+  let res = await LinkModel.edit( is_new );
 
   this.body = result;
 }
 exports.aj_link_edit.__method__ = 'post';
 
-exports.link = function* () {
-  yield this.bindDefault();
+exports.link = async function () {
+  await this.bindDefault();
   if (!userAuthor.checkAuth(this, this.userInfo)) {return};
 
-  yield this.render('dashboard/site_link',{
+  await this.render('dashboard/site_link',{
     breads : ['站点管理','链接管理'],
     userInfo: this.userInfo,
     siteInfo: this.siteInfo
