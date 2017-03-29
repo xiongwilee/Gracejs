@@ -11,7 +11,8 @@ module.exports = makeConfig({
     '127.0.0.1': 'demo',
     'localhost': 'blog',
     'feclub.cn': 'blog',
-    'localhost/test': 'test'
+    'localhost/test': 'test',
+    '0.0.0.0': 'iblog'
   },
 
   // router配置

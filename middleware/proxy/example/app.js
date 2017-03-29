@@ -14,7 +14,8 @@ app.use(body());
 app.use(proxy(app, {
   github: 'https://avatars.githubusercontent.com/',
   local: 'http://127.0.0.1:3001/',
-  test: 'http://192.168.1.10:10086/'
+  baidu: 'https://www.baidu.com/',
+  test: 'http://test.com/'
 }, {
   timeout: 15000, // 超时时间
   allowShowApi: true

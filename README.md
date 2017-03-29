@@ -431,7 +431,8 @@ exports.demo = async function (){
  ----- | --- | ---- | ----
  `dest` | `Object` | `this.backData` | 指定接收数据的对象，默认为`this.backData`
  `conf` | `Obejct` | `{}` | this.proxy使用[Request.js](https://github.com/request/request)实现，此为传给request的重置配置（你可以在这里设置接口超时时间：`conf: { timeout: 25000 }`）
- `form` | `Object` | `{}` | 指定post方法的post数据，默认为当前页面的post数据
+ `form` | `Object` | `{}` | 指定post方法的post数据，默认为当前页面的post数据，这里的数据content-type会根据当前请求的类型指定
+ `headers` | `Object` | `{}` | 指定当前请求的headers
 
 关于this.proxy方法还有很多有趣的细节，推荐有兴趣的同学看源码：https://github.com/xiongwilee/koa-grace/middleware/proxy
 
