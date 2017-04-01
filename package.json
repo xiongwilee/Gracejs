@@ -1,6 +1,6 @@
 {
   "name": "gracejs",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "A Nodejs SFB(Separation of Front and Back ends) framework, build with koa 2.x",
   "main": "./src/app.js",
   "directories": {
@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/xiongwilee/koa-grace",
   "engines": {
-    "node": ">=4.0.0"
+    "node": ">=7.6.0"
   },
   "dependencies": {
     "bluebird": "3.4.6",
