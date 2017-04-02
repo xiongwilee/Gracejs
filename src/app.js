@@ -61,11 +61,11 @@ let vhosts = Object.keys(config.vhost).map((item) => {
   }));
 
   // 配置模板引擎
-  let tplConfig = config.template;
+  let engine = (typeof config.template === 'string' ? config.template : config.template[appName]);
   vapp.use(Middles.views({
     root: appPath + '/views',
     extension: 'html',
-    engine: (typeof tplConfig === 'string' ? tplConfig : tplConfig[appName]),
+    engine: engine || 'swiger',
     locals: config.constant,
     cache: config.site.env == 'production' && 'memory'
   }));
