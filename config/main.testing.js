@@ -81,6 +81,7 @@ module.exports = makeConfig({
 
   // 模板引擎配置，默认：swiger
   template: {
+    iblog: 'nunjucks'
   },
 
   // 上传文件配置

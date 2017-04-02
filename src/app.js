@@ -61,12 +61,12 @@ let vhosts = Object.keys(config.vhost).map((item) => {
   }));
 
   // 配置模板引擎
-  let template = (typeof config.template == 'object' ? config.template[appName] : config.template);
-  vapp.use(Middles.views(appPath + '/views', {
+  let tplConfig = config.template;
+  vapp.use(Middles.views({
     root: appPath + '/views',
-    map: {
-      html: template || 'swiger'
-    },
+    extension: 'html',
+    engine: (typeof tplConfig === 'string' ? tplConfig : tplConfig[appName]),
+    locals: config.constant,
     cache: config.site.env == 'production' && 'memory'
   }));
 

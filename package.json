@@ -1,6 +1,6 @@
 {
   "name": "gracejs",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "A Nodejs SFB(Separation of Front and Back ends) framework, build with koa 2.x",
   "main": "./src/app.js",
   "directories": {
@@ -49,6 +49,7 @@
     "methods": "^1.1.2",
     "minimatch": "^3.0.3",
     "mongoose": "^4.6.3",
+    "nunjucks": "^3.0.0",
     "path-to-regexp": "^1.6.0",
     "raven": "^0.12.1",
     "request": "^2.75.0",
