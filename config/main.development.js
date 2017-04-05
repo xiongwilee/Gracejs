@@ -51,7 +51,9 @@ module.exports = makeConfig({
     cdn: '',
     domain: {
       demo: 'http://127.0.0.1:3000'
-    }
+    },
+    // github personal token ，不知道这个配置，完全可以忽略它
+    token: "" 
   },
 
   // 路径相关的配置
