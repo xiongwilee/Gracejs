@@ -3,6 +3,8 @@
 const base = require('./base.js');
 
 module.exports = async function() {
+  this.assert(!!base.config.token, 401, 'Personal Access Token Undefined!');
+
   // 获取用户github信息
   await this.proxy({
     ownerInfo: `github_api:user?access_token=${base.config.token}`,

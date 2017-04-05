@@ -1,6 +1,6 @@
 {
   "name": "gracejs",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "A Nodejs SFB(Separation of Front and Back ends) framework, build with koa 2.x",
   "main": "./src/app.js",
   "directories": {
