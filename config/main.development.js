@@ -61,12 +61,14 @@ module.exports = makeConfig({
     // 当直接访问域名时的默认路由
     default_path: {
       demo: '/home/index',
-      blog: '/home/index'
+      blog: '/home/index',
+      iblog: '/home/index'
     },
     // 如果设置jump为false，则当直接访问域名时不重定向到default_path
     default_jump: {
       demo: false,
-      blog: false
+      blog: false,
+      iblog: false
     }
   },
 

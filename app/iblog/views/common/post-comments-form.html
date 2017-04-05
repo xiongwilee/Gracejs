@@ -1,0 +1,26 @@
+<div class="post-comments-form">
+  {% if userInfo.login %}
+  <div class="comments-item clearfix">
+    <div class="comments-avatar">
+      <a class="comments-avatar-link" href="{{userInfo.html_url}}"><img class="comments-avatar-img" src="/user/avatar?img={{userInfo.avatar_url | urlencode}}"></a>
+    </div>
+    <div class="comments-form-container">
+      <form class="comments-form">
+        <div class="comments-form-main">
+          <textarea class="comments-form-textarea"></textarea>
+        </div>
+        <div class="comments-form-bottom clearfix">
+          <div class="comments-form-bottom-intro"><a class="comments-form-bottom-link" href="https://guides.github.com/features/mastering-markdown/">Markdown is supported</a></div>
+          <div class="comments-form-bottom-input">
+            <button class="comment-form-bottom-button" type="submit"><i class="comment-form-bottom-loading fa icon-spinner icon-spin"></i>post as {{userInfo.login}}</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  {% else %} 
+  <div class="comments-login" id="commentsLogin">
+    <p class="comments-login-text">Please <a class="comments-login-link comments-login-button" href="{{userInfo.login_url}}"><i class="fa icon-github"></i> login with github</a> first , or post comment on <a class="comments-login-link" href="{{userInfo.html_url}}">Github Issue</a>!</p>
+  </div>
+  {% endif %}
+</div>

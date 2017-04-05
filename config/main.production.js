@@ -8,10 +8,10 @@ const makeConfig = require('../src/utils').makeConfig;
 module.exports = makeConfig({
   // vhost配置
   vhost: {
-    '127.0.0.1': 'demo',
-    'localhost': 'blog',
+    'grace.wilee.me': 'demo',
     'feclub.cn': 'blog',
-    'localhost/test': 'test'
+    'localhost/test': 'test',
+    'iblog.wilee.me': 'iblog'
   },
 
   // router配置
@@ -50,7 +50,8 @@ module.exports = makeConfig({
     cdn: '',
     domain: {
       demo: 'http://127.0.0.1:3000'
-    }
+    },
+    token: ""
   },
 
   // 路径相关的配置
@@ -60,12 +61,14 @@ module.exports = makeConfig({
     // 当直接访问域名时的默认路由
     default_path: {
       demo: '/home/index',
-      blog: '/home/index'
+      blog: '/home/index',
+      iblog: '/home/index'
     },
     // 如果设置jump为false，则当直接访问域名时不重定向到default_path
     default_jump: {
       demo: false,
-      blog: false
+      blog: false,
+      iblog: false
     }
   },
 
