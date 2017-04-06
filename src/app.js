@@ -66,7 +66,9 @@ let vhosts = Object.keys(config.vhost).map((item) => {
     root: appPath + '/views',
     extension: 'html',
     engine: engine || 'swiger',
-    locals: config.constant,
+    locals: { 
+      constant: config.constant 
+    },
     cache: config.site.env == 'production' && 'memory'
   }));
 
