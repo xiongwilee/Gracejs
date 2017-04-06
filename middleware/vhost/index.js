@@ -5,7 +5,7 @@ const compose = require('koa-compose');
 
 module.exports = function graceVhost(vhosts) {
   // 用以缓存vhost记录
-  let HOST_CACHE = {};
+  const HOST_CACHE = {};
 
   vhosts.forEach((vhost) => {
     debug('register vhost: %s', vhost.host);

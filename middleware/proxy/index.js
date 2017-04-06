@@ -8,7 +8,7 @@ const raven = require('raven');
 const error = require('debug')('koa-grace-error:proxy');
 
 // 用以缓存当前 github:post:/test/test 到真实URL的分析结果
-let PATH_TO_URL = {};
+const PATH_TO_URL = {};
 
 /**
  * 
