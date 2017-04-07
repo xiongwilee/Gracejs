@@ -369,9 +369,10 @@ exports.demo = async function (){
   /**
    *  {
    *    userInfo : {
-   *      headers: {...}  // 头信息
-   *      body: {...}     // 未处理的response body
-   *      ...             // ... 
+   *      statusCode: {...} // 返回http status code
+   *      request: {...}    // 请求体
+   *      headers: {...}    // 响应头信息
+   *      body: {...}       // 未处理的response body
    *    },
    *    otherInfo : {...}
    *  }
