@@ -14,4 +14,7 @@
       <div class="post-default"><i class="fa icon-spinner icon-spin icon-2x"></i></div>
     </div>
   </div>
+  <div class="post-footer">
+    {% if postInfo.query.type == 'slider' %}<a class="post-footer-play" href="/post/slider/{{postInfo.number}}"><i class="fa icon-facetime-video"></i></a>{% endif %}
+  </div>
 </div>

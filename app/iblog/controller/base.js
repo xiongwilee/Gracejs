@@ -169,10 +169,12 @@ function getPostQuery(body) {
 
   let result = {};
   let commentReg = /^\[(\w+)\]\:([\s|\S]+)/;
-  body.split('\n').every((item) => {
+  body.split('\r\n').every((item) => {
     let itemMatch = item.match(commentReg);
     if (itemMatch && itemMatch.length == 3) {
-      result[itemMatch[1]] = itemMatch[2];
+      let queryKey = itemMatch[1],
+        queryVal = itemMatch[2];
+      result[queryKey] = queryVal && queryVal.trim();
       return true;
     } else {
       return false;

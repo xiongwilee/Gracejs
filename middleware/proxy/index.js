@@ -347,7 +347,7 @@ module.exports = function proxy(app, api, config, options) {
     let uriObj = url_opera.parse(url);
 
     let uri = url;
-    let host = uriObj.host;
+    let host = uriObj.hostname;
 
     // 如果有hosts的配置，且有对应域名的IP，则更改uri中的域名为IP
     if (config.hosts && config.hosts[host]) {

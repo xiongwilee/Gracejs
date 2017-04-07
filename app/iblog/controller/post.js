@@ -29,7 +29,36 @@ exports.detail = async function() {
   })
 }
 
-exports.detail.__regular__ = '/:id'
+exports.detail.__regular__ = '/:id';
+
+exports.slider = async function() {
+  await this.bindDefault();
+
+  let issuesId = parseInt(this.params.id) || 1;
+
+  await this.proxy({
+    issue: `github_api:/repos/${base.config.owner}/${base.config.repo}/issues/${issuesId}`
+  }, {
+    headers: { 'Authorization': `token ${base.config.token}` }
+  })
+
+  let postInfo = base.getPost(this.backData.issue);
+  this.siteInfo.title = `${postInfo.title} - ${this.siteInfo.title}`;
+
+  await this.render('post-slider', {
+    constant: {
+      issues_id: issuesId,
+      html_url: postInfo.html_url
+    },
+    ownerInfo: this.ownerInfo,
+    labelInfo: this.labelInfo,
+    siteInfo: this.siteInfo,
+    userInfo: this.userInfo,
+    postInfo: postInfo
+  })
+}
+
+exports.slider.__regular__ = '/:id';
 
 exports.label = async function() {
   await this.bindDefault();
@@ -62,7 +91,7 @@ exports.label = async function() {
   })
 }
 
-exports.label.__regular__ = '/:id'
+exports.label.__regular__ = '/:id';
 
 exports.commentsform = async function() {
   let access_token = this.cookies.get(base.config.token_cookie);
@@ -108,4 +137,4 @@ exports.commentslist = async function() {
     commentsInfo: commentsInfo
   })
 }
-exports.commentslist.__regular__ = '/:id'
+exports.commentslist.__regular__ = '/:id';
