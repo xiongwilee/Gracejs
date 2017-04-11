@@ -18,13 +18,22 @@
 	  <div class="post-content markdown-body">
           {{ post.htmlContent || post.content | safe }}
     </div>
+    <div id="postComment" class="post-comment ds-thread"></div>
     <!-- 多说评论框 start -->
-    <div id="postComment" class="post-comment ds-thread" data-thread-key="{{ post.id }}" data-title="{{ post.title }}" data-url="{{ siteInfo.path }}"></div>
+    <!-- <div id="postComment" class="post-comment ds-thread" data-thread-key="{{ post.id }}" data-title="{{ post.title }}" data-url="{{ siteInfo.path }}"></div> -->
     <!-- 多说评论框 end -->
   </article>
 </div>
+<script>
+  var cloudTieConfig = {
+    url: document.location.href, 
+    sourceId: "",
+    productKey: "abd0292629f543b6a7fcd5f6bb9c52a1",
+    target: "postComment"
+  };
+</script>
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 var duoshuoQuery = {short_name:"febiz"};
   (function() {
     var ds = document.createElement('script');
@@ -34,7 +43,8 @@ var duoshuoQuery = {short_name:"febiz"};
     (document.getElementsByTagName('head')[0] 
      || document.getElementsByTagName('body')[0]).appendChild(ds);
   })();
-  </script>
+  </script> -->
 <!-- 多说公共JS代码 end -->
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
 <script src="/blog/static/css/lib/highlight/highlight.pack.js" type="text/javascript"></script>
 <script src="/blog/static/js/common/post_content.js" type="text/javascript"></script>
