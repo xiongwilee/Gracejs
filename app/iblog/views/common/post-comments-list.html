@@ -9,7 +9,7 @@
         <a class="comments-detail-user" href="{{comment.user.html_url}}">{{comment.user.login}}</a> • <span class="comments-detail-time">{{comment.update_time}}</span>
       </div>
       <div class="comments-detail-content">
-        <textarea class="comments-detail-markdown" style="display: none;">{{comment.body | safe}}</textarea>
+        {{comment.body_html | safe}}
       </div>
       <div class="comments-detail-opera"><a class="comments-detail-replay" data-user="{{comment.user.login}}" href="#" title="reply"><i class="fa icon-reply"></i></a> • <a class="comments-detail-github" href="{{comment.html_url}}" title="view on github"><i class="fa icon-github"></i></a> </div>
     </div>

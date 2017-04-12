@@ -40,7 +40,7 @@ Gracejs及前后端分离问题交流群：
 ### 安装
 
 执行命令：
-```
+```shell
 $ git clone https://github.com/xiongwilee/koa-grace.git
 $ cd koa-grace && npm install
 ```
@@ -50,7 +50,7 @@ $ cd koa-grace && npm install
 ### 运行
 
 然后，执行命令：
-``` 
+```shell
 $ npm run dev
 ```
 
@@ -66,7 +66,7 @@ $ npm run dev
 
 Gracejs与koa-grace v1.x版本的目录结构完全一致：
 
-```
+```shell
 .
 ├── controller
 │   ├── data.js
@@ -194,7 +194,7 @@ controller
 router中间件会找到模块中所有以`.js`结尾的文件，根据文件路径和module.exports生成路由。
 
 例如，demo模块中的home.js文件：
-```
+```javascript
 exports.index = async function () {
   await this.bindDefault();
   await this.render('home', {
@@ -219,7 +219,7 @@ exports.hello = function(){
 
 将demo模块中的home.js扩展一下：
 
-```
+```javascript
 exports.index = async function () {
     ...
 }
@@ -240,7 +240,7 @@ exports.index.__regular__ = null;
 #### 3、 控制器
 
 将demo模块中的home.js的index方法再扩展一下：
-```
+```javascript
 exports.index = async function () {
   // 绑定默认控制器方法
   await this.bindDefault();
@@ -288,7 +288,7 @@ context属性 | 类型 | 中间件 | 说明
 
 在控制器中，如果还有其他的异步方法，可以通过Promise来实现。例如：
 
-```
+```javascript
 exports.main = async function() {
   await ((test) => {
     return new Promise((resolve, reject) => {
@@ -311,7 +311,7 @@ Gracejs支持两种数据代理场景：
 
 数据代理可以在控制器中使用`this.proxy`方法：
 
-```
+```javascript
 this.proxy(object|string,[opt])
 ```
 
@@ -321,7 +321,7 @@ this.proxy(object|string,[opt])
 
 **async/await：**
 
-```
+```javascript
 exports.demo = async function () {
   await this.proxy({ /* ... */ })
 }
@@ -329,7 +329,7 @@ exports.demo = async function () {
 
 **Generator：**
 
-```
+```javascript
 exports.demo = function * () {
   yield this.proxy({ /* ... */ })
 }
@@ -337,7 +337,7 @@ exports.demo = function * () {
 
 为了使语法更简便，可以在执行`this.proxy`之后，直接在上下文中的`backData`字段中获取到数据。例如：
 
-```
+```javascript
 exports.demo = async function () {
   await this.proxy({
     userInfo:'github:post:user/login/oauth/access_token?client_id=****',
@@ -441,7 +441,7 @@ exports.demo = async function (){
 
 文件代理可以在控制器中使用`this.fetch`方法：
 
-```
+```javascript
 this.fetch(string)
 ```
 
@@ -493,7 +493,7 @@ exports.home = await function () {
 
 静态文件的使用非常简单，将`/static/**/`或者`/*/static/*`的静态文件请求代理到了模块路径下的`/static`目录：
 
-```
+```javascript
 // 配置静态文件路由
 app.use(Middles.static(['/static/**/*', '/*/static/**/*'], {
   dir: config_path_project,
@@ -513,7 +513,7 @@ app.use(Middles.static(['/static/**/*', '/*/static/**/*'], {
 MOCK功能的实现其实非常简单，在开发环境中你可以很轻易地使用MOCK数据。
 
 以demo模块为例，首先在`main.development.js`配置文件中添加proxy配置：
-```
+```javascript
 // controller中请求各类数据前缀和域名的键值对
 api: {
  // ...
@@ -525,7 +525,7 @@ api: {
 然后，在demo模块中添加`mock`文件夹，然后添加`test.json`:
 
 **文件结构：**
-```
+```shell
 .
 ├── controller
 ├── mock
@@ -536,7 +536,7 @@ api: {
 **文件内容（就是你想要的请求返回内容）：**
 
 在JSON文件内容中也可以使用注释：
-```
+```javascript
 /*
  * 获取用户信息接口
  */
@@ -548,7 +548,7 @@ api: {
 然后，你可以打开浏览器访问：`http://${ip}:${port}/__MOCK__/demo/test` 验证是否已经返回了test.json里的数据。
 
 最后在你的controller业务代码中就可以通过proxy方法获取mock数据了：
-```
+```javascript
 this.proxy({
     test:'demo:test'
 })
@@ -566,7 +566,7 @@ this.proxy({
 考虑到用户路由完全由Nodejs托管以后，CSRF的问题也得在Nodejs层去防护了。此前写过一片文章：[前后端分离架构下CSRF防御机制](http://feclub.cn/post/content/koa-grace-csrf)，这里就只写使用方法，不再详述原理。
 
 在Gracejs中可以配置：
-```
+```javascript
 // csrf配置
 csrf: {
   // 需要进行xsrf防护的模块名称
@@ -608,7 +608,7 @@ Gracejs监听到post请求，如果token验证失效，则直接返回错误。
 
 依旧以案例`blog`为例，参看`app/blog/model/mongo`目录：
 
-```
+```shell
 └── mongo
     ├── Category.js
     ├── Link.js
@@ -655,7 +655,7 @@ module.exports.methods = methods;
 
 主要有四个参数：
 
-* `model` ， 即表名，最好与当前文件同名
+*  `model` ， 即表名，最好与当前文件同名
 *  `schema` ， 即mongoose schema
 *  `methods` ， 即schema扩展方法，**推荐把数据库元操作都定义在这个对象中**
 *  `statics` ， 即静态操作方法
@@ -736,12 +736,12 @@ exports.list = async function (){
 
 方法：
 
-```
+```javascript
 this.upload([opt])
 ```
 
 示例：
-```
+```javascript
 exports.aj_upload = async function() {
   await this.bindDefault();
 
@@ -768,12 +768,12 @@ exports.aj_upload = async function() {
 
 方法：
 
-```
+```javascript
 this.download(filename, [opt])
 ```
 
 示例：
-```
+```javascript
 exports.download = async function() {
   await this.download(this.query.file);
 }
@@ -822,7 +822,7 @@ Gracejs中几个核心的中间件都介绍完毕。此外，还有几个中间�
 
 一个完整的依赖基于vue+Gracejs的目录结构推荐使用这种模式：
 
-```
+```shell
 .
 ├── app
 │   └── demo

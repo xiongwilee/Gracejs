@@ -1,7 +1,7 @@
 {
   "iblog/static/js/common/layout.js": "iblog/static/js/common/layout-6b3bf0eabc.js",
   "iblog/static/js/common/post-comments.js": "iblog/static/js/common/post-comments-0449e1a7c0.js",
-  "iblog/static/js/common/post-detail.js": "iblog/static/js/common/post-detail-289581401b.js",
+  "iblog/static/js/common/post-detail.js": "iblog/static/js/common/post-detail-4c68e7ab3d.js",
   "iblog/static/js/common/post-slider.js": "iblog/static/js/common/post-slider-3a92addfb9.js",
   "iblog/static/js/home/index.js": "iblog/static/js/home/index-38387fc62e.js",
   "iblog/static/js/lib.js": "iblog/static/js/lib-7abd353ee8.js",
@@ -16,7 +16,7 @@
   "iblog/static/js/lib/reveal/zoom.js": "iblog/static/js/lib/reveal/zoom-7efc692f8d.js",
   "iblog/static/js/lib/simplemde.min.js": "iblog/static/js/lib/simplemde-d1bf3b57e5.min.js",
   "iblog/static/js/lib/zepto.min.js": "iblog/static/js/lib/zepto-7f1d77b9b7.min.js",
-  "iblog/static/js/post/detail.js": "iblog/static/js/post/detail-b0fedf7951.js",
+  "iblog/static/js/post/detail.js": "iblog/static/js/post/detail-690d332958.js",
   "iblog/static/js/post/label.js": "iblog/static/js/post/label-5440cabc26.js",
   "iblog/static/js/post/slider.js": "iblog/static/js/post/slider-2258842e8f.js",
   "iblog/static/js/require.config.js": "iblog/static/js/require-e0058239d8.config.js"

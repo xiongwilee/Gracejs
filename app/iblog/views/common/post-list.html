@@ -5,7 +5,7 @@
     <div class="post-list-image" style="background-image: url({{post.query.image}})"></div>
     {% endif %}
     <div class="post-list-intro"><a class="post-list-link" href="/post/detail/{{post.number}}">{{post.intro}}</a></div>
-    <div class="post-list-opera">{% if post.query.type == 'slider' %}<a class="post-list-link post-list-link-icon" title="post slider" href="/post/slider/{{post.number}}"><i class="fa icon-facetime-video"></i></a> • {% endif %}<a class="post-list-opera-item post-list-link" href="{{post.user.html_url}}" title="post detail">{{post.user.login}}</a> • <span class="post-list-opera-item">{{post.update_time}}</span> • <a class="post-list-opera-item post-list-link" href="/post/detail/{{post.number}}#comments" title="post commenst">{{post.comments}} Comments</a></div>
+    <div class="post-list-opera">{% if post.query.type == 'slider' %}<a class="post-list-link post-list-link-icon" title="post slider" href="/post/slider/{{post.number}}"><i class="fa icon-facetime-video"></i></a> • {% endif %}<a class="post-list-opera-item post-list-link" href="{{post.user.html_url}}" title="post author">{{post.user.login}}</a> • <span class="post-list-opera-item">{{post.update_time}}</span> • <a class="post-list-opera-item post-list-link" href="/post/detail/{{post.number}}#comments" title="post commenst">{{post.comments}} Comments</a></div>
   </article>
   {% else %} 没有文章 {% endfor %}
   <div class="post-list-page">
