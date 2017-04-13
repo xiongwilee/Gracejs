@@ -34,6 +34,11 @@ module.exports = function(opts) {
     'text/plain',
   ];
 
+  // default limit
+  opts.jsonLimit = opts.jsonLimit || '5mb';
+  opts.formLimit = opts.formLimit || '2mb';
+  opts.textLimit = opts.textLimit || '5mb';
+
   var jsonOpts = formatOptions(opts, 'json');
   var formOpts = formatOptions(opts, 'form');
   var textOpts = formatOptions(opts, 'text');
@@ -42,11 +47,6 @@ module.exports = function(opts) {
   extendType(jsonTypes, extendTypes.json);
   extendType(formTypes, extendTypes.form);
   extendType(textTypes, extendTypes.text);
-
-  // default limit
-  opts.jsonLimit = opts.jsonLimit || '5mb';
-  opts.formLimit = opts.formLimit || '2mb';
-  opts.textLimit = opts.textLimit || '5mb';
 
   return async function body(ctx, next) {
     if (ctx.request.body !== undefined) return await next();
@@ -73,7 +73,7 @@ module.exports = function(opts) {
     if (enableText && ctx.request.is(textTypes)) {
       return await parse.text(ctx, textOpts) || '';
     }
-    
+
     return {};
   }
 };
