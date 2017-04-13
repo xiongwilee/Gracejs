@@ -1,4 +1,4 @@
-config/server.json
+/config/server.json
 
 /node_modules
 npm-debug.*
