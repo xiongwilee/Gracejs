@@ -1,0 +1,19 @@
+<header class="post-header" style="background-image: url({{postInfo.query.image or siteInfo.banner}})">
+  <nav class="top">
+    <div class="container">
+      <a class="home" href="/">home</a>
+    </div>
+  </nav>
+  <div class="banner">
+    <div class="container">
+      <h1 class="title">{{postInfo.title}}</h1>
+      <span class="sub-title">{{postInfo.intro}}</span>
+      <div class="label">
+        {% for label in postInfo.labels%}<a class="label-link" href="/post/label/{{label.name}}">{{label.name}}</a>{% endfor %}
+      </div>
+      <div class="opera">
+        <a class="opera-item link" href="{{postInfo.user.html_url}}">{{postInfo.user.login}}</a> • <span class="opera-item">{{postInfo.update_time}}</span> • <a class="opera-item link" href="{{postInfo.html_url}}">view on github</a>
+      </div>
+    </div>
+  </div>
+</header>

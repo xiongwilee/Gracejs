@@ -18,7 +18,7 @@ exports.statics = {}
 
 // http://mongoosejs.com/docs/guide.html#methods
 exports.methods = {
-  edit: function*(is_new) {
+  edit: async function(is_new) {
     let id = this.id;
 
     function getData(data){
@@ -37,20 +37,20 @@ exports.methods = {
       return this.model('Link').update({id:id},getData(this._doc));
     }
   },
-  add: function* () {
+  add: async function () {
   	return this.save();
   },
-  getLinkById: function* (id) {
+  getLinkById: async function (id) {
   	return this.model('Link').findOne({id:id});
   },
-  list: function* () {
+  list: async function () {
     return this.model('Link').find();
   },
-  deleteLink : function* (id) {
-    let post = yield this.model('Link').findOne({id:id});
+  deleteLink : async function (id) {
+    let post = await this.model('Link').findOne({id:id});
 
     if(post){
-      yield this.model('Link').remove({id:id});
+      await this.model('Link').remove({id:id});
     }
 
     return post;

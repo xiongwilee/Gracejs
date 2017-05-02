@@ -7,8 +7,8 @@ const key = "http://mlsfe.biz/private_key"; //加密的秘钥
 let client_id = '02f5d364d2d4aff85a00';
 let client_secret = '015e99f9215438a681e4529efb47b72c6b574552';
 
-exports.login = function*() {
-  yield this.bindDefault();
+exports.login = async function() {
+  await this.bindDefault();
 
   // 如果已经登录就不用再登录，直接重定向到首页
   if (this.userInfo && this.userInfo.id) {
@@ -26,18 +26,18 @@ exports.login = function*() {
   this.redirect(path);
 }
 
-exports.logout = function*() {
+exports.logout = async function() {
   this.cookies.set('USER_ID', '', {
     expires: new Date(Date.now() - 1000 * 60 * 60 * 24 * 30),
   });
   this.redirect('/home');
 }
 
-exports.avatar = function* (){
+exports.avatar = async function (){
   let query = this.query;
   try{
     let urlObj = url.parse(query.img);
-    yield this.fetch('https://avatars.githubusercontent.com' + urlObj.path);
+    await this.fetch('https://avatars.githubusercontent.com' + urlObj.path);
   }catch(err){
     this.body = {
       code: '1',
@@ -47,13 +47,13 @@ exports.avatar = function* (){
   }
 }
 
-exports.oauth = function*() {
+exports.oauth = async function() {
   // 为所有的GITHUB请求设置头信息为Accept参数为'application/json'
   this.headers.accept = 'application/json';
 
   // 获取access_token
   let code = this.query.code; 
-  yield this.proxy({
+  await this.proxy({
     oauthInfo: 'github:post:login/oauth/access_token?client_id=' + client_id + '&client_secret=' + client_secret + '&code=' + code
   })
   let access_token = this.backData.oauthInfo.access_token;
@@ -68,7 +68,7 @@ exports.oauth = function*() {
   }
 
   // 获取用户github信息
-  yield this.proxy({
+  await this.proxy({
     userInfo: 'github_api:user?access_token=' + access_token
   });
   let _userInfo = this.backData.userInfo;
@@ -93,10 +93,10 @@ exports.oauth = function*() {
     blog: _userInfo.blog
   });
   // 查找数据库中用户信息
-  this.userInfo = yield UserModel.getUserById(_userInfo.login);
+  this.userInfo = await UserModel.getUserById(_userInfo.login);
   // 如果不存在，则添加
   if (!this.userInfo) {
-    this.userInfo = yield UserModel.save();
+    this.userInfo = await UserModel.save();
   }
 
 

@@ -1,6 +1,6 @@
 {
   "name": "gracejs",
-  "version": "1.0.0",
+  "version": "2.0.5",
   "description": "A Nodejs SFB(Separation of Front and Back ends) framework, build with koa 2.x",
   "main": "./src/app.js",
   "directories": {
@@ -22,11 +22,13 @@
     "gracejs"
   ],
   "author": "xiongwilee",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/xiongwilee/koa-grace/issues"
   },
   "homepage": "https://github.com/xiongwilee/koa-grace",
+  "engines": {
+    "node": ">=7.6.0"
+  },
   "dependencies": {
     "bluebird": "3.4.6",
     "bytes": "^2.4.0",
@@ -47,6 +49,7 @@
     "methods": "^1.1.2",
     "minimatch": "^3.0.3",
     "mongoose": "^4.6.3",
+    "nunjucks": "^3.0.0",
     "path-to-regexp": "^1.6.0",
     "raven": "^0.12.1",
     "request": "^2.75.0",
@@ -60,5 +63,6 @@
     "nodemon": "^1.10.2",
     "should": "^11.1.0",
     "supertest": "^2.0.0"
-  }
+  },
+  "license": "MIT"
 }
