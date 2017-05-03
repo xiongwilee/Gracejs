@@ -6,11 +6,11 @@ const debug = require('debug')('koa-grace:mock');
 const stripJsonComments = require('strip-json-comments');
 
 /**
- * 
+ *
  * @param  {string} app     context
  * @param  {object} options 配置项
  *         {string} options.path mock数据地址
- *         {object} options.prefix mock数据的url前缀 
+ *         {object} options.prefix mock数据的url前缀
  * @return {function}
  *
  * @todo 完善测试用例
@@ -83,7 +83,7 @@ module.exports = function graceMock(app, options) {
       if (fs.existsSync(folderPath)) {
         dir += pathDirArr[i] + '/';
       } else {
-        dir += pathDirArr[i] + '.json';
+        dir += pathDirArr[i];
         lastArr = pathDirArr.slice(i + 1);
         break;
       }
@@ -94,7 +94,7 @@ module.exports = function graceMock(app, options) {
     // 如果mock文件不存在则返回错误
     if (!fs.existsSync(dir)) {
       result.code = 2;
-      result.message = '找不到mock文件：' + dir;
+      result.message = (/.json/.test(dir)? '找不到mock文件：' : '找不到mock文件对应目录：') + dir;
       return result;
     }
 
@@ -126,7 +126,7 @@ module.exports = function graceMock(app, options) {
     let data = mockData;
     for (let i = 0; i < lastArr.length; i++) {
       let index = lastArr[i];
-        
+
       if (!data[index]) {
         result.code = 4;
         result.message = '找不到对应mock文件下的对应接口的数据' + dir;
