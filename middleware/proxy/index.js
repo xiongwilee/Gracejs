@@ -87,7 +87,7 @@ module.exports = function proxy(app, api, config, options) {
 
           return request(ctx, {
             needPipeRes: false,
-            data: config.form || ctx.request.body
+            data: config.form || formatBody(ctx.request.body)
           }, requestOpt, (response, data) => {
             response && (response[proxyProto] = proxyName);
 
@@ -143,7 +143,7 @@ module.exports = function proxy(app, api, config, options) {
 
         return request(ctx, {
           needPipeRes: true,
-          data: config.form || ctx.request.body
+          data: config.form || formatBody(ctx.request.body)
         }, requestOpt);
       }
     });
@@ -156,6 +156,18 @@ module.exports = function proxy(app, api, config, options) {
     }
   };
 
+  /**
+   * 格式化body：如果body为空对象则直接返回false，用以填一个request的坑，
+   * @param  {Object} body body对象
+   * @return {Object|Boolean} 
+   */
+  function formatBody(body) {
+    for (let key in body) {
+      if (body.hasOwnProperty(key)) return body;
+    }
+
+    return false;
+  }
 
   /**
    * 根据分析proxy url的结果和当前的req来分析最终的url/method/头信息

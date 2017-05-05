@@ -4,12 +4,17 @@ const path = require('path');
 const http = require('http');
 const Koa = require('koa');
 const body = require('../../body/index');
+const xload = require('../../xload/index');
 const router = require('../../router/index');
 const proxy = require('../index');
 
 const app = new Koa()
 
 app.use(body());
+
+app.use(xload(app, {
+  path: './data'
+}));
 
 app.use(proxy(app, {
   github: 'https://avatars.githubusercontent.com/',
@@ -30,4 +35,3 @@ app.use(router(app, {
 }))
 
 module.exports = http.createServer(app.callback());
-
