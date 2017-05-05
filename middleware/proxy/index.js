@@ -7,9 +7,6 @@ const request = require('./lib/request');
 const raven = require('raven');
 const error = require('debug')('koa-grace-error:proxy');
 
-// 用以缓存当前 github:post:/test/test 到真实URL的分析结果
-const PATH_TO_URL = {};
-
 /**
  * 
  * @param  {string} app     context
@@ -217,16 +214,11 @@ module.exports = function proxy(app, api, config, options) {
    * @return {Object}      返回真正的url和方法
    */
   function analyUrl(ctx, path) {
-    // 获取缓存，有缓存结果，则直接返回
-    if (PATH_TO_URL[path]) {
-      return PATH_TO_URL[path];
-    }
-
     // 如果是标准的url，则以http或者https开头
     // 则直接发送请求不做处理
     let isUrl = /^(http:\/\/|https:\/\/)/;
     if (isUrl.test(path)) {
-      return PATH_TO_URL[path] = {
+      return {
         url: path,
         method: ctx.method
       }
@@ -257,9 +249,9 @@ module.exports = function proxy(app, api, config, options) {
       throw `Undefined proxy url：${path} , please check your api config!`
     }
 
-    // 拼接URL， 将分析结果赋值result并存入缓存
+    // 拼接URL
     let urlHref = url_opera.resolve(urlOrigin, urlPath)
-    return PATH_TO_URL[path] = {
+    return {
       url: path.replace(urlPrefix, urlHref),
       method: urlMethod.toUpperCase()
     }
