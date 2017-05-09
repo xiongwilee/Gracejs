@@ -1,43 +1,17 @@
 'use strict';
 
-const assert = require('assert');
 const debug = require('debug')('koa-grace:vhost');
 const compose = require('koa-compose');
 
-module.exports = function graceVhost(host, app) {
-  assert.ok(!!host, 'at least need a vhost');
+module.exports = function graceVhost(vhosts) {
+  // 用以缓存vhost记录
+  const HOST_CACHE = {};
 
-  let vhosts = [];
-
-  // {
-  //     host: 'www.example.com',
-  //     app: koaapp
-  // }
-  if (host.host && host.app) {
-    host = host.host;
-    app = host.app;
-  }
-
-  // 'www.example.com', koaapp
-  if (checkParams(host, app)) {
-    vhosts.push({
-      host: host,
-      app: app
-    });
-  } else if (checkHost(host)) {
-    vhosts = host;
-  }
-
-  if (!vhosts.length) throw new Error('vhost error');
-
-  // compose the app's middleware to one middleware
   vhosts.forEach((vhost) => {
     debug('register vhost: %s', vhost.host);
     vhost.middleware = compose(vhost.app.middleware);
   });
 
-  // 用以缓存vhost记录
-  let HOST_CACHE = {};
   return async function vhost(ctx, next) {
     // 当前的hostname,不含端口号
     let host = ctx.hostname;
@@ -75,8 +49,8 @@ module.exports = function graceVhost(host, app) {
     }
 
     if (!curHost) {
-      debug('there is no host match to ' + ctx.request.headers.host + ctx.request.url);
-      ctx.body = 'error: there is no host matched!';
+      debug(`Invalid hostname ${ctx.request.headers.host}, please check vhost config!`);
+      ctx.body = 'Invalid hostname!';
 
       return await next();
     }
@@ -86,28 +60,4 @@ module.exports = function graceVhost(host, app) {
 
     return await curHost.middleware.call(ctx, ctx, next);
   }
-};
-
-function isRegExp(obj) {
-  return obj.constructor && obj.constructor.name === 'RegExp';
-};
-
-function checkParams(host, app) {
-  return (typeof host === 'string' || isRegExp(host)) && app && app.middleware && Array.isArray(app.middleware);
-};
-
-function checkHost(host) {
-
-  if (!Array.isArray(host)) {
-    return false;
-  }
-
-  return host.every(function(vhost) {
-
-    var ret = !!vhost && checkParams(vhost.host, vhost.app);
-
-    debug('vhost: %s check %s', vhost.host, ret ? 'success' : 'failed');
-
-    return ret;
-  });
-};
+}

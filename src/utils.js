@@ -80,7 +80,7 @@ exports.merge = function merge (dest, src) {
  */
 exports.makeConfig = function makeConfig (obj, data) {
   if (data.merge) {
-    obj = merge(obj, data.merge);
+    obj = exports.merge(obj, data.merge);
   }
   return exports.replace(obj, data);
 }

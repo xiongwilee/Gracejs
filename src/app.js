@@ -1,3 +1,5 @@
+'use strict';
+
 const path = require('path');
 const koa = require('koa');
 const Middles = require('../middleware/')
@@ -24,11 +26,8 @@ app.use(Middles.static(['/static/**/*', '/*/static/**/*'], {
 // 上传下载功能
 app.use(Middles.xload(app, config.xload));
 
-// 获取vhost
-let vhosts = Object.keys(config.vhost);
-
-// 注入vhost路由
-app.use(Middles.vhost(vhosts.map((item) => {
+// 获取vhosts
+let vhosts = Object.keys(config.vhost).map((item) => {
   let vapp = new koa();
 
   let appName = config.vhost[item];
@@ -62,11 +61,13 @@ app.use(Middles.vhost(vhosts.map((item) => {
   }));
 
   // 配置模板引擎
-  let template = (typeof config.template == 'object' ? config.template[appName] : config.template);
-  vapp.use(Middles.views(appPath + '/views', {
+  let engine = (typeof config.template === 'string' ? config.template : config.template[appName]);
+  vapp.use(Middles.views({
     root: appPath + '/views',
-    map: {
-      html: template || 'swiger'
+    extension: 'html',
+    engine: engine || 'swiger',
+    locals: { 
+      constant: config.constant 
     },
     cache: config.site.env == 'production' && 'memory'
   }));
@@ -87,6 +88,9 @@ app.use(Middles.vhost(vhosts.map((item) => {
     host: item,
     app: vapp
   }
-})));
+});
+
+// 注入vhosts路由
+app.use(Middles.vhost(vhosts));
 
 module.exports = app;

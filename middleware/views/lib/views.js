@@ -1,113 +1,27 @@
-/**
- * separate from co-views / 2016-09-29
- * co-views: "version": "2.1.0"
+'use strict';
 
- * 2.1.0 / 2015-08-28
- * enable partials in render
- * replace utils-merge with object-assign
+const path = require('path');
 
- * 2.0.0 / 2015-08-18
- * co-render@1
- * switch to Promise
+const debug = require('debug')('koa-grace:views');
+const error = require('debug')('koa-grace-error:views');
+const consolidate = require('grace-consolidate');
 
- * 1.0.0 / 2015-06-02
- * proxy partials
+const engines = require('./engines.js')
 
- * 0.3.0 / 2015-02-11
- * merge locals from opts
- * add basic tests
- * fix examples and readme
- * bump deps, devDeps
+module.exports = function views(config) {
+  let render = consolidate[config.engine];
+  let engine = engines[config.engine];
+  
+  return function(tpl, data) {
+    // TODO: 这里有个风险,如果模板数据中也存在cache之类的参数，cache配置则会被覆盖
+    let locals = Object.assign({
+      cache: config.cache
+    }, config.locals, data);
 
- * 0.2.0 / 2014-01-25
- * rename .ext to .default. Closes #1
-
- * 0.1.0 / 2013-09-06
- * add .cache option support
- */
-
-/**
- * Module dependencies.
- */
-
-var debug = require('debug')('co-views');
-var render = require('./render.js');
-var path = require('path');
-var extname = path.extname;
-var join = path.join;
-
-/**
- * Environment.
- */
-
-var env = process.env.NODE_ENV || 'development';
-
-/**
- * Pass views `dir` and `opts` to return
- * a render function.
- *
- *  - `map` an object mapping extnames to engine names [{}]
- *  - `default` default extname to use when missing [html]
- *  - `cache` cached compiled functions [NODE_ENV != 'development']
- *
- * @param {String} [dir]
- * @param {Object} [opts]
- * @return {Function}
- * @api public
- */
-
-module.exports = function(dir, opts){
-  opts = opts || {};
-
-  debug('views %s %j', dir, opts);
-
-  // view directory
-  dir = dir || 'views';
-
-  // default extname
-  var ext = opts.ext || opts.default || 'html';
-
-  // engine map
-  var map = opts.map || {};
-
-  // proxy partials
-  var partials = opts.partials || {};
-
-  // cache compiled templates
-  var cache = opts.cache;
-  if (null == cache) cache = 'development' != env;
-
-  return function(view, locals){
-    locals = locals || {};
-
-    // merge opts.locals
-    if (opts.locals) {
-      locals = Object.assign(locals, opts.locals);
+    if (engine) {
+      locals = engine(tpl, config, locals);
     }
 
-    // default extname
-    var e = extname(view);
-
-    if (!e) {
-      e = '.' + ext;
-      view += e;
-    }
-
-    // remove leading '.'
-    e = e.slice(1);
-
-    // map engine
-    locals.engine = map[e] || e;
-
-    // resolve
-    view = join(dir, view);
-
-    // cache
-    locals.cache = cache;
-
-    locals.partials = Object.assign(locals.partials || {}, partials);
-
-    debug('render %s %j', view, locals);
-    return render(view, locals);
-  };
-};
+    return render(tpl, locals);
+  }
+}

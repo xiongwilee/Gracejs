@@ -1,0 +1,19 @@
+<div class="post-detail">
+  <div class="post-container" id="postContainer">
+  	{{postInfo.body_html | safe}}
+  </div>
+  <div class="post-comments" id="comments">
+    <div class="post-comments-top">
+    	<h3 class="post-comments-top-title">{{postInfo.comments}} comments</h3>
+    </div>
+    <div class="post-comments-list-container" id="postCommentsList">
+      <div class="post-default"><i class="fa icon-spinner icon-spin icon-2x"></i></div>
+    </div>
+    <div class="post-comments-form-container" id="postCommentsForm">
+      <div class="post-default"><i class="fa icon-spinner icon-spin icon-2x"></i></div>
+    </div>
+  </div>
+  <div class="post-footer">
+    {% if postInfo.query.type == 'slider' %}<a class="post-footer-play" href="/post/slider/{{postInfo.number}}"><i class="fa icon-facetime-video"></i></a>{% endif %}
+  </div>
+</div>

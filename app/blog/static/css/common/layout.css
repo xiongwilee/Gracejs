@@ -1,4 +1,11 @@
 /**
+ * all
+ */
+* {
+	font-family: Helvetica Neue,Helvetica,Arial,PingFang SC,Hiragino Sans GB,WenQuanYi Micro Hei,Microsoft Yahei,sans-serif;
+}
+
+/**
  * common
  */
 .clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden}
@@ -41,6 +48,7 @@
 
 	color: rgba(255,255,255,.75);
 	text-decoration: none;
+	text-shadow: 1px 1px 0px rgba(0,0,0,.3);
 }
 .header .nav .nav-list .nav-item:hover{
 	color: #ffffff;

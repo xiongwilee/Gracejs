@@ -1,38 +1,19 @@
-/**!
- * koa-body-parser - index.js
- * Copyright(c) 2014
- * MIT Licensed
- *
- * Authors:
- *   dead_horse <dead_horse@qq.com> (http://deadhorse.me)
- *   fengmk2 <m@fengmk2.com> (http://fengmk2.com)
- */
-
 'use strict';
-
-/**
- * Module dependencies.
- */
 
 var parse = require('co-body');
 var copy = require('copy-to');
 
-/**
- * @param [Object] opts
- *   - {String} jsonLimit default '1mb'
- *   - {string} encoding default 'utf-8'
- *   - {Object} extendTypes
- */
-
 module.exports = function(opts) {
   opts = opts || {};
-  var onerror = opts.onerror;
 
+  // enable types
   var enableTypes = opts.enableTypes || ['json', 'form'];
   var enableForm = checkEnable(enableTypes, 'form');
   var enableJson = checkEnable(enableTypes, 'json');
   var enableText = checkEnable(enableTypes, 'text');
 
+  // default onerror
+  var onerror = opts.onerror;
   opts.onerror = undefined;
 
   // default json types
@@ -53,21 +34,22 @@ module.exports = function(opts) {
     'text/plain',
   ];
 
+  // default limit
+  opts.jsonLimit = opts.jsonLimit || '5mb';
+  opts.formLimit = opts.formLimit || '2mb';
+  opts.textLimit = opts.textLimit || '5mb';
+
   var jsonOpts = formatOptions(opts, 'json');
   var formOpts = formatOptions(opts, 'form');
   var textOpts = formatOptions(opts, 'text');
 
   var extendTypes = opts.extendTypes || {};
-
   extendType(jsonTypes, extendTypes.json);
   extendType(formTypes, extendTypes.form);
   extendType(textTypes, extendTypes.text);
 
   return async function body(ctx, next) {
     if (ctx.request.body !== undefined) return await next();
-
-    // 如果不是以下的请求就不用做任何处理
-    if (!ctx.request.is(formTypes) && !ctx.request.is(jsonTypes) && !ctx.request.is(textTypes)) return await next();
 
     try {
       ctx.request.body = await parseBody(ctx);
@@ -91,6 +73,7 @@ module.exports = function(opts) {
     if (enableText && ctx.request.is(textTypes)) {
       return await parse.text(ctx, textOpts) || '';
     }
+
     return {};
   }
 };

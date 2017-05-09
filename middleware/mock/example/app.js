@@ -1,10 +1,10 @@
 'use strict';
 
-import path from 'path'
-import http from 'http'
-import Koa from 'koa'
-import proxy from '../../proxy/index'
-import mock from '../index'
+const path = require('path')
+const http = require('http')
+const Koa = require('koa')
+const proxy = require('../../proxy/index')
+const mock = require('../index')
 
 const app = new Koa()
 

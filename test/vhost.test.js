@@ -9,11 +9,6 @@
 
 'use strict';
 
-/**
- * Module dependencies.
- */
-require("babel-register");
-
 var koa = require('koa');
 var app = require('../middleware/vhost/example/app');
 var request = require('supertest');
@@ -28,7 +23,7 @@ describe('test/vhost.test.js', function() {
     it('vhost访问阻断', function(done) {
       request(app)
         .get('/')
-        .expect(200, 'error: there is no host matched!', done);
+        .expect(200, 'Invalid hostname!', done);
     });
 
     it('命中子目录404页', function(done) {

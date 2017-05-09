@@ -1,6 +1,6 @@
 {
   "name": "gracejs",
-  "version": "1.0.0",
+  "version": "2.0.5",
   "description": "A Nodejs SFB(Separation of Front and Back ends) framework, build with koa 2.x",
   "main": "./src/app.js",
   "directories": {
@@ -22,11 +22,13 @@
     "gracejs"
   ],
   "author": "xiongwilee",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/xiongwilee/koa-grace/issues"
   },
   "homepage": "https://github.com/xiongwilee/koa-grace",
+  "engines": {
+    "node": ">=7.6.0"
+  },
   "dependencies": {
     "bluebird": "3.4.6",
     "bytes": "^2.4.0",
@@ -34,17 +36,20 @@
     "co-body": "^4.2.0",
     "compressible": "^2.0.8",
     "copy-to": "^2.0.1",
+    "debug": "^2.6.0",
     "formidable": "^1.0.17",
     "grace-consolidate": "^0.14.3",
     "http-errors": "^1.5.0",
-    "koa": "^2.0.0-alpha.7",
+    "koa": "^2.0.1",
     "koa-compose": "^3.1.0",
     "koa-generic-session": "^1.11.3",
     "koa-is-json": "^1.0.0",
     "koa-redis": "^2.1.2",
     "koa-send": "^3.2.0",
     "methods": "^1.1.2",
+    "minimatch": "^3.0.3",
     "mongoose": "^4.6.3",
+    "nunjucks": "^3.0.0",
     "path-to-regexp": "^1.6.0",
     "raven": "^0.12.1",
     "request": "^2.75.0",
@@ -53,15 +58,11 @@
     "swiger": "0.0.2"
   },
   "devDependencies": {
-    "babel-plugin-syntax-async-functions": "^6.13.0",
-    "babel-plugin-transform-async-to-generator": "^6.16.0",
-    "babel-preset-es2015-node5": "^1.2.0",
-    "babel-preset-stage-0": "^6.16.0",
-    "babel-register": "^6.16.3",
     "mm": "^2.0.0",
     "mocha": "^3.1.0",
     "nodemon": "^1.10.2",
     "should": "^11.1.0",
     "supertest": "^2.0.0"
-  }
+  },
+  "license": "MIT"
 }

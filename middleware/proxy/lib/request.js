@@ -85,7 +85,7 @@ module.exports = function request(ctx, param, options, callback) {
       if (retryNum > 0) {
         debug(`proxy retry: Request ${opt.uri} no response, retry ${retryNum} times!`, info);
         retryNum--;
-        return _createReq()
+        return _createReq(resolve)
       } else {
         error(`proxy error: Request ${opt.uri} no response!`, info);
 

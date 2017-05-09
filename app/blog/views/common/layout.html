@@ -11,12 +11,13 @@
 </head>
 
 <body>
+  {% block body %}
   <header class="header" id="header">
     <div class="header-container">
       <ul class="nav">
         <li class="nav-list {% if siteInfo.path=='/home' %}actived{% endif %}"><a class="nav-item" href="/home">首页</a></li>
-        <li class="nav-list {% if siteInfo.path=='/home/about' %}actived{% endif %}"><a class="nav-item" href="/home/about">关于</a></li>
-        <li class="nav-list {% if siteInfo.path=='/home/join' %}actived{% endif %}"><a class="nav-item" href="/home/join">加入</a></li>
+        <li class="nav-list {% if siteInfo.path=='/home/about' %}actived{% endif %}"><a class="nav-item" href="http://qd.qufenqi.com">关于</a></li>
+        <li class="nav-list {% if siteInfo.path=='/home/join' %}actived{% endif %}"><a class="nav-item" href="http://feclub.cn/post/content/join_us">加入</a></li>
       </ul>
       <div class="user">
         {% if !userInfo.id %}
@@ -41,7 +42,7 @@
     </div>
     <div class="logo">
       <h1>前端俱乐部</h1>
-      <span>http://feclub.cn</span>
+      <span>feclub.cn</span>
     </div>
     <div class="search">
       <div class="search-container">
@@ -114,11 +115,14 @@
   </section>
   <footer class="footer">
     <div class="footer-container">
-      <p>Copyright © {{siteInfo.year}} mlsfe. All rights reserved.</p>
+      <p>Copyright © {{siteInfo.year}} feclub.cn All rights reserved.</p>
     </div>
   </footer>
+  {% endblock %}
   <link rel="stylesheet" href="/blog/static/css/lib/awesome/css/font-awesome.css" type="text/css">
+  {% block foot %}
   <script src="/blog/static/js/common/layout.js" type="text/javascript"></script>
+  {% endblock %}
   <script>
   var _hmt = _hmt || [];
   (function() {

@@ -18,7 +18,7 @@ exports.statics = {}
 
 // http://mongoosejs.com/docs/guide.html#methods
 exports.methods = {
-  edit: function*(is_new) {
+  edit: async function(is_new) {
     let id = this.id;
 
     function getData(data){
@@ -37,15 +37,15 @@ exports.methods = {
       return this.model('Category').update({id:id},getData(this._doc));
     }
   },
-  getCategoryById: function* (id) {
+  getCategoryById: async function (id) {
     return this.model('Category').findOne({id:id});
   },
   /**
    * 更新分类数量
    * @param {String} id            分类ID，TODO:不传id为更新所有分类数量
    */
-  updateCateNum: function* (id) {
-    let count = yield this.model('Post').count({
+  updateCateNum: async function (id) {
+    let count = await this.model('Post').count({
       category:id
     });
 
@@ -53,8 +53,8 @@ exports.methods = {
       numb : count
     });
   },
-  numbAdd: function* (id, addNum) {
-    let cate = yield this.model('Category').findOne({id:id});
+  numbAdd: async function (id, addNum) {
+    let cate = await this.model('Category').findOne({id:id});
     let num = cate.numb || 0;
     let add = addNum || 1;
 
@@ -62,8 +62,8 @@ exports.methods = {
       numb : num + add
     });
   },
-  numbMinus: function* (id, minus) {
-    let cate = yield this.model('Category').findOne({id:id});
+  numbMinus: async function (id, minus) {
+    let cate = await this.model('Category').findOne({id:id});
     let num = cate.numb || 0;
     let min = minus || 1;
 
@@ -71,14 +71,14 @@ exports.methods = {
       numb : num - min
     });
   },
-  list: function* () {
+  list: async function () {
     return this.model('Category').find();
   },
-  deleteCate : function* (id) {
-    let cate = yield this.model('Category').findOne({id:id});
+  deleteCate : async function (id) {
+    let cate = await this.model('Category').findOne({id:id});
 
     if(cate && cate.numb < 1){
-      yield this.model('Category').remove({id:id});
+      await this.model('Category').remove({id:id});
     }
 
     return cate;

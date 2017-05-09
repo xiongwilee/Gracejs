@@ -1,9 +1,9 @@
 'use strict';
 
-import http from 'http'
-import Koa from 'koa'
-import proxy from '../../proxy/index'
-import secure from '../index'
+const http = require('http');
+const Koa = require('koa');
+const proxy = require('../../proxy/index');
+const secure = require('../index');
 
 const app = new Koa()
 

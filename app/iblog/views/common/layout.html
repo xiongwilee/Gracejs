@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html class="theme">
+
+<head>
+  <title>{% block title %}{{siteInfo.title}}{% endblock %}</title>
+  <meta name="viewport" content="width=device-width,user-scalable=no">
+  <link rel="icon" href="/iblog/static/image/favicon-8507de546e.ico">
+  <script src="/iblog/static/js/lib-7abd353ee8.js"></script>
+  <script type="text/javascript">
+    window.CONSTANT = {% if constant %}{{constant | dump | safe}}{% else %}{}{% endif %};
+  </script>
+  {% block head %}{% endblock %}
+</head>
+
+<body>
+  {% block body %} 
+  {% block header %} 
+  {% include "./header.html" %}
+  {% endblock %}
+  <section class="main">
+    <div class="container clearfix">
+      {% block main %}
+      <div class="main-right">
+        {% include "./rightbar.html"%}
+      </div>
+      <div class="main-left">
+        {% block content %} {% endblock %}
+      </div>
+      {% endblock %}
+    </div>
+  </section>
+  {% endblock %} {% block foot %} {% endblock %} {% include "./footer.html" %}
+</body>
+
+</html>

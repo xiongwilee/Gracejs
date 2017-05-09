@@ -1,0 +1,23 @@
+{
+  "iblog/static/js/common/layout.js": "iblog/static/js/common/layout-6b3bf0eabc.js",
+  "iblog/static/js/common/post-comments.js": "iblog/static/js/common/post-comments-0449e1a7c0.js",
+  "iblog/static/js/common/post-detail.js": "iblog/static/js/common/post-detail-1bf8d2fd16.js",
+  "iblog/static/js/common/post-slider.js": "iblog/static/js/common/post-slider-3a92addfb9.js",
+  "iblog/static/js/home/index.js": "iblog/static/js/home/index-38387fc62e.js",
+  "iblog/static/js/lib.js": "iblog/static/js/lib-7abd353ee8.js",
+  "iblog/static/js/lib/require.js": "iblog/static/js/lib/require-dae016c49d.js",
+  "iblog/static/js/lib/reveal/classList.min.js": "iblog/static/js/lib/reveal/classList-90b3b59fca.min.js",
+  "iblog/static/js/lib/reveal/head.min.js": "iblog/static/js/lib/reveal/head-6509270dec.min.js",
+  "iblog/static/js/lib/reveal/highlight.min.js": "iblog/static/js/lib/reveal/highlight-fd364c3ce9.min.js",
+  "iblog/static/js/lib/reveal/markdown.js": "iblog/static/js/lib/reveal/markdown-a7c48f0e57.js",
+  "iblog/static/js/lib/reveal/marked.js": "iblog/static/js/lib/reveal/marked-3948d7b58d.js",
+  "iblog/static/js/lib/reveal/notes.js": "iblog/static/js/lib/reveal/notes-9a7ececb8b.js",
+  "iblog/static/js/lib/reveal/reveal.js": "iblog/static/js/lib/reveal/reveal-d4e11167b1.js",
+  "iblog/static/js/lib/reveal/zoom.js": "iblog/static/js/lib/reveal/zoom-7efc692f8d.js",
+  "iblog/static/js/lib/simplemde.min.js": "iblog/static/js/lib/simplemde-d1bf3b57e5.min.js",
+  "iblog/static/js/lib/zepto.min.js": "iblog/static/js/lib/zepto-7f1d77b9b7.min.js",
+  "iblog/static/js/post/detail.js": "iblog/static/js/post/detail-0eb0455afc.js",
+  "iblog/static/js/post/label.js": "iblog/static/js/post/label-5440cabc26.js",
+  "iblog/static/js/post/slider.js": "iblog/static/js/post/slider-2258842e8f.js",
+  "iblog/static/js/require.config.js": "iblog/static/js/require-e0058239d8.config.js"
+}

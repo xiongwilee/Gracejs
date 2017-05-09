@@ -1,20 +1,26 @@
 'use strict';
 
-import path from 'path'
-import http from 'http'
-import Koa from 'koa'
-import body from '../../body/index'
-import router from '../../router/index'
-import proxy from '../index'
+const path = require('path');
+const http = require('http');
+const Koa = require('koa');
+const body = require('../../body/index');
+const xload = require('../../xload/index');
+const router = require('../../router/index');
+const proxy = require('../index');
 
 const app = new Koa()
 
 app.use(body());
 
+app.use(xload(app, {
+  path: './data'
+}));
+
 app.use(proxy(app, {
   github: 'https://avatars.githubusercontent.com/',
   local: 'http://127.0.0.1:3001/',
-  test: 'http://192.168.1.10:10086/'
+  baidu: 'https://www.baidu.com/',
+  test: 'http://test.com/'
 }, {
   timeout: 15000, // 超时时间
   allowShowApi: true
@@ -29,4 +35,3 @@ app.use(router(app, {
 }))
 
 module.exports = http.createServer(app.callback());
-

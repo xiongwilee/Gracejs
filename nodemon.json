@@ -1,0 +1,12 @@
+{
+  "verbose": true,
+  "watch": [
+    "app/*/controller/**/*",
+    "app/*/model/**/*",
+    "app/*/mock/**/*"
+  ],
+  "ignore": [
+    ".git",
+    "node_modules/**/node_modules"
+  ]
+}

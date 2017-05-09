@@ -220,7 +220,8 @@ function _setRoute(Router, config, options) {
 
   // 如果有regular则加入regular路由
   if (config.regular) {
-    paths.push(ctrlpath + config.regular);
+    let reg = typeof config.regular === 'string' ? (ctrlpath + config.regular) : config.regular; 
+    paths.push(reg)
   }
 
   // 对每一个method，有定义时唯一，默认post/get

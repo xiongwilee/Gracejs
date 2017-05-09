@@ -9,11 +9,6 @@
 
 'use strict';
 
-/**
- * Module dependencies.
- */
-require("babel-register");
-
 var koa = require('koa');
 var app = require('../middleware/body/example/app');
 var request = require('supertest');

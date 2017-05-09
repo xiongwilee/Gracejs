@@ -1,23 +1,23 @@
 'use strict';
 
-import path from 'path'
-import http from 'http'
-import Koa from 'koa'
-import views from '../index'
+const path = require('path');
+const http = require('http');
+const Koa = require('koa');
+const views = require('../index');
 
 const app = new Koa()
 
-app.use(views(path.resolve(__dirname, './views'), {
+app.use(views({
   root: path.resolve(__dirname, './views'),
-  map: {
-    html: 'swiger'
-  },
+  extension: 'html',
+  engine: 'swiger',
+  locals: {},
   cache: 'memory'
 }))
 
 app.use(async(ctx, next) => {
-  await ctx.render('test',{
-  	data:'hello world!'
+  await ctx.render('test', {
+    data: 'hello world!'
   });
   await next();
 });

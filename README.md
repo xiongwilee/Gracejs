@@ -2,11 +2,11 @@
 
 --------------------------------------------------------------------------------
 
-> koa-grace v1.x版本请移步： https://github.com/xiongwilee/koa-grace/tree/master
+> koa-grace v1.x版本请移步： https://github.com/xiongwilee/koa-grace/tree/v1.0.4
 
 # koa-grace v2
 
-[Gracejs](https://github.com/xiongwilee/koa-grace/tree/v2.x)(又称:koa-grace v2)  是全新的基于[koa v2.x](https://github.com/koajs/koa/tree/v2.x)的MVC+RESTful架构的前后端分离框架。
+[Gracejs](https://github.com/xiongwilee/koa-grace)(又称:koa-grace v2)  是全新的基于[koa v2.x](https://github.com/koajs/koa)的MVC+RESTful架构的前后端分离框架。
 
 [![NPM version](https://img.shields.io/npm/v/gracejs.svg)](https://www.npmjs.com/package/gracejs)
 [![Build Status](https://travis-ci.org/xiongwilee/koa-grace.svg?branch=master)](https://travis-ci.org/xiongwilee/koa-grace)
@@ -29,25 +29,28 @@ Gracejs是[koa-grace](https://github.com/xiongwilee/koa-grace)的升级版，也
 这里不再介绍“前后端分离”、“RESTful”、“MVC”等概念，有兴趣可参考[趣店前端团队基于koajs的前后端分离实践](http://feclub.cn/post/content/qudian_koa)一文。
 
 Gracejs及前后端分离问题交流群：
-* **QQ交流群**：368463457
+* **QQ交流群**：368463457 <img src="http://img002.qufenqi.com/products/aa/68/aa68a9b93005550be70e1bac6af22114.jpeg" width="180px" /> 
 * **微信交流群**： 待建
 
 ## 二、快速开始
 
-**注意：请确保你的运行环境中Nodejs的版本至少是`v4.0.0`，目前需要依赖Babel。**（当然26日凌晨`nodejs v7`已经release，你也可以不依赖Babel，直接通过`--harmony_async_await`模式启动。）
+**注意：请确保你的运行环境中Nodejs的版本至少是`v7.6.0`** 
+（或者你也可以考虑支持 Nodejs v4.x+ 的[koa-grace v1.x](https://github.com/xiongwilee/koa-grace/tree/v1.0.4)）
 
 ### 安装
 
 执行命令：
-```
-$ git clone -b v2.x https://github.com/xiongwilee/koa-grace.git
+```shell
+$ git clone https://github.com/xiongwilee/koa-grace.git
 $ cd koa-grace && npm install
 ```
+
+**BTW: 由于众所周知的原因，npm install可能不稳定，推荐使用[cnpm](https://github.com/cnpm/cnpm#cnpm)安装。**
 
 ### 运行
 
 然后，执行命令：
-``` 
+```shell
 $ npm run dev
 ```
 
@@ -55,7 +58,7 @@ $ npm run dev
 
 ## 三、案例说明
 
-这里参考 https://github.com/xiongwilee/koa-grace/tree/v2.x 中`app/demo`目录下的示例，详解Gracejs的MVC+RESTful架构的实现。
+这里参考 https://github.com/xiongwilee/koa-grace 中`app/demo`目录下的示例，详解Gracejs的MVC+RESTful架构的实现。
 
 此前也有文章简单介绍过koa-grace的实现（ https://github.com/xiongwilee/koa-grace/wiki ），但考虑到Gracejs的差异性，这里再从**目录结构**、**MVC模型实现**、**proxy机制**这三个关键点做一些比较详细的说明。
 
@@ -63,7 +66,7 @@ $ npm run dev
 
 Gracejs与koa-grace v1.x版本的目录结构完全一致：
 
-```
+```shell
 .
 ├── controller
 │   ├── data.js
@@ -85,7 +88,7 @@ Gracejs与koa-grace v1.x版本的目录结构完全一致：
 
 需要强调的是，**这个目录结构是生产环境代码的标准目录结构。在开发环境里你可以任意调整你的目录结构，只要保证编译之后的产出文件以这个路径输出即可**。
 
-如果你对这一点仍有疑问，可以参考[grace-vue-webpack-boilerplate](https://github.com/Thunf/grace-vue-webpack-boilerplate)。
+如果你对这一点仍有疑问，可以参考: [前端构建-Boilerplate](https://github.com/xiongwilee/koa-grace#boilerplate)
 
 ### MVC模型实现
 
@@ -131,15 +134,15 @@ Gracejs与koa-grace v1.x版本的目录结构完全一致：
 6. 如果当前请求是一个file文件流，又该怎么办呢？
 ...
 
-好消息是，这些问题在proxy中间件中都考虑过了。这里不再一一讲解，有兴趣可以看koa-grace-proxy的源码：https://github.com/xiongwilee/koa-grace/tree/v2.x/middleware/proxy 。
+好消息是，这些问题在proxy中间件中都考虑过了。这里不再一一讲解，有兴趣可以看koa-grace-proxy的源码：https://github.com/xiongwilee/koa-grace/middleware/proxy 。
 
 ## 四、详细使用手册
 
-在看详细使用手册之前，建议先看一下Gracejs的主文件源码：https://github.com/xiongwilee/koa-grace/blob/v2.x/src/app.js 。
+在看详细使用手册之前，建议先看一下Gracejs的主文件源码：https://github.com/xiongwilee/koa-grace/blob/master/src/app.js 。
 
 这里不再浪费篇幅贴代码了，其实想说明的就是：**Gracejs是一个个关键中间件的集合**。
 
-所有中间件都在[middleware](https://github.com/xiongwilee/koa-grace/tree/v2.x/middleware)目录下，配置由`config/main.*.js`管理。
+所有中间件都在[middleware](https://github.com/xiongwilee/koa-grace/middleware)目录下，配置由`config/main.*.js`管理。
 
 关于配置文件：
 
@@ -191,7 +194,7 @@ controller
 router中间件会找到模块中所有以`.js`结尾的文件，根据文件路径和module.exports生成路由。
 
 例如，demo模块中的home.js文件：
-```
+```javascript
 exports.index = async function () {
   await this.bindDefault();
   await this.render('home', {
@@ -216,7 +219,7 @@ exports.hello = function(){
 
 将demo模块中的home.js扩展一下：
 
-```
+```javascript
 exports.index = async function () {
     ...
 }
@@ -227,7 +230,8 @@ exports.index.__regular__ = null;
 另外，需要说明以下几点：
 
 * 如果需要配置dashboard/post/list请求为`DELETE`方法，则post.js中声明 `exports.list.__method__ = 'delete'`即可（**不声明默认注入get及post方法**）;
-* 如果要配置更灵活的路由，则中声明`exports.list.__regular__ = '/:id';`即可，更多相关配置请参看：[koa-router#named-routes](https://github.com/alexmingoia/koa-router#named-routes)
+* 如果要配置更灵活的路由，则中声明`exports.list.__regular__ = '/:id';`即可，然后在控制器中通过`this.params.id`获取ID值，更多相关配置请参看：[koa-router#named-routes](https://github.com/alexmingoia/koa-router#named-routes)
+* 需要注意的是：如果`__regular__`配置为正则表达式的话，则会生成当前控制器默认路由及正则可匹配的路由
 
 当然，如果路由文件中的所有控制器方法都是post方法，您可以在控制器文件最底部加入：`module.exports.__method__ = 'post'`即可，`__regular__`的配置同理。
 
@@ -236,7 +240,7 @@ exports.index.__regular__ = null;
 #### 3、 控制器
 
 将demo模块中的home.js的index方法再扩展一下：
-```
+```javascript
 exports.index = async function () {
   // 绑定默认控制器方法
   await this.bindDefault();
@@ -284,7 +288,7 @@ context属性 | 类型 | 中间件 | 说明
 
 在控制器中，如果还有其他的异步方法，可以通过Promise来实现。例如：
 
-```
+```javascript
 exports.main = async function() {
   await ((test) => {
     return new Promise((resolve, reject) => {
@@ -307,7 +311,7 @@ Gracejs支持两种数据代理场景：
 
 数据代理可以在控制器中使用`this.proxy`方法：
 
-```
+```javascript
 this.proxy(object|string,[opt])
 ```
 
@@ -317,7 +321,7 @@ this.proxy(object|string,[opt])
 
 **async/await：**
 
-```
+```javascript
 exports.demo = async function () {
   await this.proxy({ /* ... */ })
 }
@@ -325,7 +329,7 @@ exports.demo = async function () {
 
 **Generator：**
 
-```
+```javascript
 exports.demo = function * () {
   yield this.proxy({ /* ... */ })
 }
@@ -333,7 +337,7 @@ exports.demo = function * () {
 
 为了使语法更简便，可以在执行`this.proxy`之后，直接在上下文中的`backData`字段中获取到数据。例如：
 
-```
+```javascript
 exports.demo = async function () {
   await this.proxy({
     userInfo:'github:post:user/login/oauth/access_token?client_id=****',
@@ -365,9 +369,10 @@ exports.demo = async function (){
   /**
    *  {
    *    userInfo : {
-   *      headers: {...}  // 头信息
-   *      body: {...}     // 未处理的response body
-   *      ...             // ... 
+   *      statusCode: {...} // 返回http status code
+   *      request: {...}    // 请求体
+   *      headers: {...}    // 响应头信息
+   *      body: {...}       // 未处理的response body
    *    },
    *    otherInfo : {...}
    *  }
@@ -427,15 +432,16 @@ exports.demo = async function (){
  ----- | --- | ---- | ----
  `dest` | `Object` | `this.backData` | 指定接收数据的对象，默认为`this.backData`
  `conf` | `Obejct` | `{}` | this.proxy使用[Request.js](https://github.com/request/request)实现，此为传给request的重置配置（你可以在这里设置接口超时时间：`conf: { timeout: 25000 }`）
- `form` | `Object` | `{}` | 指定post方法的post数据，默认为当前页面的post数据
+ `form` | `Object` | `{}` | 指定post方法的post数据，默认为当前页面的post数据，这里的数据content-type会根据当前请求的类型指定
+ `headers` | `Object` | `{}` | 指定当前请求的headers
 
-关于this.proxy方法还有很多有趣的细节，推荐有兴趣的同学看源码：https://github.com/xiongwilee/koa-grace/tree/v2.x/middleware/proxy
+关于this.proxy方法还有很多有趣的细节，推荐有兴趣的同学看源码：https://github.com/xiongwilee/koa-grace/middleware/proxy
 
 #### 2、 文件代理
 
 文件代理可以在控制器中使用`this.fetch`方法：
 
-```
+```javascript
 this.fetch(string)
 ```
 
@@ -487,7 +493,7 @@ exports.home = await function () {
 
 静态文件的使用非常简单，将`/static/**/`或者`/*/static/*`的静态文件请求代理到了模块路径下的`/static`目录：
 
-```
+```javascript
 // 配置静态文件路由
 app.use(Middles.static(['/static/**/*', '/*/static/**/*'], {
   dir: config_path_project,
@@ -507,7 +513,7 @@ app.use(Middles.static(['/static/**/*', '/*/static/**/*'], {
 MOCK功能的实现其实非常简单，在开发环境中你可以很轻易地使用MOCK数据。
 
 以demo模块为例，首先在`main.development.js`配置文件中添加proxy配置：
-```
+```javascript
 // controller中请求各类数据前缀和域名的键值对
 api: {
  // ...
@@ -519,7 +525,7 @@ api: {
 然后，在demo模块中添加`mock`文件夹，然后添加`test.json`:
 
 **文件结构：**
-```
+```shell
 .
 ├── controller
 ├── mock
@@ -530,7 +536,7 @@ api: {
 **文件内容（就是你想要的请求返回内容）：**
 
 在JSON文件内容中也可以使用注释：
-```
+```javascript
 /*
  * 获取用户信息接口
  */
@@ -542,7 +548,7 @@ api: {
 然后，你可以打开浏览器访问：`http://${ip}:${port}/__MOCK__/demo/test` 验证是否已经返回了test.json里的数据。
 
 最后在你的controller业务代码中就可以通过proxy方法获取mock数据了：
-```
+```javascript
 this.proxy({
     test:'demo:test'
 })
@@ -560,7 +566,7 @@ this.proxy({
 考虑到用户路由完全由Nodejs托管以后，CSRF的问题也得在Nodejs层去防护了。此前写过一片文章：[前后端分离架构下CSRF防御机制](http://feclub.cn/post/content/koa-grace-csrf)，这里就只写使用方法，不再详述原理。
 
 在Gracejs中可以配置：
-```
+```javascript
 // csrf配置
 csrf: {
   // 需要进行xsrf防护的模块名称
@@ -602,7 +608,7 @@ Gracejs监听到post请求，如果token验证失效，则直接返回错误。
 
 依旧以案例`blog`为例，参看`app/blog/model/mongo`目录：
 
-```
+```shell
 └── mongo
     ├── Category.js
     ├── Link.js
@@ -649,7 +655,7 @@ module.exports.methods = methods;
 
 主要有四个参数：
 
-* `model` ， 即表名，最好与当前文件同名
+*  `model` ， 即表名，最好与当前文件同名
 *  `schema` ， 即mongoose schema
 *  `methods` ， 即schema扩展方法，**推荐把数据库元操作都定义在这个对象中**
 *  `statics` ， 即静态操作方法
@@ -730,12 +736,12 @@ exports.list = async function (){
 
 方法：
 
-```
+```javascript
 this.upload([opt])
 ```
 
 示例：
-```
+```javascript
 exports.aj_upload = async function() {
   await this.bindDefault();
 
@@ -762,12 +768,12 @@ exports.aj_upload = async function() {
 
 方法：
 
-```
+```javascript
 this.download(filename, [opt])
 ```
 
 示例：
-```
+```javascript
 exports.download = async function() {
   await this.download(this.query.file);
 }
@@ -798,10 +804,17 @@ Gracejs中几个核心的中间件都介绍完毕。此外，还有几个中间�
 3. **前端架构和选型更便捷**
   比如你可以很容易通过模板引擎完成BigPipe的架构，你也可以从内网异步并发获取首屏数据。
 
-当然Gracejs是只是服务端框架，前端架构如何选型，随你所愿。目前已经有基于Vue和requirejs的boilerplate。
+当然Gracejs是只是服务端框架，前端架构如何选型，随你所愿。
 
-* Vue： https://github.com/Thunf/grace-vue-webpack-boilerplate （by [@thunf](https://github.com/Thunf)）
-* requirejs:  https://github.com/xiongwilee/gulp-requirejs-boilerplate
+### Boilerplate
+
+目前已经有基于Vue和requirejs的boilerplate。
+
+* [gulp-requirejs-boilerplate](https://github.com/xiongwilee/gulp-requirejs-boilerplate) [![gulp-requirejs-boilerplate](https://img.shields.io/github/stars/xiongwilee/gulp-requirejs-boilerplate.svg?label=%E2%98%85)](https://github.com/xiongwilee/gulp-requirejs-boilerplate)  **Requirejs supported.**（by [@xiongwilee](https://github.com/xiongwilee)）
+
+* [grace-vue-webpack-boilerplate](https://github.com/Thunf/grace-vue-webpack-boilerplate) [![grace-vue-webpack-boilerplate](https://img.shields.io/github/stars/Thunf/grace-vue-webpack-boilerplate.svg?label=%E2%98%85)](https://github.com/Thunf/grace-vue-webpack-boilerplate)  **Both Vue@1.x & Vue@2.x supported.**（by [@thunf](https://github.com/Thunf)）
+
+* [grace-vue2-webpack-boilerplate](https://github.com/haoranw/grace-vue2-webpack-boilerplate) [![grace-vue2-webpack-boilerplate](https://img.shields.io/github/stars/haoranw/grace-vue2-webpack-boilerplate.svg?label=%E2%98%85)](https://github.com/haoranw/grace-vue2-webpack-boilerplate)  Vue@2.x supported.（by [@haoranw](https://github.com/haoranw)）
 
 这里以基于Vue的构建为例。 
 
@@ -809,7 +822,7 @@ Gracejs中几个核心的中间件都介绍完毕。此外，还有几个中间�
 
 一个完整的依赖基于vue+Gracejs的目录结构推荐使用这种模式：
 
-```
+```shell
 .
 ├── app
 │   └── demo
@@ -819,26 +832,26 @@ Gracejs中几个核心的中间件都介绍完毕。此外，还有几个中间�
 │         ├── static
 │         ├── views
 │         └── vues
-└── gracejs
+└── server
     ├── app
     │    └── demo
     ├── middleware
     ├── ...
 ```
 
-当然，Gracejs允许你配置app目录路径，你可以放到任意你想要的目录里。
+当然，server（即：Gracejs）允许你配置app目录路径，你可以放到任意你想要的目录里。
 
-这里的demo模块比默认的Gracejs下的demo模块多出来两个目录：`build`和`vues`。
+这里的demo模块比默认的server下的demo模块多出来两个目录：`build`和`vues`。
 
 ### 构建思路
 
 其实，到这里也能猜到如何进行构建了：`build`目录是基于webpack的编译脚本，`vues`目录是所有的.vue的前端业务文件。
 
-webpack将vues下的vue文件编译之后产出到`gracejs/app/demo/static`下；其他`controller`等没有必要编译的文件，直接使用webpack的复制插件复制到`gracejs/app/demo/`的对应目录下即可。
+webpack将vues下的vue文件编译之后产出到`server/app/demo/static`下；其他`controller`等没有必要编译的文件，直接使用webpack的复制插件复制到`server/app/demo/`的对应目录下即可。
 
 有兴趣的同学，推荐看`grace-vue-webpack-boilerplate`下的build实现源码；当然，需要对webpack和vue有一定的了解。
 
-欢迎同学们贡献基于`React`、`Angular`的boilerplate，以邮件或者ISSUE的形式通知我们之后，添加到gracejs的官方文档中。
+欢迎同学们贡献基于`React`、`Angular`的boilerplate，以邮件或者ISSUE的形式通知我们之后，添加到Gracejs的官方文档中。
 
 ## 结语
 

@@ -1,5 +1,22 @@
 'use strict';
 
+// 以下是自动化测试case
+
+exports.case = {
+  baidu_url: function*() {
+    yield this.proxy('https://www.baidu.com');
+  },
+  baidu_api_get: function*() {
+    yield this.proxy('baidu:/test/test');
+  },
+  baidu_api_post: function*() {
+    yield this.proxy('baidu:post:/test/test');
+  }
+}
+
+
+// 以下是人肉测试case
+
 /* 综合测试： 127.0.0.1:3000/test/ */
 exports.index = function*() {
     let url = 'http://' + this.request.header.host;
