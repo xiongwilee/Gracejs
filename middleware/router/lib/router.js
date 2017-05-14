@@ -1,8 +1,9 @@
 /**
- * RESTful resource routing middleware for koa.
+ *  gracejs 路由方案
+ *  灵感来源于： https://github.com/alexmingoia/koa-router
  *
- * @author Alex Mingoia <talk@alexmingoia.com>
- * @link https://github.com/alexmingoia/koa-router
+ * @Date(2017-05-14)
+ * @author xiongwilee
  */
 'use strict';
 

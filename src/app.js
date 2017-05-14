@@ -74,10 +74,12 @@ let vhosts = Object.keys(config.vhost).map((item) => {
 
   // 配置控制器文件路由
   let prefix = config.router && config.router.prefix && config.router.prefix[appName];
+  let suffix = config.router && config.router.suffix && config.router.suffix[appName];
   let errorPath = config.path.default_error && config.path.default_error[appName] || '/error/404';
   vapp.use(Middles.router(vapp, {
     root: appPath + '/controller',
     prefix: prefix,
+    suffix: suffix,
     default_path: config.path.default_path[appName],
     default_jump: config.path.default_jump[appName],
     domain: item,

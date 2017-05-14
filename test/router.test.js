@@ -32,6 +32,12 @@ describe('test/router.test.js', function() {
         .expect(200, 'hello world!', done);
     });
 
+    it('URL后缀场景', function(done) {
+      request(app)
+        .get('/index/await.html')
+        .expect(200, 'hello world!', done);
+    });
+
     it('bindDefault场景', function(done) {
       request(app)
         .get('/index/bindDefault')

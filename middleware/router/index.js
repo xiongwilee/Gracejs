@@ -7,12 +7,12 @@ const debug = require('debug')('koa-grace:router');
 const error = require('debug')('koa-grace-error:router');
 
 /**
- * [_routerVerb 可以注册的方法]
+ * [METHOD_ALLOWED 可以注册的方法]
  * all = ['acl', 'bind', 'checkout', 'connect', 'copy', 'delete', 'get', 'head', 'link', 'lock', 'm-search', 'merge', 'mkactivity', 'mkcalendar', 'mkcol', 'move', 'notify', 'options', 'patch', 'post', 'propfind', 'proppatch', 'purge', 'put', 'rebind', 'report', 'search', 'subscribe', 'trace', 'unbind', 'unlink', 'unlock', 'unsubscribe' ]
  * @all {会注册33个verb, 慎用！！！}
  * delete {作为保留词，推荐使用别称：del}
  */
-const _routerVerb = ['get', 'post', 'put', 'patch', 'del', 'head', 'delete', 'all'];
+const METHOD_ALLOWED = ['get', 'post', 'put', 'patch', 'del', 'head', 'delete', 'all'];
 
 /**
  * 生成路由控制
@@ -61,13 +61,14 @@ module.exports = function graceRouter(app, options) {
       return;
     }
 
-    let pathRegexp = _formatPath(filePath, root);
+    let pathRegexp = formatPath(filePath, root);
 
     getRoute(exportFuncs, (exportFun, ctrlpath) => {
-      _setRoute(Router, {
+      setRoute(Router, {
         domain: Domain,
         method: exportFun.__method__,
         regular: exportFun.__regular__,
+        suffix: exportFun.__suffix__,
         ctrlpath: ctrlpath,
         ctrl: exportFun
       }, options);
@@ -172,7 +173,7 @@ function _ls(dir, _pending, _result) {
  * @param  {string} root     router路径
  * @return {string}          过滤之后的path
  */
-function _formatPath(filePath, root) {
+function formatPath(filePath, root) {
   let dir = root;
 
   if (!path.isAbsolute(root)) {
@@ -198,10 +199,8 @@ function _formatPath(filePath, root) {
  *        {funtion} config.ctrl controller方法
  * @param {Obejct} options grace router配置
  */
-function _setRoute(Router, config, options) {
+function setRoute(Router, config, options) {
   let paths = [];
-  // let method = config.method || 'get';
-  let method = (_routerVerb.indexOf(config.method) > -1) ? [config.method] : ['get', 'post'];
   let ctrlpath = config.ctrlpath.join('/');
 
   // 加入当前路由
@@ -212,16 +211,31 @@ function _setRoute(Router, config, options) {
     paths.push('/');
   }
 
+  // 如果设置了URL后缀，则统一添加后缀URL
+  let suffix = config.suffix !== false && options.suffix || config.suffix;
+  if (suffix){
+    paths.push(ctrlpath + suffix);
+  }
+
   // 如果当前路由是以index结尾，则把其父路由也加入路由
   if (config.ctrlpath.slice(-1)[0] === 'index') {
-    let parpath = config.ctrlpath.slice(0, -1);
-    paths.push(parpath.join('/'));
+    let parpath = config.ctrlpath.slice(0, -1).join('/');
+    paths.push(parpath);
+    suffix && paths.push(parpath + suffix);
   }
 
   // 如果有regular则加入regular路由
   if (config.regular) {
-    let reg = typeof config.regular === 'string' ? (ctrlpath + config.regular) : config.regular; 
+    let reg = typeof config.regular === 'string' ? (ctrlpath + config.regular) : config.regular;
     paths.push(reg)
+  }
+
+  // 如果没有配置method 则默认支持get及post
+  let method = ['get', 'post'];
+  if (typeof config.method === 'string') {
+    METHOD_ALLOWED.indexOf(config.method) > -1 && (method = [config.method]);
+  } else if (Array.isArray(config.method)) {
+    config.method.every((item) => METHOD_ALLOWED.indexOf(item) > -1) && (method = config.method);
   }
 
   // 对每一个method，有定义时唯一，默认post/get
