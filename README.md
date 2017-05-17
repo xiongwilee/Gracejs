@@ -422,7 +422,7 @@ exports.demo = async function (){
 `github:post:user/login/oauth/access_token?client_id=****`说明如下：
 
 * `github`： 为在`config/main.*.js`的 `api` 对象中进行配置；
-* `post` ： 为数据代理请求的请求方法，该参数可以不传，默认为`get`
+* `post` ： 为数据代理请求的请求方法，该参数可以不传，默认当前用户请求的method；
 * `path`： 后面请求路径中的query参数会覆盖当前页面的请求参数（this.query），将query一同传到请求的接口
 * 你也可以写完整的路径：`{userInfo:'https://api.github.com/user/login?test=test'}`
 
