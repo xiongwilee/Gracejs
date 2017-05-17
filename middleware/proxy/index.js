@@ -351,19 +351,20 @@ module.exports = function proxy(app, api, config, options) {
     let uriObj = url_opera.parse(url);
 
     let uri = url;
-    let host = uriObj.hostname;
+    let hostname = uriObj.hostname;
+    let ip = config.hosts && config.hosts[hostname];
 
     // 如果有hosts的配置，且有对应域名的IP，则更改uri中的域名为IP
-    if (config.hosts && config.hosts[host]) {
+    if (ip) {
       let protocol = uriObj.protocol + '//';
-      let ip = config.hosts[host];
 
-      uri = url.replace(protocol + uriObj.host, protocol + ip);
+      uri = url.replace(protocol + hostname, protocol + ip);
     }
 
     return {
       uri: uri,
-      host: host
+      hostname: hostname,
+      host: uriObj.host
     }
   }
 }
