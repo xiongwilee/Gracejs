@@ -7,17 +7,17 @@ const views = require('../index');
 
 const app = new Koa()
 
-app.use(views(path.resolve(__dirname, './views'), {
+app.use(views({
   root: path.resolve(__dirname, './views'),
-  map: {
-    html: 'swiger'
-  },
+  extension: 'html',
+  engine: 'swiger',
+  locals: {},
   cache: 'memory'
 }))
 
 app.use(async(ctx, next) => {
-  await ctx.render('test',{
-  	data:'hello world!'
+  await ctx.render('test', {
+    data: 'hello world!'
   });
   await next();
 });

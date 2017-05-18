@@ -2,3 +2,7 @@
 	border-radius: 5px;
 	overflow: hidden;
 }
+.view-content .control-label i{
+	font-style: normal;
+	color: #cc0000;
+}

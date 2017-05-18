@@ -1,0 +1,28 @@
+<div class="post-comments-list">
+  {% for comment in commentsInfo.list %}
+  <div class="comments-item clearfix">
+    <div class="comments-avatar">
+      <a class="comments-avatar-link" href="{{comment.user.html_url}}"><img class="comments-avatar-img" src="/user/avatar?img={{comment.user.avatar_url | urlencode}}"></a>
+    </div>
+    <div class="comments-detail">
+      <div class="comments-detail-info">
+        <a class="comments-detail-user" href="{{comment.user.html_url}}">{{comment.user.login}}</a> • <span class="comments-detail-time">{{comment.update_time}}</span>
+      </div>
+      <div class="comments-detail-content">
+        {{comment.body_html | safe}}
+      </div>
+      <div class="comments-detail-opera"><a class="comments-detail-replay" data-user="{{comment.user.login}}" href="#" title="reply"><i class="fa icon-reply"></i></a> • <a class="comments-detail-github" href="{{comment.html_url}}" title="view on github"><i class="fa icon-github"></i></a> </div>
+    </div>
+  </div>
+  {% endfor %} 
+  {% if commentsInfo.list.length %}
+  <div class="post-comments-page">
+    {% if commentsInfo.page.prev %}<a class="page-item page-item-change page-prev" href="#" data-page="{{commentsInfo.page.prev}}"><i class="page-icon-loading fa icon-spinner icon-spin"></i><i class="fa icon-angle-left page-icon-arrow"></i></a>{% endif %}
+    <span class="page-item page-curr">{{commentsInfo.page.curr}} / {{commentsInfo.page.total}}</span> {% if commentsInfo.page.next %}<a class="page-item page-item-change page-next" href="#" data-page="{{commentsInfo.page.next}}"><i class="page-icon-loading fa icon-spinner icon-spin"></i><i class="fa icon-angle-right page-icon-arrow"></i></a>{% endif %}
+  </div>
+  {% else %}
+  <div class="post-comments-blank">
+    <p class="post-comments-blank-text">No comments</p>
+  </div>
+  {% endif %}
+</div>

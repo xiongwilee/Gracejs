@@ -7,9 +7,6 @@ const request = require('./lib/request');
 const raven = require('raven');
 const error = require('debug')('koa-grace-error:proxy');
 
-// 用以缓存当前 github:post:/test/test 到真实URL的分析结果
-let PATH_TO_URL = {};
-
 /**
  * 
  * @param  {string} app     context
@@ -66,7 +63,7 @@ module.exports = function proxy(app, api, config, options) {
         }
 
         // 装载头信息的容器
-        let headerObj = config.headers;
+        let headerContainer = config.headerContainer;
 
         let reqsParam = Object.keys(opt);
         let proxyProto = '__proxyname__';
@@ -75,23 +72,26 @@ module.exports = function proxy(app, api, config, options) {
           // 分析当前proxy请求的URL
           let realReq = setRequest(ctx, opt[proxyName]);
 
+          // 扩展请求头信息
+          let headersObj = Object.assign({}, realReq.headers, config.headers)
+
           // 请求request的最终配置
           let requestOpt = Object.assign({}, options, {
             uri: realReq.uri,
             method: realReq.method,
-            headers: realReq.headers
+            headers: headersObj
           }, config.conf);
 
           return request(ctx, {
             needPipeRes: false,
-            data: config.form || ctx.request.body
+            data: config.form || formatBody(ctx.request.body)
           }, requestOpt, (response, data) => {
             response && (response[proxyProto] = proxyName);
 
             // 将获取到的数据注入到上下文的destObj参数中
             destObj[proxyName] = data;
             // 将获取到的头信息注入到配置的参数中
-            headerObj && (headerObj[proxyName] = response.headers);
+            headerContainer && (headerContainer[proxyName] = response.headers);
             // 设置cookie
             response && setResCookies(ctx, response.headers)
               // 获取后端api配置
@@ -124,11 +124,15 @@ module.exports = function proxy(app, api, config, options) {
 
         // 获取头信息
         let realReq = setRequest(ctx, url);
+
+        // 扩展请求头信息
+        let headersObj = Object.assign({}, realReq.headers, config.headers)
+        
         // 请求request的最终配置
         let requestOpt = Object.assign({}, options, {
           uri: realReq.uri,
           method: realReq.method,
-          headers: realReq.headers,
+          headers: headersObj,
           timeout: undefined,
           gzip: false,
           encoding: null
@@ -136,7 +140,7 @@ module.exports = function proxy(app, api, config, options) {
 
         return request(ctx, {
           needPipeRes: true,
-          data: config.form || ctx.request.body
+          data: config.form || formatBody(ctx.request.body)
         }, requestOpt);
       }
     });
@@ -149,6 +153,18 @@ module.exports = function proxy(app, api, config, options) {
     }
   };
 
+  /**
+   * 格式化body：如果body为空对象则直接返回false，用以填一个request的坑，
+   * @param  {Object} body body对象
+   * @return {Object|Boolean} 
+   */
+  function formatBody(body) {
+    for (let key in body) {
+      if (body.hasOwnProperty(key)) return body;
+    }
+
+    return false;
+  }
 
   /**
    * 根据分析proxy url的结果和当前的req来分析最终的url/method/头信息
@@ -198,63 +214,47 @@ module.exports = function proxy(app, api, config, options) {
    * @return {Object}      返回真正的url和方法
    */
   function analyUrl(ctx, path) {
-    // 获取缓存，有缓存结果，则直接返回
-    if (PATH_TO_URL[path]) {
-      return PATH_TO_URL[path];
-    }
-
-    let url, method;
-
+    // 如果是标准的url，则以http或者https开头
+    // 则直接发送请求不做处理
     let isUrl = /^(http:\/\/|https:\/\/)/;
-    let urlReg;
-
     if (isUrl.test(path)) {
-      urlReg = [path]
-    } else {
-      urlReg = path.split(':');
+      return {
+        url: path,
+        method: ctx.method
+      }
     }
 
-    switch (urlReg.length) {
-      case 1:
-        url = urlReg[0];
-        method = ctx.method;
-        break
-      case 2:
-        url = fixUrl(api[urlReg[0]], urlReg[1]);
-        method = ctx.method;
-        break;
-      case 3:
-        url = fixUrl(api[urlReg[0]], urlReg[2]);
-        method = urlReg[1].toUpperCase()
-        break;
+    // 否则，用"?"切分URL："?"前部用以解析真实的URL
+    let urlQueryArr = path.split('?');
+    let urlPrefix = urlQueryArr[0] || '';
+
+    // url前部只能包含1个或2个":"，否则报错
+    let urlReg = urlPrefix.split(':');
+    if (urlReg.length < 2 || urlReg.length > 3) {
+      throw `Illegal proxy path：${path} !`;
     }
 
-    if (!url) {
-      throw `"${path}" get undefined proxy url , please check your api config!`
+    // nodejs v4版本还不支持解构赋值，先这么写
+    let urlOrigin = api[urlReg[0]];
+    let urlMethod = urlReg[1];
+    let urlPath = urlReg[2];
+
+    if (!urlPath) {
+      urlPath = urlMethod;
+      urlMethod = ctx.method;
+    }
+    
+    // 如果在api配置中查找不到对应的api则报错
+    if (!urlOrigin) {
+      throw `Undefined proxy url：${path} , please check your api config!`
     }
 
-    // 将分析结果赋值result并存入缓存
-    let result = PATH_TO_URL[path] = {
-      url: url,
-      method: method
+    // 拼接URL
+    let urlHref = url_opera.resolve(urlOrigin, urlPath)
+    return {
+      url: path.replace(urlPrefix, urlHref),
+      method: urlMethod.toUpperCase()
     }
-
-    return result
-  }
-
-  /**
-   * 将api配置和path拼合成一个真正的URL
-   * @param  {String} api  api配置
-   * @param  {String} path 请求路径 
-   * @return {String}      完整的请求路径
-   */
-  function fixUrl(api, path) {
-    if (!api || !path) return;
-
-    let startSlash = /^\/*/;
-    let endSlash = /\/*$/;
-
-    return api.replace(endSlash, '/') + path.replace(startSlash, '')
   }
 
   /**
@@ -351,7 +351,7 @@ module.exports = function proxy(app, api, config, options) {
     let uriObj = url_opera.parse(url);
 
     let uri = url;
-    let host = uriObj.host;
+    let host = uriObj.hostname;
 
     // 如果有hosts的配置，且有对应域名的IP，则更改uri中的域名为IP
     if (config.hosts && config.hosts[host]) {

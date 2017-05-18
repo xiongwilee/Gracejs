@@ -1,8 +1,8 @@
 'use strict';
-module.exports = function* () {
-  yield this.bindDefault();
+module.exports = async function() {
+  await this.bindDefault();
 
-  yield this.render('home_about',{
+  await this.render('home_about',{
     breads : ['关于'],
     userInfo: this.userInfo,
     siteInfo: this.siteInfo

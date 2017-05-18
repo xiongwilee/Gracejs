@@ -1,11 +1,11 @@
 'use strict';
-exports.index = function* () {
-  yield this.bindDefault();
+exports.index = async function () {
+  await this.bindDefault();
 
   let pageNum = this.query.page;
   let PostModel = this.mongo('Post');
 
-  let mongoResult = yield this.mongoMap([{
+  let mongoResult = await this.mongoMap([{
       model: PostModel,
       fun: PostModel.page,
       arg: [pageNum]
@@ -18,7 +18,7 @@ exports.index = function* () {
   let posts = mongoResult[0];
   let page = mongoResult[1];
 
-  yield this.render('home',{
+  await this.render('home',{
     page: page,
   	posts: posts,
   	userInfo: this.userInfo,
@@ -26,20 +26,20 @@ exports.index = function* () {
   })
 }
 
-exports.about = function* () {
-  yield this.bindDefault();
+exports.about = async function () {
+  await this.bindDefault();
 
-  yield this.render('home_about',{
+  await this.render('home_about',{
     breads : ['关于'],
     userInfo: this.userInfo,
     siteInfo: this.siteInfo
   })
 }
 
-exports.join = function* () {
-  yield this.bindDefault();
+exports.join = async function () {
+  await this.bindDefault();
 
-  yield this.render('home_join',{
+  await this.render('home_join',{
     breads : ['加入'],
     userInfo: this.userInfo,
     siteInfo: this.siteInfo
