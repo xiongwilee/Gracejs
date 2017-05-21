@@ -437,7 +437,7 @@ exports.demo = async function (){
  `body` | `Buffer\|String\|ReadStream` | 无 | 参考：[requestjs body配置](https://github.com/request/request#requestoptions-callback)
  `headers` | `Object` | `{}` | 指定当前请求的headers
 
-如果以上配置中 `json`、`form`、`body` 的参数一个否不传，则默认会将当前客户端请求数据体传给后端接口；推荐使用默认proxy数据的方式，当然了，如果有特殊情况，可以配置数据也无妨。
+如果以上配置中 `json`、`form`、`body` 的参数一个都不传，则默认会将当前客户端请求数据体传给后端接口，推荐使用默认proxy数据的方式；当然了，如果有特殊情况，自行配置数据也无妨。
 
 关于this.proxy方法还有很多有趣的细节，推荐有兴趣的同学看源码：https://github.com/xiongwilee/koa-grace/middleware/proxy
 
