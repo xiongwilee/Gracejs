@@ -123,8 +123,8 @@ module.exports = function proxy(app, api, config, options) {
             // 将获取到的头信息注入到配置的参数中
             headerContainer && (headerContainer[proxyName] = response.headers);
             // 设置cookie
-            response && setResCookies(ctx, response.headers)
-              // 获取后端api配置
+            response && setResCookies(ctx, response.headers);
+            // 获取后端api配置
             isDebug && setApiOpt(ctx, realReq.uri, data, response && response.headers);
 
             //送获取请求结果的钩子，可以对response自定义任何操作
