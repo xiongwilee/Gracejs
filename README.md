@@ -432,8 +432,12 @@ exports.demo = async function (){
  ----- | --- | ---- | ----
  `dest` | `Object` | `this.backData` | 指定接收数据的对象，默认为`this.backData`
  `conf` | `Obejct` | `{}` | this.proxy使用[Request.js](https://github.com/request/request)实现，此为传给request的重置配置（你可以在这里设置接口超时时间：`conf: { timeout: 25000 }`）
- `form` | `Object` | `{}` | 指定post方法的post数据，默认为当前页面的post数据，这里的数据content-type会根据当前请求的类型指定
+ `json` | `Object` | `{}` | 指定json格式的数据，参考：[requestjs json配置](https://github.com/request/request#requestoptions-callback)
+ `form` | `Object` | `{}` | 指定application/x-www-form-urlencoded格式的数据，[requestjs form配置](https://github.com/request/request#requestoptions-callback)
+ `body` | `Buffer|String|ReadStream` | 无 | 参考：[requestjs body配置](https://github.com/request/request#requestoptions-callback)
  `headers` | `Object` | `{}` | 指定当前请求的headers
+
+如果以上配置中 `json`、`form`、`body` 的参数一个否不传，则默认会将当前客户端请求数据体传给后端接口；推荐使用默认proxy数据的方式，当然了，如果有特殊情况，可以配置数据也无妨。
 
 关于this.proxy方法还有很多有趣的细节，推荐有兴趣的同学看源码：https://github.com/xiongwilee/koa-grace/middleware/proxy
 

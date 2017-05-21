@@ -5,14 +5,6 @@ const Request = require('request');
 const debug = require('debug')('koa-grace:proxy');
 const error = require('debug')('koa-grace-error:proxy');
 
-// json types
-let JSON_TYPES = [
-  'application/json',
-  'application/json-patch+json',
-  'application/vnd.api+json',
-  'application/csp-report',
-];
-
 /**
  * request包装成promise函数
  * @param  {Object}  ctx 上下文
@@ -24,24 +16,10 @@ let JSON_TYPES = [
 module.exports = function request(ctx, param, options, callback) {
   callback = callback || (() => {});
 
-  // 如果是JSON格式的请求，则赋值json为数据对象
-  let json, form;
-  if (ctx.request.is(JSON_TYPES)) {
-    json = param.data || true;
-  } else {
-    json = !param.needPipeRes;
-    form = param.data;
-  }
-
   // 获取request参数
   let opt = Object.assign({
-    uri: undefined, // 请求路径
-    method: undefined, // method
-    headers: undefined, // 头信息
     gzip: true, //是否gzip
-    timeout: 15000, // 超时时间
-    json: json, // json数据
-    form: form // post的form参数，默认为undefined
+    timeout: 15000 // 超时时间
   }, options);
 
   debug('proxying : ' + opt.uri);
@@ -81,7 +59,8 @@ module.exports = function request(ctx, param, options, callback) {
       }
 
       // 没有报错，但是也没有正常返回的数据
-      // 根据重试配置进行重试
+      // 根据重试配置进行重试,
+      // TODO: 这里如果request method 为 HEAD 不会有response body，所以理应不需要再重试
       if (retryNum > 0) {
         debug(`proxy retry: Request ${opt.uri} no response, retry ${retryNum} times!`, info);
         retryNum--;

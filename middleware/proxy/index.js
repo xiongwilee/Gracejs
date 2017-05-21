@@ -7,6 +7,23 @@ const request = require('./lib/request');
 const raven = require('raven');
 const error = require('debug')('koa-grace-error:proxy');
 
+const METHOD_TYPES = {
+  json: [
+    'application/json',
+    'application/json-patch+json',
+    'application/vnd.api+json',
+    'application/csp-report'
+  ],
+  form: [
+    'application/x-www-form-urlencoded',
+  ],
+  text: [
+    'text/plain',
+    'text/xml'
+  ]
+}
+
+
 /**
  * 
  * @param  {string} app     context
@@ -67,7 +84,7 @@ module.exports = function proxy(app, api, config, options) {
 
         let reqsParam = Object.keys(opt);
         let proxyProto = '__proxyname__';
-        
+
         let reqs = reqsParam.map((proxyName) => {
           // 分析当前proxy请求的URL
           let realReq = setRequest(ctx, opt[proxyName]);
@@ -75,18 +92,28 @@ module.exports = function proxy(app, api, config, options) {
           // 扩展请求头信息
           let headersObj = Object.assign({}, realReq.headers, config.headers)
 
+          // 获取请求数据配置
+          let requestData = parseData(ctx, config);
+
           // 请求request的最终配置
           let requestOpt = Object.assign({}, options, {
             uri: realReq.uri,
             method: realReq.method,
             headers: headersObj
-          }, config.conf);
+          }, requestData, config.conf);
 
           return request(ctx, {
-            needPipeRes: false,
-            data: config.form || formatBody(ctx.request.body)
+            needPipeRes: false
           }, requestOpt, (response, data) => {
             response && (response[proxyProto] = proxyName);
+
+            // 如果返回的数据格式是string，则尝试JSON.parse
+            if (typeof data === 'string') {
+              try {
+                data = JSON.parse(data);
+                response.body = data;
+              } catch (err) {}
+            }
 
             // 将获取到的数据注入到上下文的destObj参数中
             destObj[proxyName] = data;
@@ -127,7 +154,10 @@ module.exports = function proxy(app, api, config, options) {
 
         // 扩展请求头信息
         let headersObj = Object.assign({}, realReq.headers, config.headers)
-        
+
+        // 获取请求数据配置
+        let requestData = parseData(ctx, config);
+
         // 请求request的最终配置
         let requestOpt = Object.assign({}, options, {
           uri: realReq.uri,
@@ -136,11 +166,10 @@ module.exports = function proxy(app, api, config, options) {
           timeout: undefined,
           gzip: false,
           encoding: null
-        }, config.conf);
+        }, requestData, config.conf);
 
         return request(ctx, {
-          needPipeRes: true,
-          data: config.form || formatBody(ctx.request.body)
+          needPipeRes: true
         }, requestOpt);
       }
     });
@@ -152,6 +181,39 @@ module.exports = function proxy(app, api, config, options) {
       ctx.body = ctx.__back__
     }
   };
+
+  /**
+   * 通过配置及请求上下文，配置request.js的json/form/body字段
+   * @param  {Object} ctx    上下文
+   * @param  {Object} config 请求配置
+   * @return {Object}        request.js的json/form/body配置
+   */
+  function parseData(ctx, config) {
+    let fields = ['json', 'form', 'body'],
+      result = {};
+
+    // 如果默认配置了`json`,`form`,`body`字段，则使用这些数据，并完全忽略默认的请求体数据；
+    for (let i = 0; i < fields.length; i++) {
+      let key = fields[i];
+
+      if (config[key]) {
+        result[key] = config[key];
+        return result;
+      }
+    }
+
+    if (ctx.request.is(METHOD_TYPES.json)) {
+      result.json = ctx.request.body
+    } else if (ctx.request.is(METHOD_TYPES.form)) {
+      result.form = ctx.request.body
+    } else if (ctx.request.is(METHOD_TYPES.text)) {
+      result.body = ctx.request.body
+    } else {
+      // 其他content-type默认不做任何处理
+    }
+
+    return result;
+  }
 
   /**
    * 格式化body：如果body为空对象则直接返回false，用以填一个request的坑，
@@ -243,7 +305,7 @@ module.exports = function proxy(app, api, config, options) {
       urlPath = urlMethod;
       urlMethod = ctx.method;
     }
-    
+
     // 如果在api配置中查找不到对应的api则报错
     if (!urlOrigin) {
       throw `Undefined proxy url：${path} , please check your api config!`
