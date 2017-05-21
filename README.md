@@ -434,7 +434,7 @@ exports.demo = async function (){
  `conf` | `Obejct` | `{}` | this.proxy使用[Request.js](https://github.com/request/request)实现，此为传给request的重置配置（你可以在这里设置接口超时时间：`conf: { timeout: 25000 }`）
  `json` | `Object` | `{}` | 指定json格式的数据，参考：[requestjs json配置](https://github.com/request/request#requestoptions-callback)
  `form` | `Object` | `{}` | 指定application/x-www-form-urlencoded格式的数据，[requestjs form配置](https://github.com/request/request#requestoptions-callback)
- `body` | `Buffer|String|ReadStream` | 无 | 参考：[requestjs body配置](https://github.com/request/request#requestoptions-callback)
+ `body` | `Buffer\|String\|ReadStream` | 无 | 参考：[requestjs body配置](https://github.com/request/request#requestoptions-callback)
  `headers` | `Object` | `{}` | 指定当前请求的headers
 
 如果以上配置中 `json`、`form`、`body` 的参数一个否不传，则默认会将当前客户端请求数据体传给后端接口；推荐使用默认proxy数据的方式，当然了，如果有特殊情况，可以配置数据也无妨。
