@@ -102,6 +102,9 @@ module.exports = function proxy(app, api, config, options) {
             headers: headersObj
           }, requestData, config.conf);
 
+          // 发送请求前的钩子，可以对requestjs的参数自定义任何操作
+          config.onBeforeRequest && config.onBeforeRequest.call(ctx, proxyName, requestOpt)
+
           return request(ctx, {
             needPipeRes: false
           }, requestOpt, (response, data) => {
@@ -123,6 +126,9 @@ module.exports = function proxy(app, api, config, options) {
             response && setResCookies(ctx, response.headers)
               // 获取后端api配置
             isDebug && setApiOpt(ctx, realReq.uri, data, response && response.headers);
+
+            //送获取请求结果的钩子，可以对response自定义任何操作
+            config.onAfterRequest && config.onAfterRequest.call(ctx, proxyName, response)
 
             return response;
           })
@@ -167,6 +173,9 @@ module.exports = function proxy(app, api, config, options) {
           gzip: false,
           encoding: null
         }, requestData, config.conf);
+
+        // 发送请求前的钩子，可以对requestjs的参数自定义任何操作
+        config.onBeforeRequest && config.onBeforeRequest.call(ctx, proxyName, requestOpt)
 
         return request(ctx, {
           needPipeRes: true
