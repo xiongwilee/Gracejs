@@ -30,7 +30,7 @@ Gracejs是[koa-grace](https://github.com/xiongwilee/koa-grace)的升级版，也
 
 Gracejs及前后端分离问题交流群：
 * **微信交流群**： 添加微信 `xiongwilee` 后拉你到“Gracejs及前后端分离交流”微信群 <img src="http://img002.qufenqi.com/products/f8/4c/f84cf5cebba8f0f0db1453c72d296532.jpeg@300w" width="180px" /> 
-* **QQ交流群**：368463457 （此群将弃用，可联系添加微信 xiongwilee ，拉到微信群）
+* **QQ交流群**：368463457 （此群将弃用，可联系添加微信 `xiongwilee` ，拉到微信群）
 
 ## 二、快速开始
 
