@@ -4,38 +4,34 @@ const debug = require('debug')('koa-grace:views');
 const error = require('debug')('koa-grace-error:views');
 const path = require('path');
 const fs = require('fs');
-const views = require('./lib/views.js');
+const nunjucks = require('nunjucks');
 
 /**
- * Add `render` method.
- *
- * @param {Object} opts (optional)
- * 
- * @return {Function}
- *
- * @todo 添加测试用例
  */
 
-module.exports = function graceViews(opts) {
+module.exports = function graceViews(config, opts, onLoadEnv) {
   // 用以缓存模板引擎路径匹配
   const TPL_MATCH = {};
 
-  // 使用默认配置
-  const config = Object.assign({
-    // 模板文件根目录
-    root: '',
-    // 模板文件后缀
-    extension: 'html',
-    // 默认使用的模板引擎
-    engine: 'nunjucks',
-    // 默认的模板参数
-    locals: {},
-    // 是否使用缓存，默认不使用
-    cache: false
-  }, opts);
+  // 使用默认配置创建loader
+  const nunjucksLoader = new nunjucks.FileSystemLoader(config.root, Object.assign({
+    // 控制输出是否被转义
+    autoescape: true,
+    // 是否自动去除 block/tag 后面的换行符
+    trimBlocks: false,
+    // 是否自动去除 block/tag 签名的空格
+    lstripBlocks: false,
+    // 不使用缓存，每次都重新编译
+    noCache: false,
+    // 定义模板语法
+    tags: {}
+  }, opts));
 
-  // 获取模板引擎
-  const render = views(config)
+  // 创建nunjucks执行环境
+  const nunjucksEnv = new nunjucks.Environment(nunjucksLoader);
+
+  // 加载env完成之后，回调onLoadEnv方法，可以添加插件
+  onLoadEnv && onLoadEnv(nunjucksEnv)
 
   return async function views(ctx, next) {
     if (ctx.render) return await next();
@@ -45,12 +41,13 @@ module.exports = function graceViews(opts) {
         if (typeof tpl !== 'string') return error(`Illegal tpl path：${tpl} !`);
 
         const tplPath = getPath(tpl, config);
+        const tplData = Object.assign({}, config.locals, data)
 
         return new Promise((resolve) => {
-          render(tplPath, data).then((html) => {
+          nunjucksEnv.render(tplPath, tplData, (err, res) => {
             ctx.type = 'text/html';
-            ctx.body = html;
-            resolve(html);
+            ctx.body = res;
+            resolve(res);
           })
         });
       }

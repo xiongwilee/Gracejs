@@ -61,15 +61,18 @@ let vhosts = Object.keys(config.vhost).map((item) => {
   }));
 
   // 配置模板引擎
-  let engine = (typeof config.template === 'string' ? config.template : config.template[appName]);
+  let nunjucksConfig = config.nunjucks && config.nunjucks[appName];
   vapp.use(Middles.views({
     root: appPath + '/views',
     extension: 'html',
-    engine: engine || 'swiger',
     locals: { 
       constant: config.constant 
-    },
-    cache: config.site.env == 'production' && 'memory'
+    }
+  }, nunjucksConfig || {
+    noCache: config.site.env !== 'production'
+  }, (env) => {
+    // 可以使用 addFilter / addExtension 等方法配置nunjucks 
+    // 参考：https://mozilla.github.io/nunjucks/cn/api.html#addfilter
   }));
 
   // 配置控制器文件路由

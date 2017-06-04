@@ -6,6 +6,8 @@
 
 # koa-grace v2
 
+> 该分支为默认 Nunjucks 特别版本
+
 [Gracejs](https://github.com/xiongwilee/koa-grace)(又称:koa-grace v2)  是全新的基于[koa v2.x](https://github.com/koajs/koa)的MVC+RESTful架构的前后端分离框架。
 
 [![NPM version](https://img.shields.io/npm/v/gracejs.svg)](https://www.npmjs.com/package/gracejs)
@@ -463,21 +465,9 @@ exports.avatar = async function (){
 
 ### views——视图层
 
-默认的模板引擎为[swig](paularmstrong.github.io/swig/)，但swig作者已经停止维护；你可以在`config/main.*.js`中配置`template`属性想要的模板引擎：
+该版本默认的模板引擎为[nunjucks](https://mozilla.github.io/nunjucks/cn/api.html)。
 
-```javascript
-// 模板引擎配置
-template: 'nunjucks'
-```
-
-你还可以根据不同的模块配置不同的模板引擎：
-```javascript
-template: {
-  blog:'ejs'
-}
-```
-
-目前支持的模板引擎列表在这里：[consolidate.js#supported-template-engines](https://github.com/tj/consolidate.js#supported-template-engines)
+你可以在`src/app.js`中的`Middles.views`回调中操作nunjucks的执行环境，比如addFilter；具体操作方法参考：https://mozilla.github.io/nunjucks/cn/api.html#addfilter。
 
 在控制器中调用`this.render`方法渲染模板引擎：
 

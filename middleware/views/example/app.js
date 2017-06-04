@@ -10,13 +10,17 @@ const app = new Koa()
 app.use(views({
   root: path.resolve(__dirname, './views'),
   extension: 'html',
-  engine: 'swiger',
-  locals: {},
-  cache: 'memory'
-}))
+  locals: {
+    constant: {
+      test: 'testtest'
+    }
+  }
+}, {
+  noCache: true
+}, (env) => {}))
 
 app.use(async(ctx, next) => {
-  await ctx.render('test', {
+  await ctx.render('test.html', {
     data: 'hello world!'
   });
   await next();
