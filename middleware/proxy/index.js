@@ -86,24 +86,42 @@ module.exports = function proxy(app, api, config, options) {
         let proxyProto = '__proxyname__';
 
         let reqs = reqsParam.map((proxyName) => {
+
+          let proxyUrl, proxyConfig;
+          // 如果配置项为一个对象，则重置对象参数
+          if (typeof opt[proxyName] === 'object') {
+            proxyConfig = opt[proxyName];
+
+            // 对象中uri字段为proxy url
+            proxyUrl = proxyConfig.uri;
+            delete proxyConfig.uri;
+
+            // 这里有个问题，如果config字段中存在json/form/text，proxyConfig也存在其中的另外一个字段则会出现字段冲突的情况
+            // 所以，如果config中有数据参数的配置的话，proxyConfig中就不要再配置
+            proxyConfig = Object.assign({}, config, proxyConfig);
+          } else {
+            proxyConfig = config;
+            proxyUrl = opt[proxyName];
+          }
+
           // 分析当前proxy请求的URL
-          let realReq = setRequest(ctx, opt[proxyName]);
+          let realReq = setRequest(ctx, proxyUrl);
 
           // 扩展请求头信息
-          let headersObj = Object.assign({}, realReq.headers, config.headers)
+          let headersObj = Object.assign({}, realReq.headers, proxyConfig.headers)
 
           // 获取请求数据配置
-          let requestData = parseData(ctx, config);
+          let requestData = parseData(ctx, proxyConfig);
 
           // 请求request的最终配置
           let requestOpt = Object.assign({}, options, {
             uri: realReq.uri,
             method: realReq.method,
             headers: headersObj
-          }, requestData, config.conf);
+          }, requestData, proxyConfig.conf);
 
           // 发送请求前的钩子，可以对requestjs的参数自定义任何操作
-          config.onBeforeRequest && config.onBeforeRequest.call(ctx, proxyName, requestOpt)
+          proxyConfig.onBeforeRequest && proxyConfig.onBeforeRequest.call(ctx, proxyName, requestOpt)
 
           return request(ctx, {
             needPipeRes: false
@@ -128,7 +146,7 @@ module.exports = function proxy(app, api, config, options) {
             isDebug && setApiOpt(ctx, realReq.uri, data, response && response.headers);
 
             //送获取请求结果的钩子，可以对response自定义任何操作
-            config.onAfterRequest && config.onAfterRequest.call(ctx, proxyName, response)
+            proxyConfig.onAfterRequest && proxyConfig.onAfterRequest.call(ctx, proxyName, response)
 
             return response;
           })

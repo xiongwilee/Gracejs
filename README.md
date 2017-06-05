@@ -443,6 +443,24 @@ exports.demo = async function (){
 
 如果以上配置中 `json`、`form`、`body` 的参数一个都不传，则默认会将当前客户端请求数据体传给后端接口，推荐使用默认proxy数据的方式；当然了，如果有特殊情况，自行配置数据也无妨。
 
+除了在`this.proxy`的参数中进行配置外，在多个并发请求也可以这么写配置：
+```
+this.proxy({
+  testInfo: {
+    uri: 'github:other/info?test=test',
+    form: {
+      // formData
+    },
+    headers: {},
+    // ... 其他配置亦可
+  },
+  otherInfo: {
+    // 同上自定义配置
+  }
+})
+```
+这样就可以很灵活地实现接口级别的自定义配置。
+
 关于this.proxy方法还有很多有趣的细节，推荐有兴趣的同学看源码：https://github.com/xiongwilee/koa-grace/middleware/proxy
 
 #### 2、 文件代理
