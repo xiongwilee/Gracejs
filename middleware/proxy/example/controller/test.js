@@ -182,6 +182,22 @@ exports.proxy_retry_2 = function*() {
   }
   /*** 重试机制测试： 127.0.0.1:3000/test/retry ***/
 
+exports.proxy_obj = function*() {
+  let res = yield this.proxy({
+    'test': {
+      uri: 'https://www.baidu.com'
+    },
+    'test1': {
+      uri: 'local:post:test/data_post',
+      form: {
+        test1:'test1'
+      }
+    }
+  })
+
+  this.body = res;
+}
+
 exports.data_1 = function*() {
   this.body = {
     user_id: '111111',
