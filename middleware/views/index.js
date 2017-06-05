@@ -13,11 +13,7 @@ module.exports = function graceViews(config, opts, onLoadEnv) {
   // 用以缓存模板引擎路径匹配
   const TPL_MATCH = {};
 
-  // 使用默认配置创建loader
-  const nunjucksLoader = new nunjucks.FileSystemLoader(config.root);
-
-  // 创建nunjucks执行环境
-  const nunjucksEnv = new nunjucks.Environment(nunjucksLoader, Object.assign({
+  const options = Object.assign({
     // 控制输出是否被转义
     autoescape: true,
     // 是否自动去除 block/tag 后面的换行符
@@ -28,7 +24,16 @@ module.exports = function graceViews(config, opts, onLoadEnv) {
     noCache: false,
     // 定义模板语法
     tags: {}
-  }, opts));
+  }, opts);
+
+  // 使用默认配置创建loader
+  const nunjucksLoader = new nunjucks.FileSystemLoader(config.root, {
+    noCache: options.noCache,
+    watch: options.watch
+  });
+
+  // 创建nunjucks执行环境
+  const nunjucksEnv = new nunjucks.Environment(nunjucksLoader, options);
 
   // 加载env完成之后，回调onLoadEnv方法，可以添加插件
   onLoadEnv && onLoadEnv(nunjucksEnv)
