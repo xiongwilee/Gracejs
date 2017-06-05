@@ -14,7 +14,10 @@ module.exports = function graceViews(config, opts, onLoadEnv) {
   const TPL_MATCH = {};
 
   // 使用默认配置创建loader
-  const nunjucksLoader = new nunjucks.FileSystemLoader(config.root, Object.assign({
+  const nunjucksLoader = new nunjucks.FileSystemLoader(config.root);
+
+  // 创建nunjucks执行环境
+  const nunjucksEnv = new nunjucks.Environment(nunjucksLoader, Object.assign({
     // 控制输出是否被转义
     autoescape: true,
     // 是否自动去除 block/tag 后面的换行符
@@ -26,9 +29,6 @@ module.exports = function graceViews(config, opts, onLoadEnv) {
     // 定义模板语法
     tags: {}
   }, opts));
-
-  // 创建nunjucks执行环境
-  const nunjucksEnv = new nunjucks.Environment(nunjucksLoader);
 
   // 加载env完成之后，回调onLoadEnv方法，可以添加插件
   onLoadEnv && onLoadEnv(nunjucksEnv)
