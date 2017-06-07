@@ -50,8 +50,9 @@ module.exports = function request(ctx, param, options, callback) {
         return;
       }
 
-      // 没有报错，且有正常的返回数据
-      if (!err && data) {
+      // 有正常的返回数据 或 method为HEAD
+      // 因为method的head的请求只会返回请求头不会返回请求体
+      if (data || ctx.method === 'HEAD') {
         debug('proxy success : ' + opt.uri, info);
 
         resolve(callback(httpResponse, data));
@@ -60,7 +61,6 @@ module.exports = function request(ctx, param, options, callback) {
 
       // 没有报错，但是也没有正常返回的数据
       // 根据重试配置进行重试,
-      // TODO: 这里如果request method 为 HEAD 不会有response body，所以理应不需要再重试
       if (retryNum > 0) {
         debug(`proxy retry: Request ${opt.uri} no response, retry ${retryNum} times!`, info);
         retryNum--;
