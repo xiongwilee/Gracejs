@@ -1,7 +1,6 @@
 'use strict';
 
-const genericSession = require('koa-generic-session');
-const redisStore = require('koa-redis');
+const koaSession = require('koa-session');
 
 /**
  * gracejs获取session中间件
@@ -13,12 +12,7 @@ const redisStore = require('koa-redis');
  */
 module.exports = function session(app, options) {
   options = options || {};
-  
-  app.keys = app.keys || ['koa-grace', 'koa-grace-session'];
+  app.keys = app.keys || ['GRACE-SESSKEY'];
 
-  if (options.redis) {
-    options.store = redisStore(options.redis)
-  }
-
-  return genericSession(options)
+  return koaSession(options, app)
 }
