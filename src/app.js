@@ -9,10 +9,8 @@ const app = new koa();
 // compress(gzip)
 app.use(Middles.compress());
 
-// session配置，默认使用内存，不推荐在生产环境使用
-// 生产环境推荐配置redis，参考：https://github.com/koa-grace/koa-grace-session
-// 目前SESSION的方案还是基于generator的，暂时注释
-// app.use(Middles.session(app, config.session));
+// session配置，默认使用内存
+app.use(Middles.session(app, config.session));
 
 // body
 app.use(Middles.body());

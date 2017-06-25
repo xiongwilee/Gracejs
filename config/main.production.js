@@ -2,10 +2,7 @@
 
 process.env.DEBUG = process.env.DEBUG || 'koa-grace-error:*';
 
-const serverConfig = require('./server.json');
-const makeConfig = require('../src/utils').makeConfig;
-
-module.exports = makeConfig({
+module.exports = {
   // vhost配置
   vhost: {
     'grace.wilee.me': 'demo',
@@ -107,4 +104,4 @@ module.exports = makeConfig({
 
   // session配置
   session: {}
-}, serverConfig)
+}
