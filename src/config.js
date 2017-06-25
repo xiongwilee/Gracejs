@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const extend = require('extend');
 
 /**
  * 获取配置文件
@@ -11,25 +12,32 @@ const path = require('path');
 module.exports = function config(args) {
   // 将端口号写入环境变量
   if (args.port) {
-  	process.env.PORT = args.port;
+    process.env.PORT = args.port;
   }
 
   // 获取默认配置
-  let cfg = require('../config/main');
-  let extendConfig = {};
-  let env = args.env || 'development';
+  const cfg = require('../config/main');
+  // 获取当前的环境
+  const env = args.env || 'development';
 
-  // 获取增量配置文件
-  let fileName = 'main.' + env + '.js';
- 
-  // 如果允许增量配置，则继承增量配置
-  if (cfg.extend) {
-
-    let extPath = path.resolve(cfg.extend, fileName);
-
-    extendConfig = fs.existsSync(extPath) ? require(extPath) : extendConfig;
-
+  // 获取环境配置
+  const envPath = path.resolve(`./config/main.${env}.js`);
+  try {
+    extend(cfg, require(envPath));
+  } catch (err) {
+    throw `Load ${env} Config Error：${envPath}`;
   }
 
-  return Object.assign(cfg, extendConfig);
+  // 如果允许增量配置，则继承增量配置
+  if (cfg.extend) {
+    const extPath = path.resolve(cfg.extend);
+    try {
+      // 深复制
+      extend(true, cfg, require(extPath));
+    } catch (err) {
+      throw `Load Extend Config Error：${extPath}`;
+    }
+  }
+
+  return cfg;
 }

@@ -2,10 +2,7 @@
 
 process.env.DEBUG = process.env.DEBUG || 'koa-grace*';
 
-const serverConfig = require('./server.json');
-const makeConfig = require('../src/utils').makeConfig;
-
-module.exports = makeConfig({
+module.exports = {
   // vhost配置
   vhost: {
     '127.0.0.1': 'demo',
@@ -108,4 +105,4 @@ module.exports = makeConfig({
 
   // session配置
   session: {}
-}, serverConfig)
+}
