@@ -1,6 +1,5 @@
 'use strict';
 
-const fs = require('fs');
 const path = require('path');
 const extend = require('extend');
 
@@ -40,4 +39,4 @@ module.exports = function config(args) {
   }
 
   return cfg;
-}
+};

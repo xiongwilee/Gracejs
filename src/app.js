@@ -2,8 +2,9 @@
 
 const path = require('path');
 const koa = require('koa');
-const Middles = require('../middleware/')
+const Middles = require('../middleware/');
 
+const config = global.config;
 const app = new koa();
 
 // compress(gzip)
@@ -34,19 +35,19 @@ let vhosts = Object.keys(config.vhost).map((item) => {
   // 如果在csrf的module名单里才使用csrf防护功能
   config.csrf.module.indexOf(appName) > -1 && vapp.use(Middles.secure(vapp, {
     throw: true
-  }))
+  }));
 
   // 在开发环境才使用mock数据功能
   config.site.env == 'development' && vapp.use(Middles.mock(vapp, {
     root: appPath + '/mock/',
     prefix: config.mock.prefix + appName
-  }))
+  }));
 
   // 如果配置了连接数据库
   config.mongo.api[appName] && vapp.use(Middles.mongo(vapp, {
     root: appPath + '/model/mongo',
     connect: config.mongo.api[appName]
-  }))
+  }));
 
   // 配置api
   vapp.use(Middles.proxy(vapp, config.api, {
@@ -87,7 +88,7 @@ let vhosts = Object.keys(config.vhost).map((item) => {
   return {
     host: item,
     app: vapp
-  }
+  };
 });
 
 // 注入vhosts路由

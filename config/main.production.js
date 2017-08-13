@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 process.env.DEBUG = process.env.DEBUG || 'koa-grace-error:*';
 
@@ -104,4 +104,4 @@ module.exports = {
 
   // session配置
   session: {}
-}
+};
