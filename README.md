@@ -42,7 +42,7 @@ Gracejs及前后端分离问题交流群：
 执行命令：
 ```shell
 $ git clone https://github.com/xiongwilee/Gracejs.git
-$ cd koa-grace && npm install
+$ cd Gracejs && npm install
 ```
 
 **BTW: 由于众所周知的原因，npm install可能不稳定，推荐使用[cnpm](https://github.com/cnpm/cnpm#cnpm)安装。**
@@ -60,7 +60,7 @@ $ npm run dev
 
 这里参考 https://github.com/xiongwilee/Gracejs 中`app/demo`目录下的示例，详解Gracejs的MVC+RESTful架构的实现。
 
-此前也有文章简单介绍过koa-grace的实现（ https://github.com/xiongwilee/Gracejs/wiki ），但考虑到Gracejs的差异性，这里再从**目录结构**、**MVC模型实现**、**proxy机制**这三个关键点做一些比较详细的说明。
+此前也有文章简单介绍过Gracejs的实现（ https://github.com/xiongwilee/Gracejs/wiki ），但考虑到Gracejs的差异性，这里再从**目录结构**、**MVC模型实现**、**proxy机制**这三个关键点做一些比较详细的说明。
 
 ### 目录结构
 
@@ -583,7 +583,7 @@ this.proxy({
 * 如果你的mock文件路径是/mock/test/subtest.json 那么proxy路径则是：test/subtest;
 * 强烈建议将mock文件统一为真正的后端请求路径，这样以实现真实路径的mock；
 
-可以参考这个：[koa-grace中的mock功能的示例](https://github.com/xiongwilee/Gracejs/blob/master/app/demo/controller/data.js)
+可以参考这个：[Gracejs中的mock功能的示例](https://github.com/xiongwilee/Gracejs/blob/master/app/demo/controller/data.js)
 
 ### secure——安全模块
 
@@ -626,7 +626,7 @@ Gracejs监听到post请求，如果token验证失效，则直接返回错误。
 
 其中，`mongo.options`配置mongo连接池等信息，`mongo.api`配置站点对应的数据库连接路径。
 
-值得注意的是，**配置好数据库之后，一旦koa-grace server启动mongoose就启动连接，直到koa-grace server关闭**
+值得注意的是，**配置好数据库之后，一旦Gracejs server启动mongoose就启动连接，直到Gracejs server关闭**
 
 #### 2、 mongoose的schema配置
 
