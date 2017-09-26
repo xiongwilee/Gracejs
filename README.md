@@ -2,18 +2,18 @@
 
 --------------------------------------------------------------------------------
 
-> koa-grace v1.x版本请移步： https://github.com/xiongwilee/koa-grace/tree/v1.0.4
+> koa-grace v1.x版本请移步： https://github.com/xiongwilee/Gracejs/tree/v1.0.4
 
 # Gracejs
 
-[Gracejs](https://github.com/xiongwilee/koa-grace)(又称:koa-grace v2)  是全新的基于[koa v2.x](https://github.com/koajs/koa)的MVC+RESTful架构的前后端分离框架。
+[Gracejs](https://github.com/xiongwilee/Gracejs)(又称:koa-grace v2)  是全新的基于[koa v2.x](https://github.com/koajs/koa)的MVC+RESTful架构的前后端分离框架。
 
 [![NPM version](https://img.shields.io/npm/v/gracejs.svg)](https://www.npmjs.com/package/gracejs)
-[![Build Status](https://travis-ci.org/xiongwilee/koa-grace.svg?branch=master)](https://travis-ci.org/xiongwilee/koa-grace)
+[![Build Status](https://travis-ci.org/xiongwilee/Gracejs.svg?branch=master)](https://travis-ci.org/xiongwilee/Gracejs)
 
 ## 一、简介
 
-Gracejs是[koa-grace](https://github.com/xiongwilee/koa-grace)的升级版，也可以叫koa-grace v2。
+Gracejs是[koa-grace](https://github.com/xiongwilee/Gracejs)的升级版，也可以叫koa-grace v2。
 
 主要特性包括：
 
@@ -35,13 +35,13 @@ Gracejs及前后端分离问题交流群：
 ## 二、快速开始
 
 **注意：请确保你的运行环境中Nodejs的版本至少是`v7.6.0`** 
-（或者你也可以考虑支持 Nodejs v4.x+ 的[koa-grace v1.x](https://github.com/xiongwilee/koa-grace/tree/v1.0.4)）
+（或者你也可以考虑支持 Nodejs v4.x+ 的[koa-grace v1.x](https://github.com/xiongwilee/Gracejs/tree/v1.0.4)）
 
 ### 安装
 
 执行命令：
 ```shell
-$ git clone https://github.com/xiongwilee/koa-grace.git
+$ git clone https://github.com/xiongwilee/Gracejs.git
 $ cd koa-grace && npm install
 ```
 
@@ -58,9 +58,9 @@ $ npm run dev
 
 ## 三、案例说明
 
-这里参考 https://github.com/xiongwilee/koa-grace 中`app/demo`目录下的示例，详解Gracejs的MVC+RESTful架构的实现。
+这里参考 https://github.com/xiongwilee/Gracejs 中`app/demo`目录下的示例，详解Gracejs的MVC+RESTful架构的实现。
 
-此前也有文章简单介绍过koa-grace的实现（ https://github.com/xiongwilee/koa-grace/wiki ），但考虑到Gracejs的差异性，这里再从**目录结构**、**MVC模型实现**、**proxy机制**这三个关键点做一些比较详细的说明。
+此前也有文章简单介绍过koa-grace的实现（ https://github.com/xiongwilee/Gracejs/wiki ），但考虑到Gracejs的差异性，这里再从**目录结构**、**MVC模型实现**、**proxy机制**这三个关键点做一些比较详细的说明。
 
 ### 目录结构
 
@@ -88,7 +88,7 @@ Gracejs与koa-grace v1.x版本的目录结构完全一致：
 
 需要强调的是，**这个目录结构是生产环境代码的标准目录结构。在开发环境里你可以任意调整你的目录结构，只要保证编译之后的产出文件以这个路径输出即可**。
 
-如果你对这一点仍有疑问，可以参考: [前端构建-Boilerplate](https://github.com/xiongwilee/koa-grace#boilerplate)
+如果你对这一点仍有疑问，可以参考: [前端构建-Boilerplate](https://github.com/xiongwilee/Gracejs#boilerplate)
 
 ### MVC模型实现
 
@@ -134,15 +134,15 @@ Gracejs与koa-grace v1.x版本的目录结构完全一致：
 6. 如果当前请求是一个file文件流，又该怎么办呢？
 ...
 
-好消息是，这些问题在proxy中间件中都考虑过了。这里不再一一讲解，有兴趣可以看koa-grace-proxy的源码：https://github.com/xiongwilee/koa-grace/middleware/proxy 。
+好消息是，这些问题在proxy中间件中都考虑过了。这里不再一一讲解，有兴趣可以看koa-grace-proxy的源码：https://github.com/xiongwilee/Gracejs/middleware/proxy 。
 
 ## 四、详细使用手册
 
-在看详细使用手册之前，建议先看一下Gracejs的主文件源码：https://github.com/xiongwilee/koa-grace/blob/master/src/app.js 。
+在看详细使用手册之前，建议先看一下Gracejs的主文件源码：https://github.com/xiongwilee/Gracejs/blob/master/src/app.js 。
 
 这里不再浪费篇幅贴代码了，其实想说明的就是：**Gracejs是一个个关键中间件的集合**。
 
-所有中间件都在[middleware](https://github.com/xiongwilee/koa-grace/middleware)目录下，配置由`config/main.*.js`管理。
+所有中间件都在[middleware](https://github.com/xiongwilee/Gracejs/middleware)目录下，配置由`config/main.*.js`管理。
 
 关于配置文件：
 
@@ -459,7 +459,7 @@ this.proxy({
 ```
 这样就可以很灵活地实现接口级别的自定义配置。
 
-关于this.proxy方法还有很多有趣的细节，推荐有兴趣的同学看源码：https://github.com/xiongwilee/koa-grace/middleware/proxy
+关于this.proxy方法还有很多有趣的细节，推荐有兴趣的同学看源码：https://github.com/xiongwilee/Gracejs/middleware/proxy
 
 #### 2、 文件代理
 
@@ -583,7 +583,7 @@ this.proxy({
 * 如果你的mock文件路径是/mock/test/subtest.json 那么proxy路径则是：test/subtest;
 * 强烈建议将mock文件统一为真正的后端请求路径，这样以实现真实路径的mock；
 
-可以参考这个：[koa-grace中的mock功能的示例](https://github.com/xiongwilee/koa-grace/blob/master/app/demo/controller/data.js)
+可以参考这个：[koa-grace中的mock功能的示例](https://github.com/xiongwilee/Gracejs/blob/master/app/demo/controller/data.js)
 
 ### secure——安全模块
 
@@ -879,6 +879,6 @@ webpack将vues下的vue文件编译之后产出到`server/app/demo/static`下；
 
 ## 结语
 
-自此，洋洋洒洒1w多字，Gracejs终于介绍完毕；有兴趣的同学去github赏个star呗：https://github.com/xiongwilee/koa-grace 。
+自此，洋洋洒洒1w多字，Gracejs终于介绍完毕；有兴趣的同学去github赏个star呗：https://github.com/xiongwilee/Gracejs 。
 
 最后，欢迎大家提issue、fork；有任何疑问也可以邮件联系：xiongwilee[at]foxmail.com。
