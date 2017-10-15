@@ -369,7 +369,6 @@ module.exports = function proxy(app, api, config, options) {
   }
 
   /**
-   ********** TODO: 可以优化 *********
    * 设置response cookie
    * @param {object} res     response
    * @param {object} headers 头信息
@@ -380,17 +379,13 @@ module.exports = function proxy(app, api, config, options) {
     }
 
     let cookies = headers['set-cookie'];
+    let _headers = ctx.res._headers || {};
 
-    ctx.res._headers = ctx.res._headers || {};
-    ctx.res._headerNames = ctx.res._headerNames || {};
-
-    // 以下set-cookie的方案参见nodejs源码：https://github.com/nodejs/node/blob/master/lib/_http_outgoing.js#L353-L359
-    // 设置头字段中set-cookie为对应cookie
-    ctx.res._headers['set-cookie'] = ctx.res._headers['set-cookie'] || [];
-    ctx.res._headers['set-cookie'] = ctx.res._headers['set-cookie'].concat(cookies);
-
-    // 设置头字段set-cookie的名称为set-cookie
-    ctx.res._headerNames['set-cookie'] = 'set-cookie';
+    // 参考：https://github.com/nodejs/node/blob/master/lib/_http_outgoing.js
+    // 在Nodejs 8.x的版本里res._headers被改成了getter/setter 通过 headers['set-cookies'] = 'test' 不触发setter，从而导致设置cookie报错
+    ctx.res._headers = Object.assign({}, _headers, {
+      'set-cookie': (_headers['set-cookie'] || []).concat(cookies)
+    })
   }
 
   /**
