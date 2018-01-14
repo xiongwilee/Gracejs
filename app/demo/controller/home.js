@@ -13,3 +13,7 @@ exports.index = async function () {
     title: 'Hello , Grace!'
   });
 }
+
+exports.test = async function(){
+  this.redirect('https://www.baidu.com')
+}

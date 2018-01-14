@@ -41,7 +41,7 @@ module.exports = function graceVhost(vhosts) {
           return false;
         }
       });
-      
+
       if (mapCache) {
         curHost = HOST_CACHE[hostPath] = mapCache;
         debug('matched host: %s', mapCache.host);
@@ -55,9 +55,35 @@ module.exports = function graceVhost(vhosts) {
       return await next();
     }
 
-    // merge curHost.app.context to current context
-    Object.assign(ctx, curHost.app.context);
+    // 完全拷贝curHost的app.context到ctx中，包括context中定义的可枚举的getter
+    completeAssign(ctx, curHost.app.context);
 
     return await curHost.middleware.call(ctx, ctx, next);
+  }
+
+  /**
+   * 拷贝所有的属性，包括getter, setter（Object.assign默认情况下不会拷贝getter/setter）
+   * 参考：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
+   * @param  {Object}    target  目标对象
+   * @param  {...[Object]} sources 源对象
+   * @return {Object}            拷贝之后目标对象
+   */
+  function completeAssign(target, ...sources) {
+    sources.forEach(source => {
+      let descriptors = Object.keys(source).reduce((descriptors, key) => {
+        descriptors[key] = Object.getOwnPropertyDescriptor(source, key);
+        return descriptors;
+      }, {});
+
+      // Object.assign 默认也会拷贝可枚举的Symbols
+      Object.getOwnPropertySymbols(source).forEach(sym => {
+        let descriptor = Object.getOwnPropertyDescriptor(source, sym);
+        if (descriptor.enumerable) {
+          descriptors[sym] = descriptor;
+        }
+      });
+      Object.defineProperties(target, descriptors);
+    });
+    return target;
   }
 }

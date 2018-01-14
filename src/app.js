@@ -7,13 +7,13 @@ const Middles = require('../middleware/');
 const config = global.config;
 const app = new koa();
 
-// compress(gzip)
+// 配置cookie加密的key
+app.keys = ['GRACEJS'];
+
+// 响应数据提压缩策略，如：gzip
 app.use(Middles.compress());
 
-// session配置，默认使用内存
-app.use(Middles.session(app, config.session));
-
-// body
+// 获取结构化请求体数据
 app.use(Middles.body());
 
 // 配置静态文件路由
@@ -26,11 +26,17 @@ app.use(Middles.static(['/static/**/*', '/*/static/**/*'], {
 app.use(Middles.xload(app, config.xload));
 
 // 获取vhosts
-let vhosts = Object.keys(config.vhost).map((item) => {
-  let vapp = new koa();
+const vhosts = Object.keys(config.vhost).map((item) => {
+  const vapp = new koa();
 
-  let appName = config.vhost[item];
-  let appPath = path.resolve(config.path.project + '/' + appName);
+  const appName = config.vhost[item];
+  const appPath = path.resolve(config.path.project + '/' + appName);
+
+  // session配置，默认使用内存
+  const sessionConfig = config.session[appName] || {};
+  vapp.use(Middles.session(vapp, Object.assign({
+    key: `GRACE:${appName}`
+  }, sessionConfig)));
 
   // 如果在csrf的module名单里才使用csrf防护功能
   config.csrf.module.indexOf(appName) > -1 && vapp.use(Middles.secure(vapp, {
@@ -60,21 +66,21 @@ let vhosts = Object.keys(config.vhost).map((item) => {
   }));
 
   // 配置模板引擎
-  let engine = (typeof config.template === 'string' ? config.template : config.template[appName]);
+  const engine = (typeof config.template === 'string' ? config.template : config.template[appName]);
   vapp.use(Middles.views({
     root: appPath + '/views',
     extension: 'html',
     engine: engine || 'swiger',
-    locals: { 
-      constant: config.constant 
+    locals: {
+      constant: config.constant
     },
     cache: config.site.env == 'production' && 'memory'
   }));
 
   // 配置控制器文件路由
-  let prefix = config.router && config.router.prefix && config.router.prefix[appName];
-  let suffix = config.router && config.router.suffix && config.router.suffix[appName];
-  let errorPath = config.path.default_error && config.path.default_error[appName] || '/error/404';
+  const prefix = config.router && config.router.prefix && config.router.prefix[appName];
+  const suffix = config.router && config.router.suffix && config.router.suffix[appName];
+  const errorPath = config.path.default_error && config.path.default_error[appName] || '/error/404';
   vapp.use(Middles.router(vapp, {
     root: appPath + '/controller',
     prefix: prefix,

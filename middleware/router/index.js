@@ -77,17 +77,21 @@ module.exports = function graceRouter(app, options) {
 
   // 添加bindDefault方法
   // 如果defaultCtrl文件存在则注入，否则忽略
-  let defaultCtrlRoot = options.defaultCtrlRoot || options.root;
-  let defaultCtrlPath = path.resolve(defaultCtrlRoot, 'defaultCtrl.js')
-  app.context.__defineGetter__("bindDefault", () => {
-    try {
-      return require(defaultCtrlPath);
-    } catch (err) {
-      return new Promise((resolve) => {
-        error(`Cannot find default controller '${defaultCtrlPath}'`)
-        resolve();
-      })
-    }
+  Object.defineProperty(app.context, 'bindDefault', {
+    get: () => {
+      try {
+        const defaultCtrlRoot = options.defaultCtrlRoot || options.root;
+        const defaultCtrlPath = path.resolve(defaultCtrlRoot, 'defaultCtrl.js')
+        return require(defaultCtrlPath);
+      } catch (err) {
+        return new Promise((resolve) => {
+          error(`Cannot find default controller '${defaultCtrlPath}'`)
+          resolve();
+        })
+      }
+    },
+    configurable: true,
+    enumerable: true
   });
 
   return async function graceRouter(ctx, next) {
@@ -213,7 +217,7 @@ function setRoute(Router, config, options) {
 
   // 如果设置了URL后缀，则统一添加后缀URL
   let suffix = config.suffix !== false && options.suffix || config.suffix;
-  if (suffix){
+  if (suffix) {
     paths.push(ctrlpath + suffix);
   }
 
