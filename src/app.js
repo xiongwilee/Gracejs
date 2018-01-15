@@ -32,7 +32,7 @@ const vhosts = Object.keys(config.vhost).map((item) => {
   const appName = config.vhost[item];
   const appPath = path.resolve(config.path.project + '/' + appName);
 
-  // session配置，默认使用内存
+  // session配置，默认存在cookie中
   const sessionConfig = config.session[appName] || {};
   vapp.use(Middles.session(vapp, Object.assign({
     key: `GRACE:${appName}`

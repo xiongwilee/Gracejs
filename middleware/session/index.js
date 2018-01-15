@@ -105,7 +105,6 @@ function extendContext(context, opts) {
     [CONTEXT_SESSION]: {
       get() {
         if (this[_CONTEXT_SESSION]) return this[_CONTEXT_SESSION];
-        console.log(opts);
         this[_CONTEXT_SESSION] = new ContextSession(this, opts);
         return this[_CONTEXT_SESSION];
       },
