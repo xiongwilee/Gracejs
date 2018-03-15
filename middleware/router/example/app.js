@@ -13,7 +13,8 @@ app.use(router(app, {
   default_jump: true,
   suffix: '.html',
   domain: '127.0.0.1',
-  errorPath: '/error/404'
+  errorPath: '/error/404',
+  ignore: ['node_modules', 'ignored']
 }))
 
 module.exports = http.createServer(app.callback());
