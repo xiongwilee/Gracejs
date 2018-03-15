@@ -47,7 +47,7 @@
     <div class="search">
       <div class="search-container">
         <div class="search-tips">
-          <p><i class="icon-quote-left"></i> 本网站由<a href="https://github.com/xiongwilee/koa-grace" target="_blank">koa-grace</a>强力驱动 <i class="icon-quote-right"></i></p>
+          <p><i class="icon-quote-left"></i> 本网站由<a href="https://github.com/xiongwilee/Gracejs" target="_blank">Gracejs</a>强力驱动 <i class="icon-quote-right"></i></p>
         </div>
         <form class="search-form" id="search_form" action="https://www.baidu.com/s?ie=UTF-8">
           <input type="text"  id="search_form_wd">
@@ -93,12 +93,12 @@
           <h3 class="side-title">作者</h3>
           <ul class="side-ul">
             {% for user in siteInfo.users %}
-            {% if user.blog && user.isAuthor%}
+            {% if user.isAuthor%}
               <li>
                 <a href="{{user.blog}}" class="side-ul-item clearfix" target="_blank">
                   <img src="/user/avatar?img={{user.avatar}}" class="item-img">
                   <span class="item-nickname">{{ user.nickname }}</span>
-                  <span class="item-blog">{{ user.blog }}</span>
+                  <span class="item-blog">{{ user.blog || user.github }}</span>
                 </a>
               </li>
             {% endif %}
