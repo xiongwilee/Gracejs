@@ -22,6 +22,7 @@ const METHOD_ALLOWED = ['get', 'post', 'put', 'patch', 'del', 'head', 'delete', 
  *         {string} options.defualt_jump 如果访问路径为纯域名是否做跳转，默认为false
  *         {string} options.default_path 默认路径
  *         {string} options.domain 请求域名,可不传
+ *         {array||string} options.ignore 生成路由要忽略的目录或文件名
  * @return {function}       
  *
  * @todo lib/router.js  this.MATCHS 中如果配置的规则路由特别多，内存溢出的风险 
@@ -35,6 +36,18 @@ module.exports = function graceRouter(app, options) {
 
   const Router = router(options);
   const Domain = options.domain || '';
+  // 获取要忽略的目录或文件数组
+  let ignore = ''
+  if (typeof(options.ignore) === 'string') {
+    ignore = [options.ignore];
+  }
+  else if (Array.isArray(options.ignore)) {
+    ignore = options.ignore;
+  }
+  else {
+    // 默认忽略node_modules目录
+    ignore = ['node_modules'];
+  }
 
   // app的默认路由
   if (options.default_jump !== false && options.default_path) {
@@ -49,7 +62,8 @@ module.exports = function graceRouter(app, options) {
     return function* ctrl(next) { yield next; };
   }
 
-  _ls(root).forEach((filePath) => {
+  // 查找root目录下所有文件并生成路由
+  _ls(root, { ignore: ignore }).forEach((filePath) => {
     if (!/([a-zA-Z0-9_\-]+)(\.js)$/.test(filePath)) {
       return;
     }
@@ -135,14 +149,19 @@ function getRoute(exportFuncs, cb, ctrlpath, curCtrlname) {
 
 /**
  * 查找目录中的所有文件
- * @param  {string} dir       查找路径
- * @param  {init}   _pending  递归参数，忽略
- * @param  {array}  _result   递归参数，忽略
+ * @param  {string} dir  查找路径
+ * @param  {Object} opt  配置参数，具体参数如下
+ *         {array}  ignore    要忽略的目录或文件
+ *         {init}   _pending  递归参数，忽略
+ *         {array}  _result   递归参数，忽略
  * @return {array}            文件list
  */
-function _ls(dir, _pending, _result) {
-  _pending = _pending ? _pending++ : 1;
-  _result = _result || [];
+function _ls(dir, opt) {
+  let _pending = opt._pending ? opt._pending++ : 1;
+  let _result = opt._result || [];
+
+  // 若为要忽略的目录或文件，则直接跳过
+  if (isIgnore(opt.ignore, dir)) return;
 
   if (!path.isAbsolute(dir)) {
     dir = path.join(process.cwd(), dir);
@@ -154,7 +173,7 @@ function _ls(dir, _pending, _result) {
   if (stat.isDirectory()) {
     let files = fs.readdirSync(dir);
     files.forEach(function(part) {
-      _ls(path.join(dir, part), _pending, _result);
+      _ls(path.join(dir, part), { _pending: _pending, _result: _result, ignore: opt.ignore });
     });
     if (--_pending === 0) {
       return _result;
@@ -166,6 +185,23 @@ function _ls(dir, _pending, _result) {
     }
   }
 };
+
+/**
+ * 数组中元素是否包含指定字符串
+ * @param  {array}  ignore [要检查的数组]
+ * @param  {string} dir    [要检查的字符串]
+ * @return {boolean}
+ */
+function isIgnore(ignore, dir) {
+  if (!Array.isArray(ignore)) {
+    return false;
+  }
+  else {
+    return ignore.some(function (item) {
+      return dir.indexOf(item) !== -1;
+    });
+  }
+}
 
 /**
  * 格式化文件路径为koa-router的path
