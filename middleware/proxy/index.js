@@ -380,12 +380,13 @@ module.exports = function proxy(app, api, config, options) {
 
     let cookies = headers['set-cookie'];
     let _headers = ctx.res._headers || {};
-
+    ctx.res._headerNames = ctx.res._headerNames || {}
     // 参考：https://github.com/nodejs/node/blob/master/lib/_http_outgoing.js
     // 在Nodejs 8.x的版本里res._headers被改成了getter/setter 通过 headers['set-cookies'] = 'test' 不触发setter，从而导致设置cookie报错
     ctx.res._headers = Object.assign({}, _headers, {
       'set-cookie': (_headers['set-cookie'] || []).concat(cookies)
     })
+    ctx.res._headerNames['set-cookie'] = 'Set-Cookie';
   }
 
   /**
