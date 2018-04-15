@@ -1,5 +1,6 @@
-var debug = require('debug')('koa-router');
-var pathToRegExp = require('path-to-regexp');
+const debug = require('debug')('koa-router');
+const co = require('co');
+const pathToRegExp = require('path-to-regexp');
 
 module.exports = Layer;
 
@@ -24,23 +25,23 @@ function Layer(path, methods, middleware, opts) {
   this.paramNames = [];
   this.stack = Array.isArray(middleware) ? middleware : [middleware];
 
-  methods.forEach(function(method) {
-    var l = this.methods.push(method.toUpperCase());
-    if (this.methods[l-1] === 'GET') {
+  methods.forEach((method) => {
+    let l = this.methods.push(method.toUpperCase());
+    if (this.methods[l - 1] === 'GET') {
       this.methods.unshift('HEAD');
     }
-  }, this);
+  });
 
   // ensure middleware is a function
-  this.stack.forEach(function(fn) {
-    var type = (typeof fn);
+  this.stack.forEach((fn) => {
+    let type = (typeof fn);
     if (type !== 'function') {
       throw new Error(
-        methods.toString() + " `" + (this.opts.name || path) +"`: `middleware` "
-        + "must be a function, not `" + type + "`"
+        methods.toString() + " `" + (this.opts.name || path) + "`: `middleware` " +
+        "must be a function, not `" + type + "`"
       );
     }
-  }, this);
+  });
 
   this.path = path;
   this.regexp = pathToRegExp(path, this.paramNames, this.opts);
@@ -56,7 +57,7 @@ function Layer(path, methods, middleware, opts) {
  * @private
  */
 
-Layer.prototype.match = function (path) {
+Layer.prototype.match = function(path) {
   return this.regexp.test(path);
 };
 
@@ -70,12 +71,12 @@ Layer.prototype.match = function (path) {
  * @private
  */
 
-Layer.prototype.params = function (path, captures, existingParams) {
-  var params = existingParams || {};
+Layer.prototype.params = function(path, captures, existingParams) {
+  let params = existingParams || {};
 
-  for (var len = captures.length, i=0; i<len; i++) {
+  for (let len = captures.length, i = 0; i < len; i++) {
     if (this.paramNames[i]) {
-      var c = captures[i];
+      let c = captures[i];
       params[this.paramNames[i].name] = c ? safeDecodeURIComponent(c) : c;
     }
   }
@@ -91,7 +92,7 @@ Layer.prototype.params = function (path, captures, existingParams) {
  * @private
  */
 
-Layer.prototype.captures = function (path) {
+Layer.prototype.captures = function(path) {
   return path.match(this.regexp).slice(1);
 };
 
@@ -111,10 +112,10 @@ Layer.prototype.captures = function (path) {
  * @private
  */
 
-Layer.prototype.url = function (params) {
-  var args = params;
-  var url = this.path;
-  var toPath = pathToRegExp.compile(url);
+Layer.prototype.url = function(params) {
+  let args = params;
+  let url = this.path;
+  let toPath = pathToRegExp.compile(url);
 
   // argument is of form { key: val }
   if (typeof params != 'object') {
@@ -122,14 +123,13 @@ Layer.prototype.url = function (params) {
   }
 
   if (args instanceof Array) {
-    var tokens = pathToRegExp.parse(url);
-    var replace = {};
-    for (var len = tokens.length, i=0, j=0; i<len; i++) {
+    let tokens = pathToRegExp.parse(url);
+    let replace = {};
+    for (let len = tokens.length, i = 0, j = 0; i < len; i++) {
       if (tokens[i].name) replace[tokens[i].name] = args[j++];
     }
     return toPath(replace);
-  }
-  else {
+  } else {
     return toPath(params);
   }
 };
@@ -157,31 +157,31 @@ Layer.prototype.url = function (params) {
  * @private
  */
 
-Layer.prototype.param = function (param, fn) {
-  var stack = this.stack;
-  var params = this.paramNames;
-  var middleware = function *(next) {
+Layer.prototype.param = function(param, fn) {
+  let stack = this.stack;
+  let params = this.paramNames;
+  let middleware = async function(next) {
     next = fn.call(this, this.params[param], next);
     if (typeof next.next === 'function') {
-      yield *next;
+      await co(next);
     } else {
-      yield Promise.resolve(next);
+      await Promise.resolve(next);
     }
   };
   middleware.param = param;
 
-  params.forEach(function (p, i) {
-    var prev = params[i - 1];
+  params.forEach(function(p, i) {
+    let prev = params[i - 1];
 
     if (param === p.name) {
       // insert param middleware in order params appear in path
       if (prev) {
-        if (!stack.some(function (m, i) {
-          if (m.param === prev.name) {
-            return stack.splice(i, 0, middleware);
-          }
-        })) {
-          stack.some(function (m, i) {
+        if (!stack.some(function(m, i) {
+            if (m.param === prev.name) {
+              return stack.splice(i, 0, middleware);
+            }
+          })) {
+          stack.some(function(m, i) {
             if (!m.param) {
               return stack.splice(i, 0, middleware);
             }
@@ -204,7 +204,7 @@ Layer.prototype.param = function (param, fn) {
  * @private
  */
 
-Layer.prototype.setPrefix = function (prefix) {
+Layer.prototype.setPrefix = function(prefix) {
   if (this.path) {
     this.path = prefix + this.path;
     this.paramNames = [];

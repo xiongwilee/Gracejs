@@ -40,11 +40,9 @@ module.exports = function graceRouter(app, options) {
   let ignore = ''
   if (typeof(options.ignore) === 'string') {
     ignore = [options.ignore];
-  }
-  else if (Array.isArray(options.ignore)) {
+  } else if (Array.isArray(options.ignore)) {
     ignore = options.ignore;
-  }
-  else {
+  } else {
     // 默认忽略node_modules目录
     ignore = ['node_modules'];
   }
@@ -68,11 +66,17 @@ module.exports = function graceRouter(app, options) {
       return;
     }
 
+    let exportFuncs;
     try {
-      var exportFuncs = require(filePath);
+      exportFuncs = require(filePath);
     } catch (err) {
       error(`error: require ${filePath} error ${err}`);
-      return;
+
+      // 如果获取controller出错，则重置为默认方法
+      exportFuncs = function() {
+        this.status = 500;
+        this.body = 'controller error';
+      }
     }
 
     let pathRegexp = formatPath(filePath, root);
@@ -91,11 +95,13 @@ module.exports = function graceRouter(app, options) {
 
   // 添加bindDefault方法
   // 如果defaultCtrl文件存在则注入，否则忽略
+  const defaultCtrlRoot = options.defaultCtrlRoot || options.root;
+  const defaultCtrlName = options.defaultCtrlName || 'defaultCtrl.js';
+  const defaultCtrlPath = path.resolve(defaultCtrlRoot, defaultCtrlName);
+  
   Object.defineProperty(app.context, 'bindDefault', {
     get: () => {
       try {
-        const defaultCtrlRoot = options.defaultCtrlRoot || options.root;
-        const defaultCtrlPath = path.resolve(defaultCtrlRoot, 'defaultCtrl.js')
         return require(defaultCtrlPath);
       } catch (err) {
         return new Promise((resolve) => {
@@ -109,7 +115,7 @@ module.exports = function graceRouter(app, options) {
   });
 
   return async function graceRouter(ctx, next) {
-    await Router.routes()(ctx, next);
+    await Router.routes()(ctx);
     await next();
   }
 };
@@ -199,9 +205,8 @@ function _ls(dir, opt) {
 function isIgnore(ignore, dir) {
   if (!Array.isArray(ignore)) {
     return false;
-  }
-  else {
-    return ignore.some(function (item) {
+  } else {
+    return ignore.some(function(item) {
       return dir.indexOf(item) !== -1;
     });
   }
