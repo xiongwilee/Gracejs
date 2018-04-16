@@ -3,6 +3,7 @@
 const path = require('path');
 const fs = require('fs');
 const co = require('co');
+const glob = require('glob');
 const mongoose = require('mongoose');
 const debug = require('debug')('koa-grace:mongo');
 
@@ -42,10 +43,11 @@ module.exports = function graceMongo(app, options) {
 
   let Schema = {},
     Model = {};
-  _ls(root).forEach(function(filePath) {
-    if (!/.js$/.test(filePath)) {
-      return;
-    }
+  glob.sync('**/*.js', {
+    root: root,
+    cwd: root,
+    absolute: true
+  }).forEach(function(filePath) {
 
     let mod = require(filePath);
 
@@ -105,37 +107,3 @@ module.exports = function graceMongo(app, options) {
     await next();
   };
 }
-
-/**
- * 查找目录中的所有文件
- * @param  {string} dir       查找路径
- * @param  {init}   _pending  递归参数，忽略
- * @param  {array}  _result   递归参数，忽略
- * @return {array}            文件list
- */
-function _ls(dir, _pending, _result) {
-  _pending = _pending ? _pending++ : 1;
-  _result = _result || [];
-
-  if (!path.isAbsolute(dir)) {
-    dir = path.join(process.cwd(), dir);
-  }
-
-  // if error, throw it
-  let stat = fs.lstatSync(dir);
-
-  if (stat.isDirectory()) {
-    let files = fs.readdirSync(dir);
-    files.forEach(function(part) {
-      _ls(path.join(dir, part), _pending, _result);
-    });
-    if (--_pending === 0) {
-      return _result;
-    }
-  } else {
-    _result.push(dir);
-    if (--_pending === 0) {
-      return _result;
-    }
-  }
-};

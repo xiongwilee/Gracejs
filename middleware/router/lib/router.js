@@ -8,6 +8,7 @@
 'use strict';
 
 const debug = require('debug')('koa-router');
+const error = require('debug')('koa-grace-error:router');
 const HttpError = require('http-errors');
 const co = require('co');
 const methods = require('methods');
@@ -207,10 +208,17 @@ Router.prototype.routes = Router.prototype.middleware = function() {
         while (ii--) {
           const strckFun = layer.stack[ii];
 
-          if (strckFun.constructor.name === 'GeneratorFunction') {
-            await co(strckFun.bind(ctx))
-          } else {
-            await strckFun.call(ctx);
+          try {
+            if (strckFun.constructor.name === 'GeneratorFunction') {
+              await co(strckFun.bind(ctx))
+            } else {
+              await strckFun.call(ctx);
+            }
+          } catch (err) {
+            error(err);
+
+            ctx.status = 500;
+            ctx.body = 'Controller Execute Error!'
           }
         }
       }
