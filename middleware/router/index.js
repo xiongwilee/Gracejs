@@ -2,6 +2,7 @@
 
 const path = require('path');
 const fs = require('fs');
+const glob = require('glob');
 const router = require('./lib/router');
 const debug = require('debug')('koa-grace:router');
 const error = require('debug')('koa-grace-error:router');
@@ -22,7 +23,6 @@ const METHOD_ALLOWED = ['get', 'post', 'put', 'patch', 'del', 'head', 'delete', 
  *         {string} options.defualt_jump 如果访问路径为纯域名是否做跳转，默认为false
  *         {string} options.default_path 默认路径
  *         {string} options.domain 请求域名,可不传
- *         {array||string} options.ignore 生成路由要忽略的目录或文件名
  * @return {function}       
  *
  * @todo lib/router.js  this.MATCHS 中如果配置的规则路由特别多，内存溢出的风险 
@@ -36,46 +36,60 @@ module.exports = function graceRouter(app, options) {
 
   const Router = router(options);
   const Domain = options.domain || '';
-  // 获取要忽略的目录或文件数组
-  let ignore = ''
-  if (typeof(options.ignore) === 'string') {
-    ignore = [options.ignore];
-  }
-  else if (Array.isArray(options.ignore)) {
-    ignore = options.ignore;
-  }
-  else {
-    // 默认忽略node_modules目录
-    ignore = ['node_modules'];
-  }
+  const ctrlRoot = options.root;
 
   // app的默认路由
   if (options.default_jump !== false && options.default_path) {
     Router.redirect('/', options.default_path);
   }
 
-  let root = options.root;
+  // 添加bindDefault方法
+  // 如果defaultCtrl文件存在则注入，否则忽略
+  const defaultCtrlRoot = options.defaultCtrlRoot || ctrlRoot;
+  const defaultCtrlName = options.defaultCtrlName || 'defaultCtrl.js';
+  const defaultCtrlPath = path.resolve(defaultCtrlRoot, defaultCtrlName);
 
-  // 如果root不存在则直接跳过
-  if (!fs.existsSync(root)) {
-    error('error : can\'t find route path ' + root);
-    return function* ctrl(next) { yield next; };
-  }
+  Object.defineProperty(app.context, 'bindDefault', {
+    get: () => {
+      try {
+        return require(defaultCtrlPath);
+      } catch (err) {
+        return new Promise((resolve) => {
+          error(`Cannot find default controller '${defaultCtrlPath}'`)
+          resolve();
+        })
+      }
+    },
+    configurable: true,
+    enumerable: true
+  });
+
+  // 需要忽略的文件
+  // 默认忽略：node_modules , defaultCtrl文件
+  const ignorePath = ['node_modules', defaultCtrlName];
 
   // 查找root目录下所有文件并生成路由
-  _ls(root, { ignore: ignore }).forEach((filePath) => {
-    if (!/([a-zA-Z0-9_\-]+)(\.js)$/.test(filePath)) {
-      return;
-    }
+  glob.sync('**/*.js', {
+    root: ctrlRoot,
+    cwd: ctrlRoot,
+    ignore: `**/+(${ ignorePath.join('|') })/**`,
+    absolute: true
+  }).forEach((filePath) => {
 
+    let exportFuncs;
     try {
-      var exportFuncs = require(filePath);
+      exportFuncs = require(filePath);
     } catch (err) {
       error(`error: require ${filePath} error ${err}`);
-      return;
+
+      // 如果获取controller出错，则重置为默认方法
+      exportFuncs = function() {
+        this.status = 500;
+        this.body = 'Controller Require Error!';
+      }
     }
 
-    let pathRegexp = formatPath(filePath, root);
+    const pathRegexp = formatPath(filePath, ctrlRoot);
 
     getRoute(exportFuncs, (exportFun, ctrlpath) => {
       setRoute(Router, {
@@ -89,27 +103,8 @@ module.exports = function graceRouter(app, options) {
     }, [pathRegexp]);
   });
 
-  // 添加bindDefault方法
-  // 如果defaultCtrl文件存在则注入，否则忽略
-  Object.defineProperty(app.context, 'bindDefault', {
-    get: () => {
-      try {
-        const defaultCtrlRoot = options.defaultCtrlRoot || options.root;
-        const defaultCtrlPath = path.resolve(defaultCtrlRoot, 'defaultCtrl.js')
-        return require(defaultCtrlPath);
-      } catch (err) {
-        return new Promise((resolve) => {
-          error(`Cannot find default controller '${defaultCtrlPath}'`)
-          resolve();
-        })
-      }
-    },
-    configurable: true,
-    enumerable: true
-  });
-
   return async function graceRouter(ctx, next) {
-    await Router.routes()(ctx, next);
+    await Router.routes()(ctx);
     await next();
   }
 };
@@ -148,62 +143,6 @@ function getRoute(exportFuncs, cb, ctrlpath, curCtrlname) {
 
       getRoute(exportFuncs[ctrlname], cb, totalCtrlname, ctrlname);
     }
-  }
-}
-
-/**
- * 查找目录中的所有文件
- * @param  {string} dir  查找路径
- * @param  {Object} opt  配置参数，具体参数如下
- *         {array}  ignore    要忽略的目录或文件
- *         {init}   _pending  递归参数，忽略
- *         {array}  _result   递归参数，忽略
- * @return {array}            文件list
- */
-function _ls(dir, opt) {
-  let _pending = opt._pending ? opt._pending++ : 1;
-  let _result = opt._result || [];
-
-  // 若为要忽略的目录或文件，则直接跳过
-  if (isIgnore(opt.ignore, dir)) return;
-
-  if (!path.isAbsolute(dir)) {
-    dir = path.join(process.cwd(), dir);
-  }
-
-  // if error, throw it
-  let stat = fs.lstatSync(dir);
-
-  if (stat.isDirectory()) {
-    let files = fs.readdirSync(dir);
-    files.forEach(function(part) {
-      _ls(path.join(dir, part), { _pending: _pending, _result: _result, ignore: opt.ignore });
-    });
-    if (--_pending === 0) {
-      return _result;
-    }
-  } else {
-    _result.push(dir);
-    if (--_pending === 0) {
-      return _result;
-    }
-  }
-};
-
-/**
- * 数组中元素是否包含指定字符串
- * @param  {array}  ignore [要检查的数组]
- * @param  {string} dir    [要检查的字符串]
- * @return {boolean}
- */
-function isIgnore(ignore, dir) {
-  if (!Array.isArray(ignore)) {
-    return false;
-  }
-  else {
-    return ignore.some(function (item) {
-      return dir.indexOf(item) !== -1;
-    });
   }
 }
 

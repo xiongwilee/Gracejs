@@ -12,3 +12,7 @@ exports.session = async function() {
 
   this.body = this.session.test
 }
+
+exports.error = async function(){
+  this.body = controller执行出错测试
+}

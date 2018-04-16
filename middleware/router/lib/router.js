@@ -8,6 +8,7 @@
 'use strict';
 
 const debug = require('debug')('koa-router');
+const error = require('debug')('koa-grace-error:router');
 const HttpError = require('http-errors');
 const co = require('co');
 const methods = require('methods');
@@ -88,6 +89,62 @@ methods.forEach((method) => {
 Router.prototype.del = Router.prototype['delete'];
 
 /**
+ * Use given middleware.
+ *
+ * Middleware run in the order they are defined by `.use()`. They are invoked
+ * sequentially, requests start at the first middleware and work their way
+ * "down" the middleware stack.
+ *
+ * @example
+ *
+ * ```javascript
+ * // session middleware will run before authorize
+ * router
+ *   .use(session())
+ *   .use(authorize());
+ *
+ * // use middleware only with given path
+ * router.use('/users', userAuth());
+ *
+ * // or with an array of paths
+ * router.use(['/users', '/admin'], userAuth());
+ *
+ * app.use(router.routes());
+ * ```
+ *
+ * @param {String=} path
+ * @param {Function} middleware
+ * @param {Function=} ...
+ * @returns {Router}
+ */
+
+Router.prototype.use = function() {
+  const middleware = Array.prototype.slice.call(arguments);
+  let path;
+
+  // support array of paths
+  const firstArg = middleware[0];
+  if (Array.isArray(firstArg) && typeof firstArg[0] === 'string') {
+    firstArg.forEach((p) => {
+      this.use.apply(this, [p].concat(middleware.slice(1)));
+    });
+
+    return this;
+  }
+
+  const hasPath = typeof middleware[0] === 'string';
+  if (hasPath) {
+    path = middleware.shift();
+  }
+
+  middleware.forEach((m) => {
+    this.register(path || '(.*)', [], m, { end: false, ignoreCaptures: !hasPath });
+  });
+
+  return this;
+};
+
+/**
  * Set the path prefix for a Router instance that was already initialized.
  *
  * @example
@@ -119,13 +176,13 @@ Router.prototype.prefix = function(prefix) {
  */
 
 Router.prototype.routes = Router.prototype.middleware = function() {
-  var router = this;
+  const router = this;
 
-  return async function dispatch(ctx, next) {
+  return async function dispatch(ctx) {
     debug('%s %s', ctx.method, ctx.path);
 
-    var path = router.opts.routerPath || ctx.routerPath || ctx.path;
-    var matched = router.match(path, ctx.method);
+    let path = router.opts.routerPath || ctx.routerPath || ctx.path;
+    let matched = router.match(path, ctx.method);
 
     // 如果匹配不到任何路由，则定位到错误页的控制器
     if (!matched.route && ctx.method == 'GET' && router.opts.errorPath) {
@@ -137,20 +194,31 @@ Router.prototype.routes = Router.prototype.middleware = function() {
     if (matched.pathAndMethod.length) {
       let i = matched.pathAndMethod.length;
 
-      var mostSpecificPath = matched.pathAndMethod[i - 1].path
+      let mostSpecificPath = matched.pathAndMethod[i - 1].path
       ctx._matchedRoute = mostSpecificPath
 
       while (matched.route && i--) {
-        let layer = matched.pathAndMethod[i];
+        const layer = matched.pathAndMethod[i];
         let ii = layer.stack.length;
+
         ctx.captures = layer.captures(path, ctx.captures);
         ctx.params = layer.params(path, ctx.captures, ctx.params);
         debug('dispatch %s %s', layer.path, layer.regexp);
+
         while (ii--) {
-          if (layer.stack[ii].constructor.name === 'GeneratorFunction') {
-            await co(layer.stack[ii].bind(ctx))
-          } else {
-            await layer.stack[ii].call(ctx);
+          const strckFun = layer.stack[ii];
+
+          try {
+            if (strckFun.constructor.name === 'GeneratorFunction') {
+              await co(strckFun.bind(ctx))
+            } else {
+              await strckFun.call(ctx);
+            }
+          } catch (err) {
+            error(err);
+
+            ctx.status = 500;
+            ctx.body = 'Controller Execute Error!'
           }
         }
       }
@@ -241,10 +309,10 @@ Router.prototype.redirect = function(source, destination, code) {
 Router.prototype.register = function(path, methods, middleware, opts) {
   opts = opts || {};
 
-  let stack = this.stack;
+  const stack = this.stack;
 
   // create route
-  let route = new Layer(path, methods, middleware, {
+  const route = new Layer(path, methods, middleware, {
     end: opts.end === false ? opts.end : true,
     name: opts.name,
     sensitive: opts.sensitive || this.opts.sensitive || false,
@@ -256,15 +324,7 @@ Router.prototype.register = function(path, methods, middleware, opts) {
     route.setPrefix(this.opts.prefix);
   }
 
-  // add parameter middleware
-  Object.keys(this.params).forEach((param) => {
-    route.param(param, this.params[param]);
-  });
-
-  // register route with router
   if (methods.length || !stack.length) {
-    // if we don't have parameters, put before any with same route
-    // nesting level but with parameters
     let added = false;
 
     if (!route.paramNames.length) {
@@ -370,7 +430,7 @@ Router.prototype.match = function(path, method) {
   // TODO: 如果配置的规则路由特别多，内存溢出的风险
   if (this.MATCHS[flag]) return this.MATCHS[flag];
 
-  for (var len = layers.length, i = 0; i < len; i++) {
+  for (let len = layers.length, i = 0; i < len; i++) {
     let layer = layers[i];
 
     debug('test %s %s', layer.path, layer.regexp);
@@ -387,42 +447,6 @@ Router.prototype.match = function(path, method) {
 
   this.MATCHS[flag] = matched;
   return matched;
-};
-
-/**
- * Run middleware for named route parameters. Useful for auto-loading or
- * validation.
- *
- * @example
- *
- * ```javascript
- * router
- *   .param('user', function *(id, next) {
- *     this.user = users[id];
- *     if (!this.user) return this.status = 404;
- *     yield next;
- *   })
- *   .get('/users/:user', function *(next) {
- *     this.body = this.user;
- *   })
- *   .get('/users/:user/friends', function *(next) {
- *     this.body = yield this.user.getFriends();
- *   })
- *   // /users/3 => {"id": 3, "name": "Alex"}
- *   // /users/3/friends => [{"id": 4, "name": "TJ"}]
- * ```
- *
- * @param {String} param
- * @param {Function} middleware
- * @returns {Router}
- */
-
-Router.prototype.param = function(param, middleware) {
-  this.params[param] = middleware;
-  this.stack.forEach((route) => {
-    route.param(param, middleware);
-  });
-  return this;
 };
 
 /**
