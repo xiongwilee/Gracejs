@@ -307,8 +307,17 @@ Router.prototype.redirect = function(source, destination, code) {
  */
 
 Router.prototype.register = function(path, methods, middleware, opts) {
-  opts = opts || {};
+  if (Array.isArray(path)) {
+    path.forEach((item) => {
+      this.register(item, methods, middleware, opts);
+    });
+  }
 
+  if (!Array.isArray(methods)) {
+    methods = [methods];
+  }
+
+  opts = opts || {};
   const stack = this.stack;
 
   // create route
