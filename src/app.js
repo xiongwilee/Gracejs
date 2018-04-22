@@ -85,8 +85,8 @@ const vhosts = Object.keys(config.vhost).map((item) => {
     root: appPath + '/controller',
     prefix: prefix,
     suffix: suffix,
-    default_path: config.path.default_path[appName],
-    default_jump: config.path.default_jump[appName],
+    defaultPath: config.path.default_path[appName],
+    defaultJump: config.path.default_jump[appName],
     domain: item,
     errorPath: errorPath
   }));

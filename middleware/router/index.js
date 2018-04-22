@@ -20,8 +20,8 @@ const METHOD_ALLOWED = ['get', 'post', 'put', 'patch', 'del', 'head', 'delete', 
  * @param  {string} app     context
  * @param  {object} options 配置项
  *         {string} options.root controller路径
- *         {string} options.defualt_jump 如果访问路径为纯域名是否做跳转，默认为false
- *         {string} options.default_path 默认路径
+ *         {string} options.defaultJump 如果访问路径为纯域名是否做跳转，默认为false
+ *         {string} options.defaultPath 默认路径
  *         {string} options.domain 请求域名,可不传
  * @return {function}       
  *
@@ -38,16 +38,17 @@ module.exports = function graceRouter(app, options) {
   const Domain = options.domain || '';
   const ctrlRoot = options.root;
 
+  const defaultCtrlName = options.defaultCtrlName || 'defaultCtrl.js';
+  const routerName = options.routerName || 'routerConfig.js';
+
   // app的默认路由
-  if (options.default_jump !== false && options.default_path) {
-    Router.redirect('/', options.default_path);
+  if (options.defaultJump !== false && options.defaultPath) {
+    Router.redirect('/', options.defaultPath);
   }
 
   // 添加bindDefault方法
   // 如果defaultCtrl文件存在则注入，否则忽略
-  const defaultCtrlRoot = options.defaultCtrlRoot || ctrlRoot;
-  const defaultCtrlName = options.defaultCtrlName || 'defaultCtrl.js';
-  const defaultCtrlPath = path.resolve(defaultCtrlRoot, defaultCtrlName);
+  const defaultCtrlPath = path.resolve(ctrlRoot, defaultCtrlName);
 
   Object.defineProperty(app.context, 'bindDefault', {
     get: () => {
@@ -65,8 +66,8 @@ module.exports = function graceRouter(app, options) {
   });
 
   // 需要忽略的文件
-  // 默认忽略：node_modules , defaultCtrl文件
-  const ignorePath = ['node_modules', defaultCtrlName];
+  // 默认忽略：node_modules , defaultCtrl, routerConfig文件
+  const ignorePath = ['node_modules', defaultCtrlName, routerName];
 
   // 查找root目录下所有文件并生成路由
   glob.sync('**/*.js', {
@@ -102,6 +103,18 @@ module.exports = function graceRouter(app, options) {
       }, options);
     }, [pathRegexp]);
   });
+
+  // 注入路由文件
+  // TODO: 添加中间件机制
+  const routerPath = path.resolve(ctrlRoot, routerName);
+  if (fs.existsSync(routerPath)) {
+    try {
+      const routerConfig = require(routerPath);
+      routerConfig.call(app, Router, options);
+    } catch (err) {
+      error(err);
+    }
+  }
 
   return async function graceRouter(ctx, next) {
     await Router.routes()(ctx);
@@ -185,8 +198,8 @@ function setRoute(Router, config, options) {
   // 加入当前路由
   paths.push(ctrlpath)
 
-  // 如果当前路由配置方案为不跳转，则设置路由'/'为options.default_path路由
-  if (options.default_jump === false && ctrlpath == options.default_path) {
+  // 如果当前路由配置方案为不跳转，则设置路由'/'为options.defaultPath路由
+  if (options.defaultJump === false && ctrlpath == options.defaultPath) {
     paths.push('/');
   }
 

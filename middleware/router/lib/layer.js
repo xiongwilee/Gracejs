@@ -135,68 +135,6 @@ Layer.prototype.url = function(params) {
 };
 
 /**
- * Run validations on route named parameters.
- *
- * @example
- *
- * ```javascript
- * router
- *   .param('user', function *(id, next) {
- *     this.user = users[id];
- *     if (!user) return this.status = 404;
- *     yield next;
- *   })
- *   .get('/users/:user', function *(next) {
- *     this.body = this.user;
- *   });
- * ```
- *
- * @param {String} param
- * @param {Function} middleware
- * @returns {Layer}
- * @private
- */
-
-Layer.prototype.param = function(param, fn) {
-  let stack = this.stack;
-  let params = this.paramNames;
-  let middleware = async function(next) {
-    next = fn.call(this, this.params[param], next);
-    if (typeof next.next === 'function') {
-      await co(next);
-    } else {
-      await Promise.resolve(next);
-    }
-  };
-  middleware.param = param;
-
-  params.forEach(function(p, i) {
-    let prev = params[i - 1];
-
-    if (param === p.name) {
-      // insert param middleware in order params appear in path
-      if (prev) {
-        if (!stack.some(function(m, i) {
-            if (m.param === prev.name) {
-              return stack.splice(i, 0, middleware);
-            }
-          })) {
-          stack.some(function(m, i) {
-            if (!m.param) {
-              return stack.splice(i, 0, middleware);
-            }
-          });
-        }
-      } else {
-        stack.unshift(middleware);
-      }
-    }
-  });
-
-  return this;
-};
-
-/**
  * Prefix route path.
  *
  * @param {String} prefix
