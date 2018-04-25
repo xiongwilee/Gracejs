@@ -6,13 +6,18 @@ module.exports = async function() {
   this.assert(!!base.config.token, 401, 'Personal Access Token Undefined!');
   
   // 获取用户github信息
-  await this.proxy({
+  const res = await this.proxy({
     ownerInfo: `github_api:user?access_token=${base.config.token}`,
     repoInfo: `github_api:/repos/${base.config.owner}/${base.config.repo}`,
     labelInfo: `github_api:/repos/${base.config.owner}/${base.config.repo}/labels`
   }, {
-    headers: { Authorization: `token ${base.config.token}` }
+    headers: { Authorization: `token ${base.config.token}` },
+    // 将query参数置空，避免影响获取默认参数
+    query: {}
   });
+
+  const repoInfo = res.repoInfo || {};
+  this.assert(repoInfo.statusCode === 200, 401, `Personal Access Token Error: ${repoInfo.body.message}`)
 
   // 仓储信息
   this.repoInfo = this.backData.repoInfo || {};
