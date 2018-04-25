@@ -104,10 +104,5 @@ describe('test/router.test.js', function() {
         .get('/fatal')
         .expect(500, 'Controller Require Error!', done);
     });
-    it('控制器执行出错', function(done) {
-      request(app)
-        .get('/error/500')
-        .expect(500, 'Controller Execute Error!', done);
-    });
   });
 });
