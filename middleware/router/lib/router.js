@@ -207,18 +207,10 @@ Router.prototype.routes = Router.prototype.middleware = function() {
 
         while (ii--) {
           const strckFun = layer.stack[ii];
-
-          try {
-            if (strckFun.constructor.name === 'GeneratorFunction') {
-              await co(strckFun.bind(ctx))
-            } else {
-              await strckFun.call(ctx);
-            }
-          } catch (err) {
-            error(err);
-
-            ctx.status = 500;
-            ctx.body = 'Controller Execute Error!'
+          if (strckFun.constructor.name === 'GeneratorFunction') {
+            await co(strckFun.bind(ctx))
+          } else {
+            await strckFun.call(ctx);
           }
         }
       }
