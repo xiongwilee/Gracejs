@@ -105,7 +105,7 @@ module.exports = function proxy(app, api, config, options) {
           }
 
           // 分析当前proxy请求的URL
-          let realReq = setRequest(ctx, proxyUrl);
+          let realReq = setRequest(ctx, proxyUrl, config);
 
           // 扩展请求头信息
           let headersObj = Object.assign({}, realReq.headers, proxyConfig.headers)
@@ -174,7 +174,7 @@ module.exports = function proxy(app, api, config, options) {
         config = config || {}
 
         // 获取头信息
-        let realReq = setRequest(ctx, url);
+        let realReq = setRequest(ctx, url, config);
 
         // 扩展请求头信息
         let headersObj = Object.assign({}, realReq.headers, config.headers)
@@ -259,10 +259,13 @@ module.exports = function proxy(app, api, config, options) {
    * 根据分析proxy url的结果和当前的req来分析最终的url/method/头信息
    * @param {Object} ctx koa上下文
    * @param {Object} path 请求路径
+   * @param {Object} config proxy配置
    */
-  function setRequest(ctx, path) {
+  function setRequest(ctx, path, config) {
+    config = config || {};
+
     let headers = ctx.headers || {};
-    let query = ctx.query;
+    let query = config.query || ctx.query;
 
     // 获取实际要请求的method和url:
     //  首先通过analyUrl方法将 github:post:/test/test 转换成真正的URL，
