@@ -4,7 +4,7 @@
   "iblog/static/css/common/header.css": "iblog/static/css/common/header-d616786d05.css",
   "iblog/static/css/common/layout.css": "iblog/static/css/common/layout-d50c56ab9f.css",
   "iblog/static/css/common/post-comments.css": "iblog/static/css/common/post-comments-d41d8cd98f.css",
-  "iblog/static/css/common/post-detail.css": "iblog/static/css/common/post-detail-d1a16a8889.css",
+  "iblog/static/css/common/post-detail.css": "iblog/static/css/common/post-detail-4e59770191.css",
   "iblog/static/css/common/post-header.css": "iblog/static/css/common/post-header-7bad28bc63.css",
   "iblog/static/css/common/post-list.css": "iblog/static/css/common/post-list-fd01b2a5e1.css",
   "iblog/static/css/common/post-markdown.css": "iblog/static/css/common/post-markdown-d41d8cd98f.css",
@@ -50,7 +50,7 @@
   "iblog/static/css/lib/reveal/theme/sky.css": "iblog/static/css/lib/reveal/theme/sky-311f14cb3a.css",
   "iblog/static/css/lib/reveal/theme/solarized.css": "iblog/static/css/lib/reveal/theme/solarized-13197ae1f0.css",
   "iblog/static/css/lib/reveal/theme/white.css": "iblog/static/css/lib/reveal/theme/white-bb340c8529.css",
-  "iblog/static/css/post/detail.css": "iblog/static/css/post/detail-7bbe921e64.css",
+  "iblog/static/css/post/detail.css": "iblog/static/css/post/detail-70e37d7f52.css",
   "iblog/static/css/post/label.css": "iblog/static/css/post/label-d50c56ab9f.css",
   "iblog/static/css/post/slider.css": "iblog/static/css/post/slider-6c03228682.css"
 }
