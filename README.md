@@ -522,7 +522,7 @@ exports.home = await function () {
 
 此外，如果需要更个性化的配置，可以在`/view`目录中创建文件`viewsConfig.js`。例如，nunjucks模板引擎添加filter的功能：
 
-```
+```javascript
 /**
  * [nunjucks 个性化定制]
  * 参考：https://github.com/tj/consolidate.js#template-engine-instances
