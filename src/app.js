@@ -69,11 +69,7 @@ const vhosts = Object.keys(config.vhost).map((item) => {
   const engine = (typeof config.template === 'string' ? config.template : config.template[appName]);
   vapp.use(Middles.views({
     root: appPath + '/views',
-    extension: 'html',
-    engine: engine || 'swiger',
-    locals: {
-      constant: config.constant
-    },
+    ext: 'html',
     cache: config.site.env == 'production' && 'memory'
   }));
 

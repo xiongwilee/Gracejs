@@ -1,96 +1,66 @@
-'use strict'
-
-const debug = require('debug')('koa-grace:views');
-const error = require('debug')('koa-grace-error:views');
+/*!
+ * koa-nunjucks-2
+ * Copyright (c) 2017 strawbrary
+ * MIT Licensed
+ */
+const bluebird = require('bluebird');
+const difference = require('lodash.difference');
 const path = require('path');
 const fs = require('fs');
-const views = require('./lib/views.js');
+const nunjucks = require('nunjucks');
 
 /**
- * Add `render` method.
- *
- * @param {Object} opts (optional)
- * 
- * @return {Function}
- *
- * @todo 添加测试用例
+ * @param {Object} [cfg] 配置文件
  */
-
-module.exports = function graceViews(opts) {
-  // 用以缓存模板引擎路径匹配
-  const TPL_MATCH = {};
-
-  // 使用默认配置
+module.exports = (app, cfg = {}) => {
   const config = Object.assign({
-    // 模板文件根目录
-    root: '',
-    // 模板文件后缀
-    extension: 'html',
-    // 默认使用的模板引擎
-    engine: 'nunjucks',
-    // 默认的模板参数
-    locals: {},
-    // 是否使用缓存，默认不使用
-    cache: false
-  }, opts);
+    ext: 'html', // Extension that will be automatically appended to the file name in this.render calls. Set to a falsy value to disable.
+    path: '', // Path to the templates.
+    nunjucksConfig: {}, // Object of Nunjucks config options.
+  }, cfg);
 
-  // 获取模板引擎
-  const render = views(config)
+  config.path = path.resolve(process.cwd(), config.path);
 
-  return async function views(ctx, next) {
-    if (ctx.render) return await next();
+  var extReg;
+  if (config.ext) {
+    config.ext = `.${config.ext.replace(/^\./, '')}`;
+    extReg = new RegExp(`\\${config.ext}$`); // /\.html$/.test()
+  } else {
+    config.ext = '';
+  }
 
-    Object.assign(ctx, {
-      render: function(tpl, data) {
-        if (typeof tpl !== 'string') return error(`Illegal tpl path：${tpl} !`);
+  const env = nunjucks.configure(config.path, config.nunjucksConfig);
+  const envConfigFile = path.resolve(config.path, 'envConfig.js');
+  if (fs.existsSync(envConfigFile)) {
+    try {
+      const envConfig = require(envConfigFile);
+      envConfig.call(app, env, config);
+    } catch (err) {
+      error(err);
+    }
+  }
 
-        const tplPath = getPath(tpl, config);
+  return async(ctx, next) => {
 
-        return new Promise((resolve) => {
-          render(tplPath, data).then((html) => {
-            ctx.type = 'text/html';
-            ctx.body = html;
-            resolve(html);
-          })
-        });
+    /**
+     * @param {string} view
+     * @param {!Object=} context
+     * @returns {string}
+     */
+    ctx.render = async(view, context) => {
+      const mergedContext = Object.assign({}, ctx.state, context);
+
+      // 兼容模板名称带后缀的情况
+      if (!extReg || !extReg.test(view)) {
+        view += config.ext;
       }
-    })
+
+      ctx.type = 'html';
+      ctx.body = env.render(view, mergedContext);
+
+      return ctx;
+    };
 
     await next();
-  }
-
-  /**
-   * 获取真实的文件绝对路径
-   * @param  {String} tpl    文件路径
-   * @param  {Object} config 文件配置
-   * @return {String}        返回获取到的文件路径
-   */
-  function getPath(tpl, config) {
-    const defaultExt = config.extension;
-    const tplAbsPath = path.resolve(config.root, tpl);
-
-    if (TPL_MATCH[tplAbsPath]) return TPL_MATCH[tplAbsPath];
-
-    let tplExt = path.extname(tpl);
-    // 如果有后缀名，且等于默认后缀名，则直接返回
-    if (tplExt && tplExt === defaultExt) {
-      return TPL_MATCH[tplAbsPath] = tplAbsPath;
-    }
-
-    try {
-      let stats = fs.statSync(tplAbsPath);
-      // 如果当前是一个文件目录，则返回： 文件目录 + index.html
-      if (stats.isDirectory()) {
-        return TPL_MATCH[tplAbsPath] = path.resolve(tplAbsPath, `index.${defaultExt}`)
-      }
-
-      // 否则是一个文件路径，直接返回 tplAbsPath
-      return TPL_MATCH[tplAbsPath] = tplAbsPath
-
-    } catch (err) {
-      // 进入报错，则说明文件找不到，直接返回自动添加文件名的情况
-      return TPL_MATCH[tplAbsPath] = `${tplAbsPath}.${defaultExt}`
-    }
-
-  }
-}
+  };
+};
