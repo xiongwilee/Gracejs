@@ -482,6 +482,8 @@ exports.avatar = async function (){
 
 ### views——视图层
 
+#### 1、基本配置
+
 默认的模板引擎为[swig](paularmstrong.github.io/swig/)，但swig作者已经停止维护；你可以在`config/main.*.js`中配置`template`属性想要的模板引擎：
 
 ```javascript
@@ -495,6 +497,8 @@ template: {
   blog:'swig'
 }
 ```
+
+#### 2、基本使用
 
 目前支持的模板引擎列表在这里：[consolidate.js#supported-template-engines](https://github.com/tj/consolidate.js#supported-template-engines)
 
@@ -513,6 +517,8 @@ exports.home = await function () {
 模板文件在模块路径的`/views`目录中。
 
 注意一点：Gracejs渲染模板时，默认会将`main.*.js`中constant配置交给模板数据；这样，如果你想在页面中获取公共配置（比如：CDN的地址）的话就可以在模板数据中的`constant`子中取到。
+
+#### 3、个性化定制
 
 此外，如果需要更个性化的配置，可以在`/view`目录中创建文件`viewsConfig.js`。例如，nunjucks模板引擎添加filter的功能：
 
