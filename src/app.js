@@ -67,14 +67,15 @@ const vhosts = Object.keys(config.vhost).map((item) => {
 
   // 配置模板引擎
   const engine = (typeof config.template === 'string' ? config.template : config.template[appName]);
-  vapp.use(Middles.views({
+  vapp.use(Middles.views(vapp, {
     root: appPath + '/views',
     extension: 'html',
-    engine: engine || 'swiger',
+    engine: engine || 'swig',
     locals: {
       constant: config.constant
     },
-    cache: config.site.env == 'production' && 'memory'
+    cache: config.site.env == 'production' && 'memory',
+    debug: config.site.env !== 'production'
   }));
 
   // 配置控制器文件路由

@@ -492,7 +492,7 @@ template: 'nunjucks'
 你还可以根据不同的模块配置不同的模板引擎：
 ```javascript
 template: {
-  blog:'ejs'
+  blog:'swig'
 }
 ```
 
@@ -513,6 +513,34 @@ exports.home = await function () {
 模板文件在模块路径的`/views`目录中。
 
 注意一点：Gracejs渲染模板时，默认会将`main.*.js`中constant配置交给模板数据；这样，如果你想在页面中获取公共配置（比如：CDN的地址）的话就可以在模板数据中的`constant`子中取到。
+
+此外，如果需要更个性化的配置，可以在`/view`目录中创建文件`viewsConfig.js`。例如，nunjucks模板引擎添加filter的功能：
+
+```
+/**
+ * [nunjucks 个性化定制]
+ * 参考：https://github.com/tj/consolidate.js#template-engine-instances
+ * 
+ * @param  {Object} consolidate consolidate对象
+ * @param  {Object} config      app.js中的views配置项
+ * 
+ * @return 
+ */
+module.exports = function(consolidate, config) {
+  const nunjucks = require('nunjucks');
+  consolidate.requires.nunjucks = nunjucks.configure(config.root);
+
+  // 注入全局变量
+  consolidate.requires.nunjucks.addGlobal('G', global);
+
+  // 添加foo filter示例
+  consolidate.requires.nunjucks.addFilter('foo', function () {
+    return 'bar';
+  });
+}
+```
+
+以上可参考：`middleware/views/example/views/viewsConfig.js`。
 
 ### static——静态文件服务
 

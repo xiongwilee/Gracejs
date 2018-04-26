@@ -16,7 +16,7 @@ const views = require('./lib/views.js');
  * @todo 添加测试用例
  */
 
-module.exports = function graceViews(opts) {
+module.exports = function graceViews(app, opts) {
   // 用以缓存模板引擎路径匹配
   const TPL_MATCH = {};
 
@@ -35,7 +35,7 @@ module.exports = function graceViews(opts) {
   }, opts);
 
   // 获取模板引擎
-  const render = views(config)
+  const render = views(app, config);
 
   return async function views(ctx, next) {
     if (ctx.render) return await next();
@@ -45,13 +45,17 @@ module.exports = function graceViews(opts) {
         if (typeof tpl !== 'string') return error(`Illegal tpl path：${tpl} !`);
 
         const tplPath = getPath(tpl, config);
-
-        return new Promise((resolve) => {
-          render(tplPath, data).then((html) => {
-            ctx.type = 'text/html';
-            ctx.body = html;
-            resolve(html);
-          })
+        
+        return render(tplPath, data).then((html) => {
+          ctx.type = 'text/html';
+          ctx.body = html;
+        }).catch((err) => {
+          if (config.debug) {
+            ctx.body = err;
+            console.error(err);
+          } else {
+            throw err;
+          }
         });
       }
     })
