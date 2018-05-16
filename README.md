@@ -45,8 +45,6 @@ $ git clone https://github.com/xiongwilee/Gracejs.git
 $ cd Gracejs && npm install
 ```
 
-**BTW: 由于众所周知的原因，npm install可能不稳定，推荐使用[cnpm](https://github.com/cnpm/cnpm#cnpm)安装。**
-
 ### 运行
 
 然后，执行命令：
@@ -86,7 +84,7 @@ Gracejs与koa-grace v1.x版本的目录结构完全一致：
 * `static`用以存放静态文件
 * `views`用以存放模板文件
 
-需要强调的是，**这个目录结构是生产环境代码的标准目录结构。在开发环境里你可以任意调整你的目录结构，只要保证编译之后的产出文件以这个路径输出即可**。
+注意，**这个目录结构是生产环境代码的标准目录结构。在开发环境里你可以任意调整你的目录结构，只要保证编译之后的产出文件以这个路径输出即可**。
 
 如果你对这一点仍有疑问，可以参考: [前端构建-Boilerplate](https://github.com/xiongwilee/Gracejs#boilerplate)
 
