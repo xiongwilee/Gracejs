@@ -14,10 +14,14 @@ const fs = require('fs');
  * 
  * @param  {Object} consolidate consolidate对象
  * @param  {Object} config      配置项
+ *
+ * @todo 这里有两个坑：
+ *       1. cache配置似乎没作用
+ *       2. 如果这个文件在业务模块 views/viewsConfig.js 中的化，`require('nunjucks')`可能会报错
  * 
  * @return 
  */
-exports.nunjucks = function(consolidate, config) {
+module.exports = function(consolidate, config) {
   const nunjucks = require('nunjucks');
   consolidate.requires.nunjucks = nunjucks.configure(config.root, {
     noCache: !config.cache

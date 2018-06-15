@@ -1,26 +1,32 @@
 'use strict';
 
 const path = require('path');
+const fs = require('fs');
 
 const debug = require('debug')('koa-grace:views');
 const error = require('debug')('koa-grace-error:views');
-const consolidate = require('grace-consolidate');
+const consolidate = require('consolidate');
 
-const engines = require('./engines.js')
+const engines = require('./engines.js');
 
-module.exports = function views(config) {
-  let render = consolidate[config.engine];
-  let engine = engines[config.engine];
-  
+module.exports = function views(app, config) {
+  let engineExtend;
+  // 获取自定义配置
+  const viewsConfigPath = path.resolve(config.root, 'viewsConfig.js');
+  if (fs.existsSync(viewsConfigPath)) {
+    engineExtend = require(viewsConfigPath);
+  } else {
+    engineExtend = engines[config.engine];
+  }
+
+  if (engineExtend) {
+    engineExtend.call(app, consolidate, config);
+  }
+
+  const render = consolidate[config.engine];
+
   return function(tpl, data) {
-    // TODO: 这里有个风险,如果模板数据中也存在cache之类的参数，cache配置则会被覆盖
-    let locals = Object.assign({
-      cache: config.cache
-    }, config.locals, data);
-
-    if (engine) {
-      locals = engine(tpl, config, locals);
-    }
+    const locals = Object.assign({}, config.locals, data);
 
     return render(tpl, locals);
   }
