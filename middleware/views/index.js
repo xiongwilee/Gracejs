@@ -75,9 +75,10 @@ module.exports = function graceViews(app, opts) {
 
     if (TPL_MATCH[tplAbsPath]) return TPL_MATCH[tplAbsPath];
 
-    let tplExt = path.extname(tpl);
+    const tplExt = path.extname(tpl);
+
     // 如果有后缀名，且等于默认后缀名，则直接返回
-    if (tplExt && tplExt === defaultExt) {
+    if (tplExt && tplExt === `.${defaultExt}`) {
       return TPL_MATCH[tplAbsPath] = tplAbsPath;
     }
 

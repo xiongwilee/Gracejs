@@ -88,11 +88,8 @@ module.exports = function request(ctx, param, options, callback) {
     }
 
     if (param.needPipeRes) {
-      ProxyServer.pipe(ctx.res);
-      // pipe response到body中
-      //  more at:https://github.com/request/request/issues/887#issuecomment-53965077
-      // 在文件很大的情况下以下这种方式会有问题：
-      // ctx.body = ProxyServer.pipe(Stream.PassThrough());
+      // 参考：https://github.com/koajs/koa/blob/master/docs/api/response.md#stream
+      ctx.body = ProxyServer.on('error', ctx.onerror).pipe(Stream.PassThrough());
     }
   })
 }

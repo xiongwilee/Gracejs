@@ -117,6 +117,7 @@ exports.fetch = function*() {
 /* fetch图片： 127.0.0.1:3000/test/fetch_img */
 exports.fetch_img = function*() {
     yield this.fetch('https://www.baidu.com/img/bd_logo1.png');
+    this.set('content-type','image/png');
   }
   /*** fetch图片： 127.0.0.1:3000/test/fetch_img ***/
 
