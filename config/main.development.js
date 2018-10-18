@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 process.env.DEBUG = process.env.DEBUG || '*';
 
@@ -33,7 +33,9 @@ module.exports = {
 
   // mock server配置
   mock: {
-    prefix: '/__MOCK__/'
+    prefix: '/__MOCK__/',
+    localServer: 'http://127.0.0.1:3000',
+    isFullMock: false
   },
 
   // 站点相关的配置
@@ -50,7 +52,7 @@ module.exports = {
       demo: 'http://127.0.0.1:3000'
     },
     // github personal token ，不知道这个配置，完全可以忽略它
-    token: "" 
+    token: ''
   },
 
   // 路径相关的配置
@@ -107,4 +109,4 @@ module.exports = {
   // session配置
   session: {
   }
-}
+};

@@ -326,19 +326,12 @@ module.exports = function proxy(app, api, config, options) {
       throw `Illegal proxy path：${path} !`;
     }
 
-    // nodejs v4版本还不支持解构赋值，先这么写
-    let urlOrigin = api[urlReg[0]];
-    let urlMethod = urlReg[1];
-    let urlPath = urlReg[2];
+    let [apiName, urlMethod, urlPath] = urlReg;
+    let urlOrigin = getOriginApi(api, apiName);
 
     if (!urlPath) {
       urlPath = urlMethod;
       urlMethod = ctx.method;
-    }
-
-    // 如果在api配置中查找不到对应的api则报错
-    if (!urlOrigin) {
-      throw `Undefined proxy url：${path} , please check your api config!`
     }
 
     // 拼接URL
@@ -347,6 +340,31 @@ module.exports = function proxy(app, api, config, options) {
       url: path.replace(urlPrefix, urlHref),
       method: urlMethod.toUpperCase()
     }
+  }
+
+  /**
+   * 获取apiName匹配的uri配置
+   *     mock数据的URL在这里配置
+   * @param {Object} apiMap 
+   * @param {String} apiName 
+   */
+  function getOriginApi(apiMap, apiName) {
+    // 如果为全局mock模式，则直接修改apiName对应的mock路径，例如：
+    // http://127.0.0.1:3000/__MOCK__/blog/blogApi
+    if (config.isFullMock) {
+      return `${config.mockPath}/${apiName}/`
+    } else {
+      const originApi = apiMap[apiName];
+
+      // 如果在api配置中查找不到对应的api则报错
+      if (!originApi) {
+        throw `Undefined proxy url：${path} , please check your api config!`;
+      }
+
+      return originApi;
+    }
+
+
   }
 
   /**

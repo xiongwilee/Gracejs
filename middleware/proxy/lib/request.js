@@ -91,7 +91,7 @@ module.exports = function request(ctx, param, options, callback) {
       // 参考：https://github.com/koajs/koa/blob/master/docs/api/response.md#stream
       // 具体原理为：ProxryServer 在 requestjs 内部已经有消费的监听事件，导致倍转成一个paused模式的可读流
       // 这里通过PassThrough方法转换成一个flowing的可读流，再赋值给ctx.body，以避免数据丢失
-      ctx.body = ProxyServer.on('error', ctx.onerror).pipe(Stream.PassThrough());
+      ctx.body = ProxyServer.pipe(Stream.PassThrough());
     }
   })
 }

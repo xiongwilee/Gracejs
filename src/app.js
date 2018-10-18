@@ -56,10 +56,13 @@ const vhosts = Object.keys(config.vhost).map((item) => {
   }));
 
   // 配置api
+  const isFullMock = config.site.env == 'development' && !!config.mock.isFullMock;
   vapp.use(Middles.proxy(vapp, config.api, {
     // proxy 配置
     hosts: config.hosts, // 接口域名hosts配置，可以不配置
-    allowShowApi: config.site.env !== 'production'
+    allowShowApi: config.site.env !== 'production',
+    isFullMock, // 是否开启mock模式
+    mockPath: `${config.mock.localServer}${config.mock.prefix}${appName}`
   }, {
     // request 配置
     timeout: config.proxy.timeout // 接口超时时间

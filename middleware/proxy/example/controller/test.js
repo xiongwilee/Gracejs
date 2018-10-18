@@ -122,6 +122,13 @@ exports.fetch_img = function*() {
   /*** fetch图片： 127.0.0.1:3000/test/fetch_img ***/
 
 
+/* fetch图片： 127.0.0.1:3000/test/fetch_mp3 */
+exports.fetch_mp3 = function*() {
+    yield this.fetch('http://ccapi.qudian.com/v2/wintelapi/api/record/playrecord?vcc_code=qiche&call_id=6412117045625753600');
+  }
+  /*** fetch图片： 127.0.0.1:3000/test/fetch_mp3 ***/
+
+
 
 /* proxy超时时间测试： 127.0.0.1:3000/test/data_timeout */
 exports.timeout = function*() {

@@ -581,6 +581,32 @@ api: {
 
 然后，在demo模块中添加`mock`文件夹，然后添加`test.json`:
 
+**全局MOCK”模式**
+
+在开发环境中你推荐使用“全局MOCK”模式。首先在`main.development.js`配置文件中添加mock配置`isFullMock`为true：
+```
+  // mock server配置
+  mock: {
+    prefix: '/__MOCK__/',
+    localServer: 'http://${ip}:${port}',
+    isFullMock: true 
+  },
+```
+
+然后，不用修改api配置，就直接访问对应的mock数据文件了。例如，在blog模块中的`this.proxy('blogApi:test1/test2')`接口对应的文件则是：
+```
+blog
+├── controller
+├── deploy
+├── mock
+|    └── blogApi // 注意这里的blogApi
+|          └── test1
+|                └── test2.json
+├── model
+├── static
+└── views
+```
+
 **文件结构：**
 ```shell
 .
