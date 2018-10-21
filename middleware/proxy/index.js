@@ -361,7 +361,8 @@ module.exports = function proxy(app, api, config, options) {
         throw `Undefined proxy url：${path} , please check your api config!`;
       }
 
-      return originApi;
+      // 对于路由结尾强制添加"/"
+      return originApi.replace(/([^\/])$/,'$1/');
     }
 
 
