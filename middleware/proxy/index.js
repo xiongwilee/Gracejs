@@ -137,7 +137,7 @@ module.exports = function proxy(app, api, config, options) {
             }
 
             // 将获取到的数据注入到上下文的destObj参数中
-            destObj[proxyName] = data;
+            destObj[proxyName] = data || {};
             // 将获取到的头信息注入到配置的参数中
             headerContainer && (headerContainer[proxyName] = response.headers);
             // 设置cookie
