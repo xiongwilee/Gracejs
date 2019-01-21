@@ -48,8 +48,7 @@ module.exports = {
     cdn: '',
     domain: {
       demo: 'http://127.0.0.1:3000'
-    },
-    token: ''
+    }
   },
 
   // 路径相关的配置
