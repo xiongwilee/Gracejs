@@ -29,7 +29,7 @@ Gracejs是[koa-grace](https://github.com/xiongwilee/Gracejs)的升级版，也�
 这里不再介绍“前后端分离”、“RESTful”、“MVC”等概念，有兴趣可参考[趣店前端团队基于koajs的前后端分离实践](http://feclub.cn/post/content/qudian_koa)一文。
 
 Gracejs及前后端分离问题交流群：
-* **微信交流群**： 添加微信 `xiongwilee` 后(备注：城市-职业-姓名)拉你到“Gracejs及前后端分离交流”微信群 <img src="http://img002.qufenqi.com/products/f8/4c/f84cf5cebba8f0f0db1453c72d296532.jpeg@300w" width="180px" /> 
+* **微信交流群**： 添加微信 `xiongwilee` 后(备注：城市-职业-姓名)拉你到“Gracejs及前后端分离交流”微信群 
 * **QQ交流群**：368463457 （此群将弃用，可联系添加微信 `xiongwilee` 拉到微信群）
 
 ## 二、快速开始
