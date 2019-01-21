@@ -18,7 +18,7 @@ const config = {
   token_cookie: 'ACCESS_TOKEN',
 
   // Personal access tokens
-  token: global.config.constant.token,
+  token: global.config.extra.token,
 
   // 站点信息
   site: {

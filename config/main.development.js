@@ -108,5 +108,10 @@ module.exports = {
 
   // session配置
   session: {
+  },
+
+  // 额外参数
+  extra: {
+
   }
 };

@@ -48,7 +48,7 @@ module.exports = {
     domain: {
       demo: 'http://127.0.0.1:3000'
     },
-    token: ""
+    token: ''
   },
 
   // 路径相关的配置
@@ -103,5 +103,10 @@ module.exports = {
   },
 
   // session配置
-  session: {}
+  session: {},
+
+  // 额外参数
+  extra: {
+
+  }
 };
