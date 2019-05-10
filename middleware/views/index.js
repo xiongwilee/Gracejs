@@ -44,6 +44,8 @@ module.exports = function graceViews(app, opts) {
       render: function(tpl, data) {
         if (typeof tpl !== 'string') return error(`Illegal tpl path：${tpl} !`);
 
+        // 页面渲染默认全局数据
+        data = Object.assign({}, this.defaultCtrlData, data);
         const tplPath = getPath(tpl, config);
         
         return render(tplPath, data).then((html) => {
