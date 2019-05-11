@@ -1,10 +1,10 @@
 /**!
- * gracejs - test/body.test.js
- * Copyright(c) 2016
+ * gracejs - test/views.test.js
+ * Copyright(c) 2019
  * MIT Licensed
  *
  * Authors:
- *   xiongwilee <xiongwilee@foxmail.com> (http://wilee.me)
+ *   hezai
  */
 
 'use strict';
