@@ -272,6 +272,7 @@ context属性 | 类型 | 说明
 context属性 | 类型 | 中间件 | 说明
 ---------- | ---- | ----- | ------------------
 `this.bindDefault` | `function` | router | 公共控制器，相当于`require('app/*/controller/defaultCtrl.js')`
+`this.defaultCtrlData` | `object` | views | 模板渲染的全局变量，类似于 Koa `this.state`
 `this.request.body` | `object` | body | post参数，可以直接在this.request.body中获取到post参数
 `this.render` | `function` | views | 模板引擎渲染方法，请参看： 模板引擎- Template engine
 `this.mongo` | `function` | mongo | 数据库操作方法，请参看： 数据库 - Database
