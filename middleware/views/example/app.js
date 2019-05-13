@@ -17,6 +17,9 @@ app.use(views(app, {
 }))
 
 app.use(async(ctx, next) => {
+  ctx.defaultCtrlData = {
+    defaultData: 'this is defaultCtrlData'
+  }
   await ctx.render('test.html', {
     data: 'hello world!',
     data1: { test1: 'test1' }
