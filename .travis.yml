@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - "7.6.0"
+  - "12.14.1"
 sudo: false
 # uncomment this line if your project needs to run something other than `rake`:
 # script: bundle exec rspec spec
