@@ -2,14 +2,14 @@
 
 --------------------------------------------------------------------------------
 
-> koa-grace v1.x版本请移步： https://github.com/xiongwilee/Gracejs/tree/v1.0.4
-
 # Gracejs
 
 [Gracejs](https://github.com/xiongwilee/Gracejs)(又称:koa-grace v2)  是全新的基于[koa v2.x](https://github.com/koajs/koa)的MVC+RESTful架构的前后端分离框架。
 
 [![NPM version](https://img.shields.io/npm/v/gracejs.svg)](https://www.npmjs.com/package/gracejs)
 [![Build Status](https://travis-ci.org/xiongwilee/Gracejs.svg?branch=master)](https://travis-ci.org/xiongwilee/Gracejs)
+
+> koa-grace v1.x版本请移步： https://github.com/xiongwilee/Gracejs/tree/v1.0.4
 
 ## 一、简介
 

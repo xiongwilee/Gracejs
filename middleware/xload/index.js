@@ -54,7 +54,7 @@ module.exports = function graceXload(app, options) {
         } else if (userAgent.indexOf('firefox') >= 0) {
           ctx.set('Content-Disposition', 'attachment; filename*="utf8\'\'' + encodeURIComponent(filename) + '"');
         } else {
-          ctx.set('Content-Disposition', 'attachment; filename=' + new Buffer(filename).toString('binary'));
+          ctx.set('Content-Disposition', 'attachment; filename=' + Buffer.from(filename).toString('binary'));
         }
 
         return sendfile(ctx, filename, config);

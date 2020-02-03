@@ -34,9 +34,9 @@ const vhosts = Object.keys(config.vhost).map((item) => {
 
   // session配置，默认存在cookie中
   const sessionConfig = config.session[appName] || {};
-  vapp.use(Middles.session(vapp, Object.assign({
+  vapp.use(Middles.session(Object.assign({
     key: `GRACE:${appName}`
-  }, sessionConfig)));
+  }, sessionConfig), vapp));
 
   // 如果在csrf的module名单里才使用csrf防护功能
   config.csrf.module.indexOf(appName) > -1 && vapp.use(Middles.secure(vapp, {
