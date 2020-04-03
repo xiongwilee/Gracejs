@@ -65,7 +65,8 @@ const vhosts = Object.keys(config.vhost).map((item) => {
     mockPath: `${config.mock.localServer}${config.mock.prefix}${appName}`
   }, {
     // request 配置
-    timeout: config.proxy.timeout // 接口超时时间
+    timeout: config.proxy.timeout, // 接口超时时间
+    keepAlive: config.proxy.keepAlive //设置proxy的keep-alive
   }));
 
   // 配置模板引擎

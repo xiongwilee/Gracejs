@@ -430,7 +430,7 @@ exports.demo = async function (){
  参数名 | 类型 | 默认 | 说明
  ----- | --- | ---- | ----
  `dest` | `Object` | `this.backData` | 指定接收数据的对象，默认为`this.backData`
- `conf` | `Obejct` | `{}` | this.proxy使用[requestjs](https://github.com/request/request)实现，此为传给request的重置配置（你可以在这里设置接口超时时间：`conf: { timeout: 25000 }`）
+ `conf` | `Obejct` | `{}` | this.proxy使用[requestjs](https://github.com/request/request)实现，此为传给request的重置配置（你可以在这里设置接口超时时间和http长短链接：`conf: { timeout: 25000 , keepAlive:true}`）,其中keepAlive若为true则会覆盖原请求的长短链接属性，否则对原请求没有影响
  `json` | `Object` | `{}` | 指定json格式的数据，参考：[requestjs json配置](https://github.com/request/request#requestoptions-callback)
  `form` | `Object` | `{}` | 指定application/x-www-form-urlencoded格式的数据，[requestjs form配置](https://github.com/request/request#requestoptions-callback)
  `body` | `Buffer\|String\|ReadStream` | 无 | 参考：[requestjs body配置](https://github.com/request/request#requestoptions-callback)

@@ -21,7 +21,10 @@ module.exports = {
   // proxy配置
   proxy: {
     // 超时配置 
-    timeout: 15000
+    timeout: 15000,
+    //指定当前代理请求是否使用keepAlive形式，如果为true，将覆盖原请求header里面的keepAlive参数，否则不影响原请求header里面的keepAlive参数
+    //默认为true，实际项目中bff层一般与后端的微服务部署在内网，做成长链接后，提升性能的同时也不会造成对微服务端的资源浪费，因为一般是一个端对应一个bff，数量可控；
+    keepAlive:true
   },
 
   // controller中请求各类数据前缀和域名的键值对
