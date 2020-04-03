@@ -118,9 +118,9 @@ module.exports = function proxy(app, api, config, options) {
             uri: realReq.uri,
             method: realReq.method,
             headers: headersObj,
-            forever: true
+            //在request库里会变成header里的keep-alive参数
+            forever: options.keepAlive?options.keepAlive:(headersObj.connection === 'keep-alive')
           }, requestData, proxyConfig.conf);
-
           // 发送请求前的钩子，可以对requestjs的参数自定义任何操作
           proxyConfig.onBeforeRequest && proxyConfig.onBeforeRequest.call(ctx, proxyName, requestOpt)
 
@@ -190,7 +190,9 @@ module.exports = function proxy(app, api, config, options) {
           headers: headersObj,
           timeout: undefined,
           gzip: false,
-          encoding: null
+          encoding: null,
+          //在request库里会变成header里的keep-alive参数
+          forever: options.keepAlive?options.keepAlive:(headersObj.connection === 'keep-alive')
         }, requestData, config.conf);
 
         // 发送请求前的钩子，可以对requestjs的参数自定义任何操作
