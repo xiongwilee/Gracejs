@@ -117,7 +117,8 @@ module.exports = function proxy(app, api, config, options) {
           let requestOpt = Object.assign({}, options, {
             uri: realReq.uri,
             method: realReq.method,
-            headers: headersObj
+            headers: headersObj,
+            forever: true
           }, requestData, proxyConfig.conf);
 
           // 发送请求前的钩子，可以对requestjs的参数自定义任何操作
