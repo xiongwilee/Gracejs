@@ -62,7 +62,7 @@ module.exports = function graceVhost(vhosts) {
   }
 
   /**
-   * 拷贝所有的属性，包括getter, setter（Object.assign默认情况下不会拷贝getter/setter）
+   * 拷贝所有的属性，包括getter, setter
    * 参考：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
    * @param  {Object}    target  目标对象
    * @param  {...[Object]} sources 源对象
@@ -75,13 +75,11 @@ module.exports = function graceVhost(vhosts) {
         return descriptors;
       }, {});
 
-      // Object.assign 默认也会拷贝可枚举的Symbols
       Object.getOwnPropertySymbols(source).forEach(sym => {
         let descriptor = Object.getOwnPropertyDescriptor(source, sym);
-        if (descriptor.enumerable) {
-          descriptors[sym] = descriptor;
-        }
+        descriptors[sym] = descriptor;
       });
+      
       Object.defineProperties(target, descriptors);
     });
     return target;

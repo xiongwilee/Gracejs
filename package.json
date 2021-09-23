@@ -1,6 +1,6 @@
 {
   "name": "gracejs",
-  "version": "2.1.6",
+  "version": "2.1.7",
   "description": "A Nodejs SFB(Separation of Front and Back ends) framework, build with koa 2.x",
   "main": "./src/app.js",
   "directories": {
@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "mocha",
-    "dev": "./node_modules/.bin/nodemon bin/server.js",
+    "dev": "./node_modules/.bin/nodemon --inspect bin/server.js",
     "start": "node bin/server.js --env=production"
   },
   "repository": {
@@ -48,7 +48,7 @@
     "koa-compose": "^3.1.0",
     "koa-is-json": "^1.0.0",
     "koa-send": "^3.2.0",
-    "koa-session": "^5.13.1",
+    "koa-session": "^6.2.0",
     "methods": "^1.1.2",
     "minimatch": "^3.0.3",
     "mongoose": "^5.8.7",
