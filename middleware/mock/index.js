@@ -2,7 +2,7 @@
 
 const path = require('path');
 const fs = require('fs');
-const debug = require('debug')('koa-grace:mock');
+const debug = require('debug')('gracejs:mock');
 const stripJsonComments = require('strip-json-comments');
 
 /**

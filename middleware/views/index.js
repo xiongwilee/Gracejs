@@ -1,7 +1,7 @@
 'use strict'
 
-const debug = require('debug')('koa-grace:views');
-const error = require('debug')('koa-grace-error:views');
+const debug = require('debug')('gracejs:views');
+const error = require('debug')('gracejs-error:views');
 const path = require('path');
 const fs = require('fs');
 const views = require('./lib/views.js');

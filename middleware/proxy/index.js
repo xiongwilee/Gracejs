@@ -5,7 +5,7 @@ const querystring = require('querystring');
 const url_opera = require('url');
 const request = require('./lib/request');
 const raven = require('raven');
-const error = require('debug')('koa-grace-error:proxy');
+const error = require('debug')('gracejs-error:proxy');
 
 const METHOD_TYPES = {
   json: [

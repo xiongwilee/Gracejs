@@ -1,6 +1,6 @@
 'use strict';
 
-process.env.DEBUG = process.env.DEBUG || 'koa-grace*';
+process.env.DEBUG = process.env.DEBUG || '*';
 
 module.exports = {
   // vhost配置

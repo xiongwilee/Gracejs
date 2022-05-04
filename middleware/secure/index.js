@@ -1,7 +1,7 @@
 'use strict';
 
-const debug = require('debug')('koa-grace:csrf');
-const error = require('debug')('koa-grace-error:csrf');
+const debug = require('debug')('gracejs:csrf');
+const error = require('debug')('gracejs-error:csrf');
 
 /**
  * 安全相关的中间件

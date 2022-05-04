@@ -5,7 +5,7 @@ const fs = require('fs');
 const co = require('co');
 const glob = require('glob');
 const mongoose = require('mongoose');
-const debug = require('debug')('koa-grace:mongo');
+const debug = require('debug')('gracejs:mongo');
 
 mongoose.Promise = global.Promise;
 

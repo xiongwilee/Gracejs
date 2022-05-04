@@ -1,7 +1,7 @@
 'use strict';
 
 const path = require('path');
-const debug = require('debug')('koa-grace:static');
+const debug = require('debug')('gracejs:static');
 const send = require('koa-send');
 const minimatch = require('minimatch');
 

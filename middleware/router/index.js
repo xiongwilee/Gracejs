@@ -4,8 +4,8 @@ const path = require('path');
 const fs = require('fs');
 const glob = require('glob');
 const router = require('./lib/router');
-const debug = require('debug')('koa-grace:router');
-const error = require('debug')('koa-grace-error:router');
+const debug = require('debug')('gracejs:router');
+const error = require('debug')('gracejs-error:router');
 
 /**
  * [METHOD_ALLOWED 可以注册的方法]

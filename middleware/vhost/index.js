@@ -1,6 +1,6 @@
 'use strict';
 
-const debug = require('debug')('koa-grace:vhost');
+const debug = require('debug')('gracejs:vhost');
 const compose = require('koa-compose');
 
 module.exports = function graceVhost(vhosts) {
@@ -69,6 +69,7 @@ module.exports = function graceVhost(vhosts) {
    * @return {Object}            拷贝之后目标对象
    */
   function completeAssign(target, ...sources) {
+
     sources.forEach(source => {
       let descriptors = Object.keys(source).reduce((descriptors, key) => {
         descriptors[key] = Object.getOwnPropertyDescriptor(source, key);
