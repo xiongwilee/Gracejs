@@ -64,25 +64,26 @@ module.exports = function graceVhost(vhosts) {
   /**
    * 拷贝所有的属性，包括getter, setter
    * 参考：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
-   * @param  {Object}    target  目标对象
-   * @param  {...[Object]} sources 源对象
-   * @return {Object}            拷贝之后目标对象
+   * @param  {Object}     target      目标对象
+   * @param  {Object}     source      源对象
+   * @return {Object}                 拷贝之后目标对象
    */
-  function completeAssign(target, ...sources) {
+  function completeAssign(target, source) {
+    // 获取所有不可枚举属性
+    const propertyList = Object.getOwnPropertyNames(source);
 
-    sources.forEach(source => {
-      let descriptors = Object.keys(source).reduce((descriptors, key) => {
-        descriptors[key] = Object.getOwnPropertyDescriptor(source, key);
-        return descriptors;
-      }, {});
+    let descriptors = propertyList.reduce((descriptors, key) => {
+      descriptors[key] = Object.getOwnPropertyDescriptor(source, key);
+      return descriptors;
+    }, {});
 
-      Object.getOwnPropertySymbols(source).forEach(sym => {
-        let descriptor = Object.getOwnPropertyDescriptor(source, sym);
-        descriptors[sym] = descriptor;
-      });
-      
-      Object.defineProperties(target, descriptors);
+    const propertySymList = Object.getOwnPropertySymbols(source);
+    propertySymList.forEach(sym => {
+      let descriptor = Object.getOwnPropertyDescriptor(source, sym);
+      descriptors[sym] = descriptor;
     });
+    
+    Object.defineProperties(target, descriptors);
     return target;
   }
 }
