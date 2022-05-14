@@ -122,7 +122,7 @@ module.exports = function proxy(app, api, config, options) {
             forever: options.keepAlive?options.keepAlive:(headersObj.connection === 'keep-alive')
           }, requestData, proxyConfig.conf);
           // 发送请求前的钩子，可以对requestjs的参数自定义任何操作
-          proxyConfig.onBeforeRequest && proxyConfig.onBeforeRequest.call(ctx, proxyName, requestOpt)
+          proxyConfig.onBeforeRequest && proxyConfig.onBeforeRequest.call(ctx, requestOpt, proxyName)
 
           return request(ctx, {
             needPipeRes: false
@@ -192,11 +192,11 @@ module.exports = function proxy(app, api, config, options) {
           gzip: false,
           encoding: null,
           //在request库里会变成header里的keep-alive参数
-          forever: options.keepAlive?options.keepAlive:(headersObj.connection === 'keep-alive')
+          forever: options.keepAlive ? options.keepAlive : (headersObj.connection === 'keep-alive')
         }, requestData, config.conf);
 
         // 发送请求前的钩子，可以对requestjs的参数自定义任何操作
-        config.onBeforeRequest && config.onBeforeRequest.call(ctx, proxyName, requestOpt)
+        config.onBeforeRequest && config.onBeforeRequest.call(ctx, requestOpt)
 
         return request(ctx, {
           needPipeRes: true

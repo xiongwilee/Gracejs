@@ -2,8 +2,8 @@
 
 const Stream = require('stream');
 const Request = require('request');
-const debug = require('debug')('koa-grace:proxy');
-const error = require('debug')('koa-grace-error:proxy');
+const debug = require('debug')('gracejs:proxy');
+const error = require('debug')('gracejs-error:proxy');
 
 /**
  * request包装成promise函数
@@ -64,7 +64,7 @@ module.exports = function request(ctx, param, options, callback) {
       if (retryNum > 0) {
         debug(`proxy retry: Request ${opt.uri} no response, retry ${retryNum} times!`, info);
         retryNum--;
-        return _createReq(resolve)
+        return _createReq(resolve);
       } else {
         error(`proxy error: Request ${opt.uri} no response!`, info);
 
@@ -93,5 +93,5 @@ module.exports = function request(ctx, param, options, callback) {
       // 这里通过PassThrough方法转换成一个flowing的可读流，再赋值给ctx.body，以避免数据丢失
       ctx.body = ProxyServer.pipe(Stream.PassThrough());
     }
-  })
-}
+  });
+};

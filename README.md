@@ -436,7 +436,7 @@ exports.demo = async function (){
  `body` | `Buffer\|String\|ReadStream` | 无 | 参考：[requestjs body配置](https://github.com/request/request#requestoptions-callback)
  `query` | `Object` | 无 | 如果配置了query参数，则会替换ctx.query作为proxy参数
  `headers` | `Object` | `{}` | 指定当前请求的headers
- `onBeforeRequest` | `Function` | 无 | 每个请求发送前的回调事件，作用域为当前上下文，有两个形参'proxy name','requestOpt'，可以操作`requestOpt`以修改requestjs的参数
+ `onBeforeRequest` | `Function` | 无 | 每个请求发送前的回调事件，作用域为当前上下文，有两个形参'requestOpt','proxy name'，可以操作`requestOpt`以修改requestjs的参数
  `onAfterRequest` | `Function` | 无 | 每个请求获取结果后的回调事件，作用域为当前上下文，有两个形参'proxy name','response'，可以操作`response`以修改`this.proxy`的返回结果
 
 如果以上配置中 `json`、`form`、`body` 的参数一个都不传，则默认会将当前客户端请求数据体传给后端接口，推荐使用默认proxy数据的方式；当然了，如果有特殊情况，自行配置数据也无妨。

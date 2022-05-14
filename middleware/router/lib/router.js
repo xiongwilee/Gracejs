@@ -8,7 +8,7 @@
 'use strict';
 
 const debug = require('debug')('koa-router');
-const error = require('debug')('koa-grace-error:router');
+const error = require('debug')('gracejs-error:router');
 const HttpError = require('http-errors');
 const co = require('co');
 const methods = require('methods');

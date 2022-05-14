@@ -4,7 +4,7 @@ const util = require('util');
 const fs = require('fs');
 const path = require('path');
 
-const debug = require('debug')('koa-grace:xload');
+const debug = require('debug')('gracejs:xload');
 const formidable = require('formidable');
 
 let hashFileExist;

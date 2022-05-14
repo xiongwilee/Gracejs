@@ -9,7 +9,7 @@ const minimatch = require('minimatch');
  * 生成路由控制
  * @param {String} prefix url prefix
  * @param {Object} options 配置项
- * @param {String} options.dir koa-grace app dir
+ * @param {String} options.dir gracejs app dir
  * @param {object} options.maxage options.maxage config
  * 
  * @return {function}     

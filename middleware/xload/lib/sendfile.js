@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const send = require('koa-send');
 
-const debug = require('debug')('koa-grace:xload');
+const debug = require('debug')('gracejs:xload');
 
 let existhashFile = false;
 
