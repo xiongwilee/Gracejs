@@ -26,7 +26,7 @@ Gracejs是[koa-grace](https://github.com/xiongwilee/Gracejs)的升级版，也�
 
 相比于koa-grace v1（以下简称：koa-grace）：**Gracejs完美支持koa v2**，同时做了优化虚拟host匹配和路由匹配的性能、还完善了部分测试用例等诸多升级。当然，如果你正在使用koa-grace也不用担心，我们会把Gracejs中除了支持koa2的性能和功能特性移植到koa-grace的相应中间件中。
 
-这里不再介绍“前后端分离”、“RESTful”、“MVC”等概念，有兴趣可参考[趣店前端团队基于koajs的前后端分离实践](http://feclub.cn/post/content/qudian_koa)一文。
+这里不再介绍“前后端分离”、“RESTful”、“MVC”等概念，有兴趣可参考[前端团队基于koajs的前后端分离实践](http://feclub.cn/post/content/qudian_koa)一文。
 
 Gracejs及前后端分离问题交流群：
 * **微信交流群**： 添加微信 `xiongwilee` 后(备注：城市-职业-姓名)拉你到“Gracejs及前后端分离交流”微信群 
