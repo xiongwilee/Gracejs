@@ -1,7 +1,7 @@
 {
-    "version": 2,
-    "name": "Gracejs",
-    "builds": [
-       { "src": "/bin/server.js", "use": "@vercel/node" }
-    ]
- }
+    "functions": {
+      "bin/server.js": {
+        "memory": 3008
+      }
+    }
+  }

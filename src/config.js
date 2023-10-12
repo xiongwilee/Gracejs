@@ -32,6 +32,6 @@ module.exports = function config(args) {
     // 获取环境变量后深度赋值
     extend(cfg, envKeys, (envName) => process.env[envName]);
   }
-console.log(cfg);
+  
   return cfg;
 };
