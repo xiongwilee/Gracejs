@@ -1,0 +1,7 @@
+{
+    "version": 2,
+    "name": "Gracejs",
+    "builds": [
+       { "src": "/bin/server.js", "use": "@vercel/node" }
+    ]
+ }

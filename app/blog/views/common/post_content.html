@@ -11,40 +11,33 @@
     <div class="post-cate">
       <a href="/post/cate/{{post.category}}">{{ cate.name}}</a><i class="icon-bookmark-empty"></i>
     </div>
-    {% if post.from %}
-    <div class="post-from"><span>[来源]</span><a href="{{ post.from }}">{{ post.from }}</a></div>
-    {% endif %}
     <h2 class="post-title">{{ post.title }}</h2>
 	  <div class="post-content markdown-body">
-          {{ post.htmlContent || post.content | safe }}
+      <blockquote class="post-content-from"><span>[原文链接]</span><a href="{{ post.from || siteInfo.href }}">{{ post.from || siteInfo.href }}</a></blockquote>
+
+      {{ post.htmlContent || post.content | safe }}
     </div>
-    <div id="postComment" class="post-comment ds-thread"></div>
-    <!-- 多说评论框 start -->
-    <!-- <div id="postComment" class="post-comment ds-thread" data-thread-key="{{ post.id }}" data-title="{{ post.title }}" data-url="{{ siteInfo.path }}"></div> -->
-    <!-- 多说评论框 end -->
+    <div id="disqus_thread" class="post-comment ds-thread"></div>
   </article>
 </div>
+
 <script>
-  var cloudTieConfig = {
-    url: document.location.href, 
-    sourceId: "",
-    productKey: "abd0292629f543b6a7fcd5f6bb9c52a1",
-    target: "postComment"
-  };
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://qian-duan-ju-le-bu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
 </script>
-<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-<!-- <script type="text/javascript">
-var duoshuoQuery = {short_name:"febiz"};
-  (function() {
-    var ds = document.createElement('script');
-    ds.type = 'text/javascript';ds.async = true;
-    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-    ds.charset = 'UTF-8';
-    (document.getElementsByTagName('head')[0] 
-     || document.getElementsByTagName('body')[0]).appendChild(ds);
-  })();
-  </script> -->
-<!-- 多说公共JS代码 end -->
-<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
 <script src="/blog/static/css/lib/highlight/highlight.pack.js" type="text/javascript"></script>
 <script src="/blog/static/js/common/post_content.js" type="text/javascript"></script>

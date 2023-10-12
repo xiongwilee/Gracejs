@@ -59,24 +59,6 @@
 	font-size: 18px;
     vertical-align: middle;
 }
-.content .content-post .post-item .post-from{
-	clear: both;
-	
-	word-break: break-all;
-	padding-top: 20px;
-	font-size: 16px;
-}
-.content .content-post .post-item .post-from span{
-	margin-right: 5px;
-	color: rgba(0,0,0,0.5);
-}
-.content .content-post .post-item .post-from a{
-	text-decoration: none;
-	color: #5488DD;
-}
-.content .content-post .post-item .post-from a:hover{
-	text-decoration: underline;
-}
 .content .content-post .post-item .post-title{
 	clear: both;
 
@@ -97,6 +79,25 @@
 	color: #31415c;
 	line-height: 1.5em;
 	text-decoration: none;
+}
+
+.content .content-post .post-item .post-content .post-content-from{
+	clear: both;
+	
+	word-break: break-all;
+	line-height: 2em;
+	font-size: 16px;
+}
+.content .content-post .post-item .post-content .post-content-from span{
+	margin-right: 5px;
+	color: rgba(0,0,0,0.5);
+}
+.content .content-post .post-item .post-content .post-content-from a{
+	text-decoration: none;
+	color: #5488DD;
+}
+.content .content-post .post-item .post-content .post-content-from a:hover{
+	text-decoration: underline;
 }
 .content .content-post .post-item .post-comment{
 	padding-top: 30px;

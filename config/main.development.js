@@ -121,7 +121,5 @@ module.exports = {
   },
 
   // 额外参数
-  extra: {
-
-  }
+  extra: {}
 };

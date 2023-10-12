@@ -26,6 +26,7 @@ module.exports = async function() {
 
   this.siteInfo = {
     path: this.path,
+    href: this.href,
     title: '前端俱乐部-https://feclub.cn',
     year: new Date().getFullYear()
   }

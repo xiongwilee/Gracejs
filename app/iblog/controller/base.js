@@ -29,9 +29,6 @@ const config = {
     year: new Date().getFullYear(),
     banner: 'https://img003.qufenqi.com/products/c0/72/c072f0506c961f6d1652531d60712c40.jpg',
     links: [{
-      name: '趣店技术学院',
-      url: 'https://qit-team.github.io'
-    }, {
       name: '前端俱乐部',
       url: 'https://feclub.cn'
     }]

@@ -144,7 +144,7 @@ Gracejs与koa-grace v1.x版本的目录结构完全一致：
 
 关于配置文件：
 
-1. 配置文件extend关系为：config/server.json的merge字段 > config/main.*.js > config.js；
+1. 配置文件extend的权重为：config/env.json(环境变量) > config/server.json（文件配置） > config/main.*.js > config.js；
 2. 配置生成后保存在Gracejs下的全局作用域`global.config`里，方便读取。
 
 下面介绍几个关键中间件的作用和使用方法。

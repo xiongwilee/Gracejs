@@ -1,7 +1,7 @@
 'use strict';
 
 const path = require('path');
-const extend = require('extend');
+const extend = require('./utils').extendTwoObj;
 
 /**
  * 获取配置文件
@@ -9,11 +9,6 @@ const extend = require('extend');
  * @return {object}      配置详情
  */
 module.exports = function config(args) {
-  // 将端口号写入环境变量
-  if (args.port) {
-    process.env.PORT = args.port;
-  }
-
   // 获取默认配置
   const cfg = require('../config/main');
   // 获取当前的环境
@@ -21,22 +16,22 @@ module.exports = function config(args) {
 
   // 获取环境配置
   const envPath = path.resolve(`./config/main.${env}.js`);
-  try {
-    extend(cfg, require(envPath));
-  } catch (err) {
-    throw `Load ${env} Config Error：${envPath}`;
-  }
+  extend(cfg, require(envPath));
 
   // 如果允许增量配置，则继承增量配置
-  if (cfg.extend) {
-    const extPath = path.resolve(cfg.extend);
-    try {
-      // 深复制
-      extend(true, cfg, require(extPath));
-    } catch (err) {
-      throw `Load Extend Config Error：${extPath}`;
-    }
+  if (cfg.server_extend) {
+    const serverConfigPath = path.resolve(cfg.server_extend);
+    // 深复制
+    extend(cfg, require(serverConfigPath));
   }
 
+  // 如果允许增量环境变量配置，则继承增量配置
+  if (cfg.env_extend) {
+    const envConfigPath = path.resolve(cfg.env_extend);
+    const envKeys = require(envConfigPath);
+    // 获取环境变量后深度赋值
+    extend(cfg, envKeys, (envName) => process.env[envName]);
+  }
+console.log(cfg);
   return cfg;
 };

@@ -6,5 +6,7 @@
 
 module.exports = {
   // 用以配置不在代码仓储中的配置文件 
-  extend: './config/server.json'
+  server_extend: './config/server.json',
+  // 用以配置环境变量中的参数
+  env_extend: './config/env.json',
 };

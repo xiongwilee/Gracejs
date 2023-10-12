@@ -73,6 +73,21 @@
             {% endfor %}
           </ul>
         </div>
+        <div class="side-item side-item-user">
+          <h3 class="side-title">作者</h3>
+          <ul class="side-ul">
+            {% for user in siteInfo.users %}
+            {% if user.isAuthor%}
+              <li>
+                <a href="{{user.blog||user.github}}" class="side-ul-item clearfix" target="_blank">
+                  <img src="/user/avatar?img={{user.avatar}}" class="item-img">
+                  <span class="item-nickname">{{ user.nickname }}</span>
+                  <span class="item-blog">{{ user.blog || user.github }}</span>
+                </a>
+              </li>
+            {% endif %}
+            {% endfor %}</ul>
+        </div>
         <div class="side-item side-item-link">
           <h3 class="side-title">链接</h3>
           <ul class="side-ul">
@@ -89,21 +104,6 @@
           <h3 class="side-title">标签</h3>
           <ul class="side-ul"></ul>
         </div> -->
-        <div class="side-item side-item-user">
-          <h3 class="side-title">作者</h3>
-          <ul class="side-ul">
-            {% for user in siteInfo.users %}
-            {% if user.isAuthor%}
-              <li>
-                <a href="{{user.blog}}" class="side-ul-item clearfix" target="_blank">
-                  <img src="/user/avatar?img={{user.avatar}}" class="item-img">
-                  <span class="item-nickname">{{ user.nickname }}</span>
-                  <span class="item-blog">{{ user.blog || user.github }}</span>
-                </a>
-              </li>
-            {% endif %}
-            {% endfor %}</ul>
-        </div>
       </div>
       <div class="content">
         {% block content %}
