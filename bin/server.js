@@ -9,4 +9,6 @@ const utils = require('../src/utils');
 const args = utils.parseArg();
 const config = global.config = require('../src/config')(args);
 
-require('../src/app').listen(config.site.port);
+require('../src/app').listen(config.site.port, () => {
+  console.log(`Gracejs Server listening on port ${config.site.port}`);
+});

@@ -12,7 +12,7 @@ module.exports = function config(args) {
   // 获取默认配置
   const cfg = require('../config/main');
   // 获取当前的环境
-  const env = args.env || 'development';
+  const env = process.env.ENV || args.env || 'development';
 
   // 获取环境配置
   const envPath = path.resolve(`./config/main.${env}.js`);
@@ -32,6 +32,6 @@ module.exports = function config(args) {
     // 获取环境变量后深度赋值
     extend(cfg, envKeys, (envName) => process.env[envName]);
   }
-  
+
   return cfg;
 };
