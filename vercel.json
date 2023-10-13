@@ -1,7 +1,0 @@
-{
-    "functions": {
-      "bin/server.js": {
-        "memory": 3008
-      }
-    }
-  }
