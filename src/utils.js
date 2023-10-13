@@ -33,7 +33,10 @@ exports.extendTwoObj = function extendTwoObj(oriObj, newObj, cb) {
 
     if (typeof obj === 'object' &&!Array.isArray(obj)) {
       // 如果是对象并且不是数组
-      Object.keys(obj).forEach(newKey => {
+      let objKeys = Object.keys(obj);
+      if (objKeys.length === 0 ) return ori[key] = obj;
+
+      objKeys.forEach(newKey => {
         // 遍历对象的每个键
         let newOri;
         if (key === undefined) {
@@ -42,7 +45,7 @@ exports.extendTwoObj = function extendTwoObj(oriObj, newObj, cb) {
           ori[key] = ori[key] || {};
           newOri = ori[key];
         }
-
+        
         getLeafNodes(obj[newKey], newOri, newKey);
       });
     } else {
@@ -54,7 +57,7 @@ exports.extendTwoObj = function extendTwoObj(oriObj, newObj, cb) {
 
         return ori[key] = cbObj;
       }
-      
+
       // 如果没有直接赋值
       return ori[key] = obj;
     }
