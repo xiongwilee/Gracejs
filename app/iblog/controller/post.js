@@ -103,12 +103,17 @@ exports.label.__regular__ = '/:id';
 
 exports.commentsform = async function() {
   let access_token = this.cookies.get(base.config.token_cookie);
-
+  
   let userInfo;
   if (access_token) {
     let res = await this.proxy({
-      userInfo: `github_api:get:user?access_token=${access_token}`
+      userInfo: `github_api:get:user`
+    }, {
+      headers: {
+        'Authorization': `token ${access_token}`,
+      }
     })
+    
     userInfo = this.backData.userInfo;
   } else {
     let url = this.query.href || '/';
