@@ -33,7 +33,7 @@
     "bluebird": "3.4.6",
     "bytes": "^2.4.0",
     "co": "^4.6.0",
-    "co-body": "^4.2.0",
+    "co-body": "^6.1.0",
     "compressible": "^2.0.8",
     "consolidate": "^0.15.1",
     "copy-to": "^2.0.1",
